@@ -9,7 +9,7 @@ session_start();
 	$password = $_POST['password'];
 	
 	// Query sent to database
-	$result = pg_query($conn, "SELECT id_usuario, nombres, cedula, clave, id_rol, id_dependencia FROM e_usuarios WHERE cedula = '$user'");
+	$result = pg_query($conn, "SELECT id_usuario, nombres, cedula, clave, id_rol FROM users WHERE cedula = '$user'");
 	
 	// Variable $row hold the result of the query
 	$row = pg_fetch_assoc($result);
@@ -27,7 +27,6 @@ session_start();
 		$_SESSION['name'] = $row['nombres'];
 		$_SESSION['usuario'] = $row['id_usuario'];
 		$_SESSION['nivel'] = $row['id_rol'];
-		$_SESSION['dependencia'] = $row['id_dependencia'];
 		
 		echo 1;
 	

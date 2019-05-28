@@ -185,10 +185,9 @@
 
         include '../../../core/conexion.php';
 
-        $sql = "SELECT id_usuario, cedula, nombres, descripcion, estatus, dependencia FROM e_usuarios u
-        INNER JOIN e_roles r ON (u.id_rol = r.id_rol)
-        INNER JOIN e_estatus e ON (u.id_estatus = e.id_estatus)
-        INNER JOIN a_dependencias d ON (u.id_dependencia = d.id_dependencia)";
+        $sql = "SELECT id_usuario, cedula, nombres, descripcion, estatus FROM users u
+        INNER JOIN roles r ON (u.id_rol = r.id_rol)
+        INNER JOIN estatus e ON (u.id_estatus = e.id_estatus)";
 
         $result = pg_query($conn, $sql);
 

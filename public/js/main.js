@@ -1,11 +1,11 @@
-$(document).ready(function() {
+$(function() {
     
     // cargar grafica de experticias
     $("#graficaExperticias").load('views/contenido/extra/graficaExperticias.php');
     // cargar grafica de solicitudes
     $("#graficaSolicitudes").load('views/contenido/extra/graficaSolicitudesPendientes.php');
     // cargar grafica del inicio
-    $("#cargarGrafica").load('views/contenido/extra/grafica.php');
+    // $("#cargarGrafica").load('views/contenido/extra/grafica.php');
 
 
     // cargar tabla de usuarios

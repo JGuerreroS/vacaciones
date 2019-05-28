@@ -28,7 +28,7 @@
                                     <div class="col resumen">
                                         <div class="bg-info text-white text-center">
                                             <i class="icon-user"></i>
-                                            <h5 class="m-b-0 m-t-5"> <?php echo contarUsuarios(); ?> </h5>
+                                            <h5 class="m-b-0 m-t-5"> <?php // echo contarUsuarios(); ?> </h5>
                                             <small class="font-light">Usuarios</small>
                                         </div>
                                     </div>
@@ -40,7 +40,7 @@
                                     <div class="col resumen">
                                         <div class="bg-info text-white text-center">
                                             <i class="icon-users"></i>
-                                            <h5 class="m-b-0 m-t-5"> <?php echo contarExpertos(); ?> </h5>
+                                            <h5 class="m-b-0 m-t-5"> <?php // echo contarExpertos(); ?> </h5>
                                             <small class="font-light">Expertos</small>
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
                                     <div class="col resumen">
                                         <div class="bg-info text-white text-center">
                                             <i class="icon-flag"></i>
-                                            <h5 class="m-b-0 m-t-5"> <?php echo contarCentros(); ?> </h5>
+                                            <h5 class="m-b-0 m-t-5"> <?php // echo contarCentros(); ?> </h5>
                                             <small class="font-light">Centros</small>
                                         </div>
                                     </div>

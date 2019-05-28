@@ -7,8 +7,6 @@
                 <th class="text-center">Nombres y Apellidos</th>
                 <th class="text-center">Rol</th>
                 <th class="text-center">Estatus</th>
-                <th class="text-center">Dependencia</th>
-                <!-- <th class="text-center">Fecha de registro</th> -->
                 <th class="text-center">Opciones</th>
             </tr>
         </thead>
@@ -26,8 +24,6 @@
                 <td> <?php echo $ver[2]; ?> </td>
                 <td class="text-center"> <?php echo $ver[3]; ?> </td>
                 <td class="text-center"> <?php echo $ver[4]; ?> </td>
-                <td class="text-center"> <?php echo $ver[5]; ?> </td>
-                <!-- <td class="text-center"> <?php //echo str_replace('-', '/', date('d-m-Y', strtotime($ver[6]))); ?> </td> -->
                 <td class="text-center">
                 <span class="btn btn-success btn-sm" onClick="verUsuario('<?php echo $ver[0]; ?>')" data-toggle="modal" data-target="#verUsuarios">
                     <span class="icon-zoom-in" title="Ver más"></span>
