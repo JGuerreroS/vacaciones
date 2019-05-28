@@ -1,0 +1,39 @@
+.jumbotron{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* background-image: url('../img/3.jpeg'); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    padding: 4%;
+    width: 100%;
+    height: 150px;
+}
+
+.container-header{
+    margin-bottom: -10px;
+}
+
+.botones_tabla{
+    text-align: center;
+}
+
+/* enlaces del menu */
+.navbar-dark .navbar-nav .nav-link {
+    color: mintcream;
+}
+
+/* Iconos de vista inicio */
+.resumen {
+    padding: 4px;
+    width: 10px;
+    height: 100px;
+}
+
+.bg-info {
+    padding: 10px;
+    border: 1px solid rgb(0, 2, 10);
+}
+
+.bg-info > i{
+	font-size: 30px;
+}
