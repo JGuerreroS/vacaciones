@@ -1,19 +1,25 @@
 <?php
 
     // Vacaciones
-    function editarUsuarios($datos){
+    function editUser($datos){
 
         include '../core/conexion.php';
 
-        $sql = "UPDATE e_usuarios SET nombres='$datos[nombre]', id_estatus=$datos[estatus], id_rol=$datos[nivel], id_dependencia=$datos[dependencia] WHERE id_usuario=$datos[id_usuario]";
+        $sql = "UPDATE users SET nombres = '$datos[nombre]', id_estatus = $datos[estatus], id_rol = $datos[nivel] WHERE id_usuario = $datos[id_usuario]";
 
-        if(pg_query($conn, $sql)){
+        $result = pg_query($conn, $sql);
 
-            return 1;
+        if(!$result){
+
+            die('Error en la consulta');
+            return 2;
 
         }else {
 
-            return 2;
+            pg_free_result($result);
+            pg_close($conn);
+
+            return 1;
 
         }
 
@@ -67,8 +73,8 @@
                 'nombres' => $row['nombres'],
                 'id_rol' => $row['id_rol'],
                 'fecha' => $row['fecha'],
-                'id_estatus' => $row['id_estatus']
-           
+                'id_estatus' => $row['id_estatus'],
+                'id_usuario' => $row['id_usuario']
             );
 
         }

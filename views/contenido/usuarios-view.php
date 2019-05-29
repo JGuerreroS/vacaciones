@@ -30,7 +30,7 @@
 
         </table>
 
-        <?php include 'extra/registroUsuarioModal.php'; //Cargar Modal ?>
+        <?php include 'extra/regUserModal.php'; //Cargar Modal ?>
 
         <!-- Hasta aqui el contenido -->
     </div>

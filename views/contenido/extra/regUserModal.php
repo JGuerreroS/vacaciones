@@ -111,7 +111,7 @@
             </div>
             <div class="modal-body">
 
-                <form id="frmEditarUsuario">
+                <form id="frmEditUser">
 
                     <div class="row">
                         <div class="col-4">
@@ -164,7 +164,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-warning" id="editarUsuario">Editar</button>
-                <button type="button" class="btn btn-success" id="guardarUsuarioEditado">Guardar</button>
+                <button type="button" class="btn btn-success" id="saveUserEdit">Guardar</button>
             </div>
 
         </div>

@@ -101,10 +101,12 @@ $(function(){
             let user = JSON.parse(res);
 
             $("#vCedula").html('Cédula: ' + user.cedula);
-            $("#vNombre").val(user.nombres);
-            $("#vEstatus").val(user.id_estatus);
-            $("#vNivel").val(user.id_rol);
-            $("#vFecha").val(user.fecha);
+            $("#vNombre").val(user.nombres).attr('disabled', true);
+            $("#vEstatus").val(user.id_estatus).attr('disabled', true);
+            $("#vNivel").val(user.id_rol).attr('disabled', true);
+            $("#vFecha").val(user.fecha).attr('disabled', true);
+            $("#vUsuario").val(user.id_usuario);
+            $("#editarUsuario").show();
         
         });
         
@@ -171,6 +173,50 @@ $(function(){
         e.preventDefault();
             
     });
+
+    // Editar Usuarios
+
+    // ocultar boton de guardar al editar usuario
+    $("#saveUserEdit").hide();
+
+        // funcion que se ejecuta al pulsar el boton de editar usuarios
+        $("#editarUsuario").click(function(e) {
+    
+            $("#saveUserEdit").show();
+            $(this).hide();
+            $("#vNombre,#vEstatus,#vNivel,#vDependencia").attr('disabled', false);
+            e.preventDefault();
+    
+        });
+    
+    // Guardar cambios del usuario al editarlo
+    $(document).on('click', '#saveUserEdit', function (e){
+
+        $.ajax({
+            type: "post",
+            url: "controllers/editUser.php",
+            data: $("#frmEditUser").serialize(),
+            success: function (r){
+                
+                if (r == 1) {
+
+                    $("#modalZoomUsuario").modal('hide');
+                    $("#saveUserEdit").hide();
+                    listaUsuarios();
+                    alertify.success("Usuario actualizado exitosamente");
+
+                } else {
+
+                    alertify.error("No se pudo actualizar el registro");
+
+                }
+            }
+        });
+
+        e.preventDefault();
+
+    });
+
     /*---------------------------------Usuarios-----------------------------*/
 
 
@@ -203,44 +249,7 @@ $(function(){
 
 
 
-    // ocultar boton de guardar al editar usuario
-    $("#guardarUsuarioEditado").hide();
 
-    // funcion que se ejecutar al pulsar el boton de editar usuarios
-    $("#editarUsuario").click(function(e) {
-
-        $("#guardarUsuarioEditado").show();
-        $("#vNombre,#vEstatus,#vNivel,#vDependencia").attr('disabled', false);
-        e.preventDefault();
-
-    });
-
-    // Guardar cambios del usuario al editarlo
-    $("#guardarUsuarioEditado").click(function (e) {
-
-        $.ajax({
-            type: "post",
-            url: "controllers/registroUsuarioEditar.php",
-            data: $("#frmEditarUsuario").serialize(),
-            success: function (r) {
-                
-                if (r == 1) {
-
-                    $("#verUsuarios").modal('hide');
-                    $("#guardarUsuarioEditado").hide();
-                    $("#usuarioTabla").load('views/contenido/extra/registroUsuarioTabla.php');
-                    alertify.success("Usuario actualizado exitosamente");
-
-                } else {
-
-                    alertify.error("No se pudo actualizar el registro");
-
-                }
-            }
-        });
-        e.preventDefault();
-        
-    });
 
     // función para las mayusculas en editar usuarios
     $('#vNombre').keyup(function() {
