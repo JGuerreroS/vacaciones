@@ -24,14 +24,21 @@
 
         include '../core/conexion.php';
 
-        $sql = "DELETE FROM e_usuarios WHERE id_usuario = $id_usuario";
+        $sql = "DELETE FROM users WHERE id_usuario = $id_usuario";
 
-        if (pg_query($conn, $sql)) {
+        $result = pg_query($conn, $sql);
+
+        if (!$result){
+
+            die ('Error en la consulta');
 
             return 1;
 
         } else {
 
+            pg_free_result($result);
+            pg_close($conn);
+            
             return 2;
 
         }
@@ -241,15 +248,20 @@
 
         $passHash = password_hash($datos['clave'], PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO e_usuarios (id_rol, cedula, nombres, registrado_por, fecha, clave, id_estatus, id_cargo, id_dependencia) VALUES ($datos[privilegio], '$datos[civ]', '$datos[nombres]', $_SESSION[usuario], '$fecha','$passHash', 1, $datos[jquia], $datos[dependencia])";
+        $sql = "INSERT INTO users (id_rol, cedula, nombres, registrado_por, fecha, clave, id_estatus) VALUES ($datos[privilegio], '$datos[civ]', '$datos[nombres]', $_SESSION[usuario], '$fecha','$passHash', 1)";
 
-        if(pg_query($conn, $sql)){
+        $result = pg_query($conn, $sql);
 
-            return 2;
+        if(!$result){
+
+            die('Error al tratar de registrar');
 
         }else{
 
-            return 3;
+            pg_free_result($result);
+            pg_close($conn);
+
+            return 2;
 
         }
 

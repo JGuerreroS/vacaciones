@@ -50,10 +50,9 @@ $(function(){
 
             let datos = JSON.parse(res);
             $("#nameSige").val(datos.nombres);
-            // console.log(datos.nombres);
+
         });
 
-        
     });
 
     // Mostrar lista de usuarios
@@ -68,12 +67,20 @@ $(function(){
                 listUsers.forEach(usuarios => {
                     template += `
                         <tr idUser="${usuarios.id_usuario}">
-                            <td>${usuarios.nro}</td>
-                            <td>${usuarios.cedula}</td>
+                            <td class="text-center">${usuarios.nro}</td>
+                            <td class="text-center">${usuarios.cedula}</td>
                             <td>${usuarios.nombres}</td>
                             <td>${usuarios.rol}</td>
-                            <td>${usuarios.estatus}</td>
-                            <td class="text-center"> <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario"> <i class="icon-zoom-in"></i> </span> </td>
+                            <td class="text-center">${usuarios.estatus}</td>
+                            <td class="text-center">
+                                <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+
+                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+                                    <i class="icon-bin"></i>
+                                </span>
+                            </td>
                         </tr>
                     `
                 });
@@ -102,6 +109,37 @@ $(function(){
         });
         
     });
+
+    // Borrar Usuarios
+    $(document).on('click', '#deleteUser', function (){
+
+        let elemet = $(this)[0].parentElement.parentElement;
+        let id = $(elemet).attr('idUser');
+
+        alertify.confirm('Eliminar registro', '¿Estas seguro de querer eliminar este registro?', function(){
+
+            $.post("controllers/deleteUser.php", { id }, function (res){
+
+                if(res == 1){
+
+                    alertify.error('No se pudo eliminar el registro');
+
+                }else if(res == 2){
+
+                    alertify.success('Usuario eliminado corectamente!');
+                    listaUsuarios();
+
+                }else{
+
+                    alertify.warning('No puedes eliminarte a ti mismo');
+
+                }
+
+            });
+
+        }, function() {});
+
+    });
     /*---------------------------------Usuarios-----------------------------*/
 
 
@@ -111,36 +149,25 @@ $(function(){
 
    
 
-    // ocultar boton de guardar al editar usuario
-    $("#guardarUsuarioEditado").hide();
-
-    // funcion que se ejecutar al pulsar el boton de editar usuarios
-    $("#editarUsuario").click(function(e) {
-
-        $("#guardarUsuarioEditado").show();
-        $("#vNombre,#vEstatus,#vNivel,#vDependencia").attr('disabled', false);
-        e.preventDefault();
-
-    });
 
     // Registrar nuevo usuario (Tránsito)
-    $(document).on('click', '#enviar', function (e){
+    $(document).on('click', '#regUser', function (e){
 
         $.ajax({
             type: "post",
             url: "controllers/registroUsuario.php",
-            data: $("#frmRegistarUsuario").serialize(),
-            success: function (r) {
+            data: $("#frmRegUser").serialize(),
+            success: function (r){
                 if(r == 1){
-                    
+
                     alertify.warning("El usuario ya se encuentra registrado");
-                    
+
                 }else if(r == 2){
                     
+                    alertify.success("Usuario registrado con éxito");
                     $("#modalRegUser").modal('hide');
                     listaUsuarios();
                     $("#frmRegistarUsuario")[0].reset();
-                    alertify.success("Usuario registrado con éxito");
 
                 }else{
 
@@ -152,6 +179,38 @@ $(function(){
 
         e.preventDefault();
         
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ocultar boton de guardar al editar usuario
+    $("#guardarUsuarioEditado").hide();
+
+    // funcion que se ejecutar al pulsar el boton de editar usuarios
+    $("#editarUsuario").click(function(e) {
+
+        $("#guardarUsuarioEditado").show();
+        $("#vNombre,#vEstatus,#vNivel,#vDependencia").attr('disabled', false);
+        e.preventDefault();
+
     });
 
     // Guardar cambios del usuario al editarlo
@@ -239,20 +298,7 @@ $(function(){
 
 
 /*--------------------------------Usuarios---------------------------------------------*/
-function verUsuario(id) {
 
-    $.getJSON("controllers/registroUsuarioVerMas.php", { usuario: id }, function(r) {
-
-        $("#vUsuario").val(r.Usuario);
-        $("#vCedula").html('<b>Cédula: </b><br>' + r.Cedula);
-        $("#vNombre").val(r.Nombres).attr('disabled', true);
-        $("#vEstatus").val(r.Estatus).attr('disabled', true);
-        $("#vNivel").val(r.Rol).attr('disabled', true);
-        $("#vDependencia").val(r.Dependencia).attr('disabled', true);
-        $("#vFecha").html('Fecha de registro: ' + r.Fecha);
-
-    });
-}
 
 // Tránsito
 function borrarUsuario(id) {

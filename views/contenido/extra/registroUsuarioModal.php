@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="frmRegistarUsuario">
+                <form id="frmRegUser">
 
                     <label> Cédula del funcionario: </label>
                     <div class="form-row align-items-center">
@@ -29,7 +29,7 @@
                         <input type="text" class="form-control" id="nameSige" name="nameSige" placeholder="Ingrese sus nombres y apellidos" >
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Jerarquía / Cargo</label>
                         <select class="select2 form-control custom-select" id="jquia" name="jquia">
                             <option value="">Seleccione</option>
@@ -44,7 +44,7 @@
 
                             <?php //} pg_free_result($result); pg_close($conn); ?>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <label>Privilegios de la cuenta</label>
@@ -55,7 +55,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Dependencia</label>
                         <select class="select2 form-control custom-select" id="dependencia" name="dependencia">
                             <option value="">Seleccione</option>
@@ -70,22 +70,20 @@
 
                             <?php //} pg_free_result($result); pg_close($conn); ?>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="row">
                         <div class="col-6">
 
                             <label>Contraseña</label>
-                            <input type="password" autofocus="autofocus" class="form-control" id="pass1" name="pass1"
-                                placeholder="Ingrese su contraseña" >
+                            <input type="password" autofocus="autofocus" class="form-control" id="pass1" name="pass1" placeholder="Ingrese su contraseña" >
 
                         </div>
 
                         <div class="col-6">
 
                             <label>Repetir contraseña</label>
-                            <input type="password" class="form-control" id="pass2" name="pass2"
-                                placeholder="Repetir contraseña" >
+                            <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Repetir contraseña">
 
                         </div>
                     </div>
@@ -94,7 +92,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="enviar">Guardar</button>
+                <button type="button" class="btn btn-primary" id="regUser">Guardar</button>
             </div>
         </div>
     </div>
