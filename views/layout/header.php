@@ -18,14 +18,18 @@
 
     <div class="container">
         <?php
-        if($_SESSION['nivel'] == 1){
+            if (empty($_SESSION['nivel'])){
 
-            include 'menu.php';
+                header('Location: ./controllers/cerrarSesion.php');
 
-        }else{
+            }elseif($_SESSION['nivel'] == 1){
 
-            
+                include 'menu.php';
 
-        }
+            }else{
+
+                
+            }
         ?>
+        
         <div class="card text-letf"> <!-- Inicio de la tarjeta-->

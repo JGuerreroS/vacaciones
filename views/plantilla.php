@@ -46,8 +46,7 @@
 
     </div> <!-- Fin de la tarjeta-->
 
-    <?php endif; ?>
-    <?php include 'layout/scriptsFooter.php'; ?>
+    <?php endif; include 'layout/scriptsFooter.php'; ?>
     
 </body>
 </html>
