@@ -39,30 +39,108 @@
     }
 
     // Vacaciones
-    function zoomUsuarios($usuario){
+    function zoomUsuario($usuario){
 
         include '../core/conexion.php';
 
-        $sql = "SELECT cedula, nombres, id_rol, id_estatus, id_dependencia, fecha, id_usuario FROM e_usuarios WHERE id_usuario = $usuario";
+        $sql = "SELECT cedula, nombres, id_rol, id_estatus, fecha, id_usuario FROM users WHERE id_usuario = $usuario";
 
         $result = pg_query($conn, $sql);
 
-        $datos = new stdClass();
+        if(!$result){
+            die('Fallo en la consulta');
+        }
 
-        while ($ver = pg_fetch_array($result)){
+        $datos = array();
 
-            $datos->Cedula=$ver[0];
-            $datos->Nombres=$ver[1];
-            $datos->Rol=$ver[2];
-            $datos->Estatus=$ver[3];
-            $datos->Dependencia=$ver[4];
-            $datos->Fecha=str_replace('-', '/', date('d-m-Y', strtotime($ver[5])));
-            $datos->Usuario=$ver[6];
+        while ($row = pg_fetch_array($result)){
+
+            $datos[] = array(
+                'cedula' => $row['cedula'],
+                'nombres' => $row['nombres'],
+                'id_rol' => $row['id_rol'],
+                'fecha' => $row['fecha'],
+                'id_estatus' => $row['id_estatus']
+           
+            );
 
         }
 
-        return json_encode($datos);
+        pg_free_result($result);
+        pg_close($conn);
+
+        return json_encode($datos[0]);
     
+    }
+
+    // Vacaciones
+    function verUsuarios(){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT id_usuario, cedula, nombres, descripcion, estatus FROM users u
+        INNER JOIN roles r ON (u.id_rol = r.id_rol)
+        INNER JOIN estatus e ON (u.id_estatus = e.id_estatus)";
+
+        $result = pg_query($conn, $sql);
+
+        if(!$result){
+            die('Fallo en la consulta');
+        }
+
+        $datos = array();
+
+        $nro = 0;
+
+        while ($row = pg_fetch_array($result)){ $nro++;
+            
+            $datos[] = array(
+                'nro' => $nro,
+                'id_usuario' => $row['id_usuario'],
+                'cedula' => $row['cedula'],
+                'nombres' => $row['nombres'],
+                'rol' => $row['descripcion'],
+                'estatus' => $row['estatus']
+            );
+
+        }
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return json_encode($datos);
+
+    }
+
+    // Vacaciones
+    function buscarEnSigefirrhh($cedula){
+
+        include '../core/sigefirrhh.php';
+
+        $sql = "SELECT p.id_personal, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, descripcion_cargo, c.id_cargo FROM personal p INNER JOIN trabajador t ON (p.id_personal = t.id_personal) INNER JOIN cargo c ON (t.id_cargo = c.id_cargo) WHERE p.cedula=$cedula and estatus='A'";
+
+        $result = pg_query($conexion2,$sql);
+
+        if(!$result){
+            die('Consulta fallida');
+        }
+
+        $datos = array();
+
+        while($row = pg_fetch_array($result)){
+
+            $datos[] = array(
+                'id_personal' => $row['id_personal'],
+                'nombres' => $row['nombres']
+            );
+
+        }
+
+        pg_free_result($result);
+        pg_close($conexion2);
+
+        return json_encode($datos[0]);
+
     }
 
     // Vacaciones
@@ -152,47 +230,6 @@
         pg_close($conn);
         return $nro;
         
-    }
-
-  
-
-    // Vacaciones
-    function buscarEnSigefirrhh($cedula){
-
-        include '../core/sigefirrhh.php';
-
-        $sql = "SELECT p.id_personal, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido as nombres, descripcion_cargo, c.id_cargo FROM personal p INNER JOIN trabajador t ON (p.id_personal = t.id_personal) INNER JOIN cargo c ON (t.id_cargo = c.id_cargo) WHERE p.cedula=$cedula and estatus='A'";
-        $result = pg_query($conexion2,$sql);
-
-        $datos = new stdClass();
-
-        while($ver = pg_fetch_array($result)){
-            $datos->Idpersonal=$ver[0];
-            $datos->Nombres=$ver[1];
-            $datos->Cargo=$ver[2];
-            $datos->IdCargo=$ver[3];
-        }
-
-        pg_free_result($result);
-	    pg_close($conexion2);
-
-        return json_encode($datos);
-
-    }
-
-    // Vacaciones
-    function verUsuarios(){
-
-        include '../../../core/conexion.php';
-
-        $sql = "SELECT id_usuario, cedula, nombres, descripcion, estatus FROM users u
-        INNER JOIN roles r ON (u.id_rol = r.id_rol)
-        INNER JOIN estatus e ON (u.id_estatus = e.id_estatus)";
-
-        $result = pg_query($conn, $sql);
-
-        return $result;
-
     }
 
     // Vacaciones

@@ -1,6 +1,6 @@
 <?php
 
-	$cedula = ($_GET['idCed'] ? $_GET['idCed'] : $_GET['idCed']);
+	$cedula = $_POST['civ'];
 
 	include '../models/clase.php';
 	

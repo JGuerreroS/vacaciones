@@ -1,7 +1,7 @@
 <?php
 
-    $usuario = ($_GET['usuario'] ? $_GET['usuario'] : $_GET['usuario']);
+    $usuario = $_POST['id'];
 
     include '../models/clase.php';
 
-    echo verMasUsuarios($usuario);
+    echo zoomUsuario($usuario);

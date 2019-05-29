@@ -1,42 +1,36 @@
     <div class="card-header">
-    Usuarios
+        <b>Usuarios</b>
     </div>
 
     <div class="card-body">
-    
-    <!-- Agregar aqui el contenido -->
-    <table class="table table-striped table-bordered" id="myTabla">
 
-        <thead>
-            <tr>
-                <th>N°</th>
-                <th>Nombre</th>
-                <th>Usuario</th>
-                <th>Clave</th>
-            </tr>
-        </thead>
+        <!-- Agregar aqui el contenido -->
 
-        <tbody>
-        <?php
-            require_once './controllers/usuariosControlador.php';
-            $usuarios = new UsuariosControlador();
-            $datos = $usuarios->obtenerUsuariosControlador();
-            while($ver = mysqli_fetch_array($datos)){
-        ?>
-            <tr>
-                <td> <?php echo $ver[0]; ?> </td>
-                <td> <?php echo $ver[1]; ?> </td>
-                <td> <?php echo $ver[2]; ?> </td>
-                <td> <?php echo $ver[3]; ?> </td>
-            </tr>
-        <?php
-        }
-        ?>
-        </tbody>
-        
-    </table>
+        <!-- Button del modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRegUser">
+            <span class="icon-user-plus"></span> Registrar Usuario
+        </button>
 
-    <!-- Hasta aqui el contenido -->
+        <hr>
+
+        <table class="table table-striped table-bordered" id="myTabla">
+
+            <thead>
+                <tr>
+                    <th class="text-center">N°</th>
+                    <th class="text-center">Cédula</th>
+                    <th class="text-center">Nombres y Apellidos</th>
+                    <th class="text-center">Rol</th>
+                    <th class="text-center">Estatus</th>
+                    <th class="text-center">Opciones</th>
+                </tr>
+            </thead>
+
+            <tbody id="listUsers"></tbody>
+
+        </table>
+
+        <?php include 'extra/registroUsuarioModal.php'; //Cargar Modal ?>
+
+        <!-- Hasta aqui el contenido -->
     </div>
-
-    

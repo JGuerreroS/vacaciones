@@ -1,4 +1,32 @@
-$(function() {
+$(function(){
+
+    // DataTables
+    $('#myTabla').DataTable({
+        language: {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
     
     // cargar grafica de experticias
     $("#graficaExperticias").load('views/contenido/extra/graficaExperticias.php');
@@ -9,45 +37,79 @@ $(function() {
 
 
     // cargar tabla de usuarios
-    $("#usuarioTabla").load('views/contenido/extra/registroUsuarioTabla.php');
+    listaUsuarios();
 
-    // Buscar funcionario revisor en el sigefirrhh
-    $("#buscarFSigefirrhh").click(function () {
+    /*---------------------------------Usuarios-----------------------------*/
 
-        var civ = $("#civFuncionario").val();
+    // Buscar datos del funcionario para registrarlo como usuario
+    $(document).on('click', '#buscarEnSigefirrhh', function (){
 
-        $.getJSON("controllers/buscarCedulaFuncionario.php", { cedula : civ }, function (r) {
+        let civ = $("#civ").val();
+        
+        $.post("controllers/buscarDatosUsuarios.php", { civ : civ }, function (res){
 
-            $("#fNombres").val(r.Nombres).attr('disabled' , true);
-            $("#fJquia").val(r.IdCargo).attr('disabled' , true);
-            $("#civFuncionario").attr('disabled' , true);
-            $("#btnRegistarFuncionario").attr('disabled' , false);
-            $("#buscarFSigefirrhh").hide();
-            $("#buscarOtro").show();
-
+            let datos = JSON.parse(res);
+            $("#nameSige").val(datos.nombres);
+            // console.log(datos.nombres);
         });
 
-        return false;
-
+        
     });
 
-   
+    // Mostrar lista de usuarios
+    function listaUsuarios() {
+        
+        $.ajax({
+            url: "controllers/listUsers.php",
+            type: "GET",
+            success: function (res) {
+                let listUsers = JSON.parse(res);
+                let template = '';
+                listUsers.forEach(usuarios => {
+                    template += `
+                        <tr idUser="${usuarios.id_usuario}">
+                            <td>${usuarios.nro}</td>
+                            <td>${usuarios.cedula}</td>
+                            <td>${usuarios.nombres}</td>
+                            <td>${usuarios.rol}</td>
+                            <td>${usuarios.estatus}</td>
+                            <td class="text-center"> <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario"> <i class="icon-zoom-in"></i> </span> </td>
+                        </tr>
+                    `
+                });
+                $("#listUsers").html(template);
+            }
+        });
+
+    }
+
+    // Zoom Usuarios
+    $(document).on('click', '#zoomUsuario', function (){
+
+        let elemet = $(this)[0].parentElement.parentElement;
+        let id = $(elemet).attr('idUser');
+
+        $.post("controllers/zoomUsuario.php", { id }, function (res){
+
+            let user = JSON.parse(res);
+
+            $("#vCedula").html('Cédula: ' + user.cedula);
+            $("#vNombre").val(user.nombres);
+            $("#vEstatus").val(user.id_estatus);
+            $("#vNivel").val(user.id_rol);
+            $("#vFecha").val(user.fecha);
+        
+        });
+        
+    });
+    /*---------------------------------Usuarios-----------------------------*/
+
 
 /*------------------------------------------------------------------------------------------------------------*/
 
     /*Inicio de la Sección de Usuarios en ready*/
 
-     // Buscar datos del funcionario para registrarlo como usuario
-   $("#buscarEnSigefirrhh").click(function (e) {
-       
-        e.preventDefault();
-        var civ = $("#civ").val();
-        $.getJSON("controllers/buscarDatosUsuarios.php", { idCed : civ }, function (r) {
-            $("#nombres").val(r.Nombres);
-            $("#jquia").val(r.IdCargo);
-        });
-        
-    });
+   
 
     // ocultar boton de guardar al editar usuario
     $("#guardarUsuarioEditado").hide();
@@ -62,7 +124,7 @@ $(function() {
     });
 
     // Registrar nuevo usuario (Tránsito)
-    $("#enviar").click(function (e) {
+    $(document).on('click', '#enviar', function (e){
 
         $.ajax({
             type: "post",
@@ -70,18 +132,24 @@ $(function() {
             data: $("#frmRegistarUsuario").serialize(),
             success: function (r) {
                 if(r == 1){
+                    
                     alertify.warning("El usuario ya se encuentra registrado");
+                    
                 }else if(r == 2){
                     
-                    $("#registrarUsuarioModal").modal('hide');
-                    $("#usuarioTabla").load('views/contenido/extra/registroUsuarioTabla.php');
+                    $("#modalRegUser").modal('hide');
+                    listaUsuarios();
                     $("#frmRegistarUsuario")[0].reset();
-                    alertify.success("Usuario registrado con éxito");  
+                    alertify.success("Usuario registrado con éxito");
+
                 }else{
+
                     alertify.error("No se pudo registrar el usuario");
+
                 }
             }
         });
+
         e.preventDefault();
         
     });

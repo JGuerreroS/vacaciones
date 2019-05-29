@@ -1,7 +1,5 @@
-<!-- Tránsito -->
-
 <!-- Modal registrar usuarios-->
-<div class="modal fade" id="registrarUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modalRegUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -28,7 +26,7 @@
 
                     <div class="form-group">
                         <label>Nombres y Apellidos</label>
-                        <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese sus nombres y apellidos" >
+                        <input type="text" class="form-control" id="nameSige" name="nameSige" placeholder="Ingrese sus nombres y apellidos" >
                     </div>
 
                     <div class="form-group">
@@ -36,15 +34,15 @@
                         <select class="select2 form-control custom-select" id="jquia" name="jquia">
                             <option value="">Seleccione</option>
                             <?php 
-                                include 'core/conexion.php';
-                                $sql = "SELECT id_jquia, jquia FROM e_jerarquia";
-                                $result = pg_query($conn,$sql);
-                                while ($ver = pg_fetch_array($result)) { 
+                                // include 'core/conexion.php';
+                                // $sql = "SELECT id_jquia, jquia FROM e_jerarquia";
+                                // $result = pg_query($conn,$sql);
+                                // while ($ver = pg_fetch_array($result)) { 
                             ?>
 
-                            <option value="<?php echo $ver[0]; ?>"> <?php echo $ver[1]; ?> </option>
+                            <option value="<?php //echo $ver[0]; ?>"> <?php //echo $ver[1]; ?> </option>
 
-                            <?php } pg_free_result($result); pg_close($conn); ?>
+                            <?php //} pg_free_result($result); pg_close($conn); ?>
                         </select>
                     </div>
 
@@ -62,15 +60,15 @@
                         <select class="select2 form-control custom-select" id="dependencia" name="dependencia">
                             <option value="">Seleccione</option>
                             <?php 
-                                include 'core/conexion.php';
-                                $sql = "SELECT id_dependencia, dependencia FROM a_dependencias";
-                                $result = pg_query($conn,$sql);
-                                while ($ver = pg_fetch_array($result)) { 
+                                // include 'core/conexion.php';
+                                // $sql = "SELECT id_dependencia, dependencia FROM a_dependencias";
+                                // $result = pg_query($conn,$sql);
+                                // while ($ver = pg_fetch_array($result)) { 
                             ?>
 
-                            <option value="<?php echo $ver[0]; ?>"> <?php echo $ver[1]; ?> </option>
+                            <option value="<?php //echo $ver[0]; ?>"> <?php //echo $ver[1]; ?> </option>
 
-                            <?php } pg_free_result($result); pg_close($conn); ?>
+                            <?php //} pg_free_result($result); pg_close($conn); ?>
                         </select>
                     </div>
 
@@ -103,7 +101,7 @@
 </div>
 
 <!-- Modal ver detalles de usuarios -->
-<div class="modal fade" id="verUsuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modalZoomUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -154,23 +152,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Dependencia:</label>
-                        <select class="select2 form-control custom-select" id="vDependencia" name="vDependencia">
-                            <option value="">Seleccione</option>
-                            <?php 
-                                include 'core/conexion.php';
-                                $sql = "SELECT id_dependencia, dependencia FROM a_dependencias";
-                                $result = pg_query($conn,$sql);
-                                while ($ver = pg_fetch_array($result)) { 
-                            ?>
-
-                            <option value="<?php echo $ver[0]; ?>"> <?php echo $ver[1]; ?> </option>
-
-                            <?php } pg_free_result($result); pg_close($conn); ?>
-                        </select>
-                    </div>
-
+                   
                     <div class="form-group">
                         <p id="vFecha"></p>
                     </div>

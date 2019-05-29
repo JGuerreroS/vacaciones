@@ -20,7 +20,7 @@
 
 <body>
     <div class="container">
-        <h2 class="titulo_login">Sistema de Registro y Control de Experticias de Tránsito</h2>
+        <h2 class="titulo_login">Nombre del sistema</h2>
         <div class="d-flex justify-content-center h-100">
 
             <div class="card">
@@ -29,14 +29,13 @@
                     <div class="d-flex justify-content-end social_icon">
 
                         <span style="font-size:50px"><a
-                                href="https://www.facebook.com/Cuerpo-de-Polic%C3%ADa-Nacional-Bolivariana-231509720527789/"
-                                class="icon-facebook2 icon-menu" target="_blank"></a></span>
+                                href="#" target="_blank"></a></span>
 
-                        <span style="font-size:55px"><a href="https://www.youtube.com/channel/UC6y3LxVw2iiuYnfVP-nAtEw"
+                        <span style="font-size:55px"><a href="h#"
                                 target="_blank" class="icon-youtube icon-menu"></a></span>
 
                         <span style="font-size:50px"><a
-                                href="https://twitter.com/CPNB_VE?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3ACPNB_VE&ref_url=http%3A%2F%2Fwww.policianacional.gob.ve%2F"
+                                href="#"
                                 target="_blank" class="icon-twitter icon-menu"></a></span>
 
                     </div>

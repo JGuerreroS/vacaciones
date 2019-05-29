@@ -12,12 +12,7 @@
         </thead>
 
         <tbody>
-        <?php
-            $nro=0;
-            include '../../../models/clase.php';
-            $datos = verUsuarios();
-            while($ver = pg_fetch_array($datos)){ $nro++;
-        ?>
+
             <tr>
                 <td> <?php echo $nro; ?> </td>
                 <td class="text-center"> <?php echo $ver[1]; ?> </td>
@@ -34,7 +29,7 @@
                 </span>
             </td>
             </tr>
-        <?php } ?>
+        <?php  ?>
         </tbody>
         
     </table>
