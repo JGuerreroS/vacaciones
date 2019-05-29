@@ -76,7 +76,7 @@
                         <div class="col-6">
 
                             <label>Contraseña</label>
-                            <input type="password" autofocus="autofocus" class="form-control" id="pass1" name="pass1" placeholder="Ingrese su contraseña" >
+                            <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Ingrese su contraseña" >
 
                         </div>
 
@@ -88,6 +88,7 @@
                         </div>
                     </div>
                 </form>
+                <span id="msgPass"></span>
             </div>
 
             <div class="modal-footer">
