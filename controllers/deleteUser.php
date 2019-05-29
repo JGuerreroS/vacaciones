@@ -17,7 +17,5 @@
             echo borrarUsuario($id_usuario); 
 
         }
-        
-    }
 
-    
+    }

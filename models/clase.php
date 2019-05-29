@@ -38,7 +38,7 @@
 
             pg_free_result($result);
             pg_close($conn);
-            
+
             return 2;
 
         }
@@ -237,6 +237,24 @@
         pg_close($conn);
         return $nro;
         
+    }
+
+    // Verificar usuario
+    function checkUser($civ){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT * FROM users WHERE cedula = '$civ'";
+
+        $result = pg_query($conn, $sql);
+
+        $total = pg_num_rows($result);
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return $total;
+
     }
 
     // Vacaciones

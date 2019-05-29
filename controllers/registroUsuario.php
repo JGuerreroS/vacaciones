@@ -8,14 +8,12 @@
     $pass1 = trim($_POST['pass1']);
     $pass2 = trim($_POST['pass2']);
 
-    include '../core/conexion.php';
-    $checkCiv = "SELECT * FROM users WHERE cedula = '$civ'";
-    $result = pg_query($conn,$checkCiv);
-    $count = pg_num_rows($result);
+    include '../models/clase.php';
+
+    // Verificar si el usuario ya se encuentra registrado
+    $count = checkUser($civ);
 
     if ($count > 0) {
-
-        pg_close($conn);
 
         echo 1;
 
@@ -27,8 +25,6 @@
             'privilegio' => $privilegio,
             'clave' => $pass1
         );
-
-        include '../models/clase.php';
 
         echo registroUsuario($datos);
 
