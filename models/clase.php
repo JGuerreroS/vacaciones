@@ -1,6 +1,43 @@
 <?php
 
-    // Vacaciones
+    // Inicio de sesión
+    function login($user,$pass){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT id_usuario, nombres, cedula, clave, id_rol FROM users WHERE cedula = '$user'";
+
+        $result = pg_query($conn, $sql);
+	
+        $row = pg_fetch_assoc($result);
+        
+        $hash = $row['clave'];
+        
+        if(password_verify($pass, $hash)){
+
+            session_start();
+            
+            $_SESSION['name'] = $row['nombres'];
+            $_SESSION['usuario'] = $row['id_usuario'];
+            $_SESSION['nivel'] = $row['id_rol'];
+
+            pg_free_result($result);
+            pg_close($conn);
+            
+            return true;
+        
+        }else{
+
+            pg_free_result($result);
+            pg_close($conn);
+
+            return false;
+
+        }
+
+    }
+
+    // Editar usuario
     function editUser($datos){
 
         include '../core/conexion.php';
@@ -25,7 +62,7 @@
 
     }
 
-    // Vacaciones
+    // Borrar usuario
     function borrarUsuario($id_usuario){
 
         include '../core/conexion.php';
@@ -51,7 +88,7 @@
     
     }
 
-    // Vacaciones
+    // ver más del usuario
     function zoomUsuario($usuario){
 
         include '../core/conexion.php';
@@ -86,7 +123,7 @@
     
     }
 
-    // Vacaciones
+    // mostrar lista de usuarios
     function verUsuarios(){
 
         include '../core/conexion.php';
@@ -125,7 +162,7 @@
 
     }
 
-    // Vacaciones
+    // Buscar funcionario en el sigefirrhh
     function buscarEnSigefirrhh($cedula){
 
         include '../core/sigefirrhh.php';

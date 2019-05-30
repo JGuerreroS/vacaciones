@@ -15,14 +15,39 @@
 
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-cogs"></i> Administración
+                    <i class="icon-stats-dots"></i> Estadísticas
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="usuarios"> <span class="icon-contacts2"></span> Usuarios </a>
+
+                    <a class="dropdown-item" href="#"> <span class="icon-chart3"></span> Estadísticas 1 </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="#"> <span class="icon-stats-bars"></span> Estadísticas 2 </a>
+
                 </div>
 
             </li>
+
+            <?php if($_SESSION['nivel'] == 1){ ?>
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-cogs"></i> Administración
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <a class="dropdown-item" href="usuarios"> <span class="icon-contacts2"></span> Usuarios </a>
+                       
+                    </div>
+
+                </li>
+
+            <?php } ?>
 
             <li class="nav-item">
                 <a class="nav-link text-info" href="#"> <i class="icon-assignment_ind"></i>

@@ -2,26 +2,27 @@ $(function(){
 
     $("#aviso").hide();
 
-        $("#iniciar").click(function() {
+    $("#iniciar").click(function() {
 
         $.ajax({
             type: "post",
             url: "./controllers/check-login.php",
             data: $("#formLogin").serialize(),
             cache: false,
-            success: function(r) {
+            success: function(r){
 
-                if (r == 2) {
-                    
-                    $("#aviso").show().fadeOut(3000);
-
-                } else {
+                if (r){
 
                     window.location.href = "inicio";
+                    
+                } else {
+
+                    $("#aviso").show().fadeOut(3000);
                     
                 }
             }
         }); //ajax
+    
         return false;
 
     }); //click

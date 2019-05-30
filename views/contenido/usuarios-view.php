@@ -1,3 +1,5 @@
+    <?php if($_SESSION['nivel'] == 1){ ?>
+
     <div class="card-header">
         <b>Usuarios</b>
     </div>
@@ -34,3 +36,17 @@
 
         <!-- Hasta aqui el contenido -->
     </div>
+
+    <?php }else{ ?>
+
+        <div class="card-header">
+        <b>Acceso prohibido!</b>
+    </div>
+
+    <div class="card-body">
+
+        <p class="text-warning">No tienes privilegios suficientes para acceder a este módulo</p>
+        <!-- Hasta aqui el contenido -->
+    </div>
+
+    <?php } ?>

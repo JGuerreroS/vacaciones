@@ -17,18 +17,16 @@
     </div>
 
     <div class="container">
+
         <?php
-            if (empty($_SESSION['nivel'])){
+            if(empty($_SESSION['nivel'])){
 
                 header('Location: ./controllers/cerrarSesion.php');
 
-            }elseif($_SESSION['nivel'] == 1){
+            }else{
 
                 include 'menu.php';
 
-            }else{
-
-                
             }
         ?>
         
