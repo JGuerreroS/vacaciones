@@ -20,7 +20,7 @@
 
 <body>
     <div class="container">
-        <h2 class="titulo_login">Nombre del sistema</h2>
+        <h2 class="titulo_login">Sistema de Vacaciones</h2>
         <div class="d-flex justify-content-center h-100">
 
             <div class="card">

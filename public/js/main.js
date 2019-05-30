@@ -38,6 +38,10 @@ $(function(){
 
     // cargar tabla de usuarios
     listaUsuarios();
+    // cargar tabla de vacaciones
+    listaVacaciones();
+
+
     $('#regUser').attr("disabled", true);
 
     /*---------------------------------Usuarios-----------------------------*/
@@ -63,7 +67,7 @@ $(function(){
     });
 
     // Mostrar lista de usuarios
-    function listaUsuarios() {
+    function listaUsuarios(){
         
         $.ajax({
             url: "controllers/listUsers.php",
@@ -92,6 +96,41 @@ $(function(){
                     `
                 });
                 $("#listUsers").html(template);
+            }
+        });
+
+    }
+
+    // Mostrar lista de vacaciones
+    function listaVacaciones(){
+        
+        $.ajax({
+            url: "controllers/listVacaciones.php",
+            type: "GET",
+            success: function (res){
+                console.log(res);
+                let listVac = JSON.parse(res);
+                let template = '';
+                listVac.forEach(vac => {
+                    template += `
+                        <tr idUser="${vac.id_vacaciones}">
+                            <td class="text-center">${vac.nro}</td>
+                            <td class="text-center">${vac.cedula}</td>
+                            <td>${vac.periodo1}</td>
+                            <td>${vac.periodo2}</td>
+                            <td class="text-center">
+                                <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+
+                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+                                    <i class="icon-bin"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    `
+                });
+                $("#listVacaciones").html(template);
             }
         });
 

@@ -128,7 +128,7 @@
 
         include '../core/conexion.php';
 
-        $sql = "SELECT id_usuario, cedula, nombres, descripcion, estatus FROM users u
+        $sql = "SELECT id_usuario, cedula, nombres, rol, estatus FROM users u
         INNER JOIN roles r ON (u.id_rol = r.id_rol)
         INNER JOIN estatus e ON (u.id_estatus = e.id_estatus)";
 
@@ -149,7 +149,7 @@
                 'id_usuario' => $row['id_usuario'],
                 'cedula' => $row['cedula'],
                 'nombres' => $row['nombres'],
-                'rol' => $row['descripcion'],
+                'rol' => $row['rol'],
                 'estatus' => $row['estatus']
             );
 
@@ -325,5 +325,41 @@
             return 2;
 
         }
+
+    }
+
+    // mostrar lista de vacaciones
+    function verVacaciones(){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT id, cedula, periodo1, periodo2 FROM reg_vacaciones ORDER BY id DESC LIMIT 10";
+
+        $result = pg_query($conn, $sql);
+
+        if(!$result){
+            die('Fallo en la consulta');
+        }
+
+        $datos = array();
+
+        $nro = 0;
+
+        while ($row = pg_fetch_array($result)){ $nro++;
+            
+            $datos[] = array(
+                'nro' => $nro,
+                'id_vacaciones' => $row['id'],
+                'cedula' => $row['cedula'],
+                'periodo1' => $row['periodo1'],
+                'periodo2' => $row['periodo2']
+            );
+
+        }
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return json_encode($datos);
 
     }
