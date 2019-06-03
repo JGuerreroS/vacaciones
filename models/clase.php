@@ -128,15 +128,11 @@
 
         include '../core/conexion.php';
 
-        // $sql = "SELECT v.cedula, nombre1||' '||nombre2||' '||apellido||' '||apellido2 AS nombres, fecha_ingreso, periodo1, periodo2, fecha_desde, fecha_hasta, dias, d.dependencia, coordinacion, fecha_registro FROM reg_vacaciones v
-        // INNER JOIN personal p ON (v.cedula = p.cedula)
-        // INNER JOIN trabajador t ON (v.cedula = t.cedula)
-        // INNER JOIN dependencia d ON (v.dependencia = d.id)
-        // INNER JOIN h_dependencia h ON (v.id_h_dependencia = h.id)
-        // WHERE v.id = $id_vacacion";
-
-        $sql = "SELECT v.cedula, nombre1||' '||nombre2||' '||apellido||' '||apellido2 FROM reg_vacaciones v
+        $sql = "SELECT v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido, fecha_ingreso, periodo1, periodo2, fecha_desde, fecha_hasta, dias, dependencia, coordinacion, fecha_registro FROM reg_vacaciones v
         INNER JOIN personal p ON (v.cedula = p.cedula)
+        INNER JOIN trabajador t ON (v.cedula = t.cedula)
+        INNER JOIN dependencia d ON (v.id_dependencia = d.id_dependencia)
+        LEFT JOIN coordinaciones c ON (v.id_coordinacion = c.id_coordinacion)
         WHERE id = $id_vacacion";
 
         $result = pg_query($conn, $sql);
@@ -151,22 +147,22 @@
 
             $datos[] = array(
                 'cedula' => $row[0],
-                'nombres' => $row[1]
-                // 'fecha_ingreso' => $row[2],
-                // 'periodo1' => $row[3],
-                // 'periodo2' => $row[4],
-                // 'fecha_desde' => $row[5],
-                // 'fecha_hasta' => $row[6],
-                // 'dias' => $row[7],
-                // 'dependencia' => $row[8],
-                // 'coordinacion' => $row[9],
-                // 'fecha_registro' => $row[10]
+                'nombres' => $row[1],
+                'fecha_ingreso' => $row[2],
+                'periodo1' => $row[3],
+                'periodo2' => $row[4],
+                'fecha_desde' => $row[5],
+                'fecha_hasta' => $row[6],
+                'dias' => $row[7],
+                'dependencia' => $row[8],
+                'coordinacion' => $row[9],
+                'fecha_registro' => $row[10]
             );
 
         }
 
-        // pg_free_result($result);
-        // pg_close($conn);
+        pg_free_result($result);
+        pg_close($conn);
 
         return json_encode($datos[0]);
     
@@ -216,9 +212,11 @@
 
         include '../core/sigefirrhh.php';
 
-        $sql = "SELECT p.id_personal, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, descripcion_cargo, c.id_cargo FROM personal p INNER JOIN trabajador t ON (p.id_personal = t.id_personal) INNER JOIN cargo c ON (t.id_cargo = c.id_cargo) WHERE p.cedula=$cedula and estatus='A'";
+        $sql = "SELECT p.cedula, id_cargo, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, estatus, fecha_ingreso FROM personal p
+        INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
+        WHERE p.cedula = $cedula AND estatus='A'";
 
-        $result = pg_query($conexion2,$sql);
+        $result = pg_query($conexion,$sql);
 
         if(!$result){
             die('Consulta fallida');
@@ -229,14 +227,16 @@
         while($row = pg_fetch_array($result)){
 
             $datos[] = array(
-                'id_personal' => $row['id_personal'],
-                'nombres' => $row['nombres']
+                'nombres' => $row['nombres'],
+                'cargo' => $row['id_cargo'],
+                'estatus' => $row['estatus'],
+                'fecha_ingreso' => $row['fecha_ingreso']
             );
 
         }
 
         pg_free_result($result);
-        pg_close($conexion2);
+        pg_close($conexion);
 
         return json_encode($datos[0]);
 
@@ -378,11 +378,56 @@
     }
 
     // mostrar lista de vacaciones
+    function mostrarVacaciones($cedula){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, dependencia, id_an_suspension FROM reg_vacaciones v
+        INNER JOIN dependencia d ON (v.id_dependencia = d.id_dependencia)
+        WHERE cedula = $cedula";
+
+        $result = pg_query($conn, $sql);
+
+        if(!$result){
+            die('Fallo en la consulta');
+        }
+
+        $datos = array();
+
+        $nro = 0;
+
+        while ($row = pg_fetch_array($result)){ $nro++;
+
+            if($row[5] == ''){
+                $estatus = 'Disfrutadas';
+            }else{
+                $estatus = 'Suspendidas';
+            }
+            
+            $datos[] = array(
+                'nro' => $nro,
+                'periodo' => $row[0],
+                'desde' => $row[1],
+                'hasta' => $row[2],
+                'dias' => $row[3],
+                'estatus' => $estatus
+            );
+
+        }
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return json_encode($datos);
+
+    }
+
+    // mostrar lista de vacaciones
     function verVacaciones(){
 
         include '../core/conexion.php';
 
-        $sql = "SELECT id, cedula, periodo1, periodo2 FROM reg_vacaciones ORDER BY id DESC LIMIT 10";
+        $sql = "SELECT id, cedula, periodo1, periodo2 FROM reg_vacaciones ORDER BY id DESC LIMIT 5";
 
         $result = pg_query($conn, $sql);
 
@@ -404,6 +449,78 @@
                 'periodo2' => $row['periodo2']
             );
 
+        }
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return json_encode($datos);
+
+    }
+
+    // Selects jerarquias
+    function jerarquia(){
+
+        include 'core/sigefirrhh.php';
+
+        $sql = "SELECT id_cargo, descripcion_cargo FROM cargo ORDER BY descripcion_cargo";
+
+        $result = pg_query($conexion, $sql);
+
+        $html = "<option value=''>Jquia / Cargo...</option>";
+
+        while ($row = pg_fetch_array($result)){
+
+            $html.= "<option value='$row[0]'>".$row[1]."</option>";
+
+        }
+
+        pg_free_result($result);
+        pg_close($conexion);
+
+        return $html;
+        
+    }
+
+    // Selects dependencias
+    function dependencias(){
+
+        include 'core/conexion.php';
+
+        $sql = "SELECT id_dependencia, dependencia FROM dependencia ORDER BY dependencia";
+
+        $result = pg_query($conn, $sql);
+
+        $html = "<option value=''>Dependencia...</option>";
+
+        while ($row = pg_fetch_array($result)){
+
+            $html.= "<option value='$row[0]'>".$row[1]."</option>";
+
+        }
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return $html;
+        
+    }
+
+    // Mostrar vacaciones disfrutadas
+    function vacacionesDisfrutadas($cedula){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT cedula FROM reg_vacaciones WHERE cedula = $cedula";
+
+        $result = pg_query($conn, $sql);
+
+        $datos = array();
+
+        while ($row = pg_fetch_array($result)){
+            $datos[] = array(
+                'civ' => $row[0]
+            );
         }
 
         pg_free_result($result);

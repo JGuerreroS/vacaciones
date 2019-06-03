@@ -39,7 +39,7 @@ $(function(){
     // cargar tabla de usuarios
     listaUsuarios();
     // cargar tabla de vacaciones
-    listaVacaciones();
+    // listaVacaciones();
 
 
     $('#regUser').attr("disabled", true);
@@ -123,67 +123,6 @@ $(function(){
         
     });
 
-    // --------------------------------------------------------Mostrar lista de vacaciones
-    function listaVacaciones(){
-        
-        $.ajax({
-            url: "controllers/listVacaciones.php",
-            type: "GET",
-            success: function (res){
-                let listVac = JSON.parse(res);
-                let template = '';
-                listVac.forEach(vac => {
-                    template += `
-                        <tr idVac="${vac.id_vacaciones}">
-                            <td class="text-center">${vac.nro}</td>
-                            <td class="text-center">${vac.cedula}</td>
-                            <td>${vac.periodo1}</td>
-                            <td>${vac.periodo2}</td>
-                            <td class="text-center">
-                                <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
-                                    <i class="icon-zoom-in"></i>
-                                </span>
-
-                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
-                                    <i class="icon-bin"></i>
-                                </span>
-                            </td>
-                        </tr>
-                    `
-                });
-                $("#listVacaciones").html(template);
-            }
-        });
-
-    }
-
-    // --------------------------------------------------------Zoom Vacaciones
-    $(document).on('click', '#zoomVacacion', function (){
-
-        let elemet = $(this)[0].parentElement.parentElement;
-        let id = $(elemet).attr('idVac');
-
-        $.post("controllers/zoomVacacion.php", { id }, function (res){
-
-            console.log(res);
-
-            const vac = JSON.parse(res);
-
-            $("#vCiv").html('Cédula: ' + vac.cedula);
-            $("#vNames").html('Nombres: ' + vac.nombres);
-            // $("#vF-in").html('Fecha de ingreso: ' + vac.fecha_ingreso);
-            // $("#vF-i").html('Fecha inicio: ' + vac.fecha_desde);
-            // $("#vF-f").html('Fecha final: ' + vac.fecha_hasta);
-            // $("#vPeriodo").html('Periodo: ' + vac.periodo1 + '-' + vac.periodo2);
-            // $("#vDias").html('Días: ' + vac.dias);
-            // $("#vDependencia").html('Dependencia: ' + vac.dependencia);
-            // $("#vCoordinacion").html('Coordinación: ' + vac.coordinacion);
-            // $("#vFR").html('Fecha de registro: ' + vac.fecha_registro);
-                
-        });
-        
-    });
-
     // Borrar Usuarios
     $(document).on('click', '#deleteUser', function (){
 
@@ -250,17 +189,17 @@ $(function(){
 
     // ocultar boton de guardar al editar usuario
     $("#saveUserEdit").hide();
+    
+    // funcion que se ejecuta al pulsar el boton de editar usuarios
+    $("#editarUsuario").click(function(e) {
 
-        // funcion que se ejecuta al pulsar el boton de editar usuarios
-        $("#editarUsuario").click(function(e) {
-    
-            $("#saveUserEdit").show();
-            $(this).hide();
-            $("#vNombre,#vEstatus,#vNivel,#vDependencia").attr('disabled', false);
-            e.preventDefault();
-    
-        });
-    
+        $("#saveUserEdit").show();
+        $(this).hide();
+        $("#vNombre,#vEstatus,#vNivel,#vDependencia").attr('disabled', false);
+        e.preventDefault();
+
+    });
+        
     // Guardar cambios del usuario al editarlo
     $(document).on('click', '#saveUserEdit', function (e){
 
@@ -289,7 +228,7 @@ $(function(){
 
     });
 
-    // Funcción de comprobar contraseña
+    // Función de comprobar contraseña
     $(document).on('keyup', '#pass2', function(){
 
         // función para comprobar la contraseña
@@ -332,5 +271,113 @@ $(function(){
 
     });
 
+    /*---------------------------------Usuarios-----------------------------*/
+
+    /*---------------------------------Vacaciones-----------------------------*/
+
+    // Mostrar lista de vacaciones
+    function listaVacaciones(){
+        
+        $.ajax({
+            url: "controllers/listVacaciones.php",
+            type: "GET",
+            success: function (res){
+                let listVac = JSON.parse(res);
+                let template = '';
+                listVac.forEach(vac => {
+                    template += `
+                        <tr idVac="${vac.id_vacaciones}">
+                            <td class="text-center">${vac.nro}</td>
+                            <td class="text-center">${vac.cedula}</td>
+                            <td>${vac.periodo1}</td>
+                            <td>${vac.periodo2}</td>
+                            <td class="text-center">
+                                <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+
+                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+                                    <i class="icon-bin"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    `
+                });
+                $("#listVacaciones").html(template);
+            }
+        });
+
+    }
+
+    // Zoom Vacaciones
+    $(document).on('click', '#zoomVacacion', function (){
+
+        let elemet = $(this)[0].parentElement.parentElement;
+        let id = $(elemet).attr('idVac');
+
+        $.post("controllers/zoomVacacion.php", { id }, function (res){
+
+            console.log(res);
+
+            const vac = JSON.parse(res);
+
+            $("#vCiv").html('Cédula: ' + vac.cedula);
+            $("#vNames").html('Nombres: ' + vac.nombres);
+            $("#vF-in").html('Fecha de ingreso: ' + vac.fecha_ingreso);
+            $("#vF-i").html('Fecha inicio: ' + vac.fecha_desde);
+            $("#vF-f").html('Fecha final: ' + vac.fecha_hasta);
+            $("#vPeriodo").html('Periodo: ' + vac.periodo1 + '-' + vac.periodo2);
+            $("#vDias").html('Días: ' + vac.dias);
+            $("#vDependencia").html('Dependencia: ' + vac.dependencia);
+            $("#vCoordinacion").html('Coordinación: ' + vac.coordinacion);
+            $("#vFR").html('Fecha de registro: ' + vac.fecha_registro);
+                
+        });
+        
+    });
+
+    // Buscar datos del funcionario para registrar sus vacaciones
+    $(document).on('click', '#buscarSigefirrhh', function (e){
+
+        let civ = $("#cedula").val();
+        
+        $.post("controllers/buscarFuncionario.php", { civ : civ }, function (res){
+
+            let datos = JSON.parse(res);
+            $("#nombres").val(datos.nombres);
+            $("#jquia").val(datos.cargo);
+            $("#estatus").val(datos.estatus);
+            $("#fIngreso").val(datos.fecha_ingreso);
+
+        });
+
+        $.ajax({
+            url: "controllers/listarVacaciones.php",
+            type: "GET",
+            data: { civ },
+            success: function (res){
+                let listVac = JSON.parse(res);
+                let template = '';
+                listVac.forEach(vac => {
+                    template += `
+                        <tr>
+                            <td class="text-center">${vac.nro}</td>
+                            <td class="text-center">${vac.periodo}</td>
+                            <td class="text-center">${vac.desde}</td>
+                            <td class="text-center">${vac.hasta}</td>
+                            <td class="text-center">${vac.dias}</td>
+                            <td class="text-center">${vac.estatus}</td>
+                        </tr>
+                    `
+                });
+                $("#vacacionesDisfrutadas").html(template);
+            }
+        });
+
+        return false;
+
+    });
+
+    /*---------------------------------Vacaciones-----------------------------*/
 
 }); //Fin de la function ready
