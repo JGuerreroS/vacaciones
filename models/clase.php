@@ -123,6 +123,55 @@
     
     }
 
+    // ver detalles de las vacaciones
+    function zoomVacacion($id_vacacion){
+
+        include '../core/conexion.php';
+
+        // $sql = "SELECT v.cedula, nombre1||' '||nombre2||' '||apellido||' '||apellido2 AS nombres, fecha_ingreso, periodo1, periodo2, fecha_desde, fecha_hasta, dias, d.dependencia, coordinacion, fecha_registro FROM reg_vacaciones v
+        // INNER JOIN personal p ON (v.cedula = p.cedula)
+        // INNER JOIN trabajador t ON (v.cedula = t.cedula)
+        // INNER JOIN dependencia d ON (v.dependencia = d.id)
+        // INNER JOIN h_dependencia h ON (v.id_h_dependencia = h.id)
+        // WHERE v.id = $id_vacacion";
+
+        $sql = "SELECT v.cedula, nombre1||' '||nombre2||' '||apellido||' '||apellido2 FROM reg_vacaciones v
+        INNER JOIN personal p ON (v.cedula = p.cedula)
+        WHERE id = $id_vacacion";
+
+        $result = pg_query($conn, $sql);
+
+        if(!$result){
+            die('Fallo en la consulta');
+        }
+
+        $datos = array();
+
+        while ($row = pg_fetch_array($result)){
+
+            $datos[] = array(
+                'cedula' => $row[0],
+                'nombres' => $row[1]
+                // 'fecha_ingreso' => $row[2],
+                // 'periodo1' => $row[3],
+                // 'periodo2' => $row[4],
+                // 'fecha_desde' => $row[5],
+                // 'fecha_hasta' => $row[6],
+                // 'dias' => $row[7],
+                // 'dependencia' => $row[8],
+                // 'coordinacion' => $row[9],
+                // 'fecha_registro' => $row[10]
+            );
+
+        }
+
+        // pg_free_result($result);
+        // pg_close($conn);
+
+        return json_encode($datos[0]);
+    
+    }
+
     // mostrar lista de usuarios
     function verUsuarios(){
 

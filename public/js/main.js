@@ -101,41 +101,6 @@ $(function(){
 
     }
 
-    // Mostrar lista de vacaciones
-    function listaVacaciones(){
-        
-        $.ajax({
-            url: "controllers/listVacaciones.php",
-            type: "GET",
-            success: function (res){
-                console.log(res);
-                let listVac = JSON.parse(res);
-                let template = '';
-                listVac.forEach(vac => {
-                    template += `
-                        <tr idUser="${vac.id_vacaciones}">
-                            <td class="text-center">${vac.nro}</td>
-                            <td class="text-center">${vac.cedula}</td>
-                            <td>${vac.periodo1}</td>
-                            <td>${vac.periodo2}</td>
-                            <td class="text-center">
-                                <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario">
-                                    <i class="icon-zoom-in"></i>
-                                </span>
-
-                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
-                                    <i class="icon-bin"></i>
-                                </span>
-                            </td>
-                        </tr>
-                    `
-                });
-                $("#listVacaciones").html(template);
-            }
-        });
-
-    }
-
     // Zoom Usuarios
     $(document).on('click', '#zoomUsuario', function (){
 
@@ -154,6 +119,67 @@ $(function(){
             $("#vUsuario").val(user.id_usuario);
             $("#editarUsuario").show();
         
+        });
+        
+    });
+
+    // --------------------------------------------------------Mostrar lista de vacaciones
+    function listaVacaciones(){
+        
+        $.ajax({
+            url: "controllers/listVacaciones.php",
+            type: "GET",
+            success: function (res){
+                let listVac = JSON.parse(res);
+                let template = '';
+                listVac.forEach(vac => {
+                    template += `
+                        <tr idVac="${vac.id_vacaciones}">
+                            <td class="text-center">${vac.nro}</td>
+                            <td class="text-center">${vac.cedula}</td>
+                            <td>${vac.periodo1}</td>
+                            <td>${vac.periodo2}</td>
+                            <td class="text-center">
+                                <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+
+                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+                                    <i class="icon-bin"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    `
+                });
+                $("#listVacaciones").html(template);
+            }
+        });
+
+    }
+
+    // --------------------------------------------------------Zoom Vacaciones
+    $(document).on('click', '#zoomVacacion', function (){
+
+        let elemet = $(this)[0].parentElement.parentElement;
+        let id = $(elemet).attr('idVac');
+
+        $.post("controllers/zoomVacacion.php", { id }, function (res){
+
+            console.log(res);
+
+            const vac = JSON.parse(res);
+
+            $("#vCiv").html('Cédula: ' + vac.cedula);
+            $("#vNames").html('Nombres: ' + vac.nombres);
+            // $("#vF-in").html('Fecha de ingreso: ' + vac.fecha_ingreso);
+            // $("#vF-i").html('Fecha inicio: ' + vac.fecha_desde);
+            // $("#vF-f").html('Fecha final: ' + vac.fecha_hasta);
+            // $("#vPeriodo").html('Periodo: ' + vac.periodo1 + '-' + vac.periodo2);
+            // $("#vDias").html('Días: ' + vac.dias);
+            // $("#vDependencia").html('Dependencia: ' + vac.dependencia);
+            // $("#vCoordinacion").html('Coordinación: ' + vac.coordinacion);
+            // $("#vFR").html('Fecha de registro: ' + vac.fecha_registro);
+                
         });
         
     });

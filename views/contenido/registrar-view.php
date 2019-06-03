@@ -8,7 +8,7 @@
 
         <div class="row">
 
-            <div class="col-4">
+            <div class="col-3">
 
                 <form id="frmRegVac">
 
@@ -40,7 +40,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Fecha de ingreso</label>
+                                <label>Fecha ingreso</label>
                                 <input type="text" name="" id="" class="form-control" placeholder="">
                             </div>
                         </div>
@@ -97,14 +97,14 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Periodo</label>
+                                <label>Periodo 1</label>
                                 <input type="text" name="" id="" class="form-control" placeholder="">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Periodo</label>
+                                <label>Periodo 2</label>
                                 <input type="text" name="" id="" class="form-control" placeholder="">
                             </div>
                         </div>
@@ -122,7 +122,7 @@
 
             </div>
 
-            <div class="col-8">
+            <div class="col-9">
 
                 <table class="table table-striped table-bordered">
 
@@ -143,6 +143,8 @@
             </div>
 
         </div>
+
+        <?php include 'extra/regVacModal.php'; //Cargar Modal ?>
 
         <!-- Hasta aqui el contenido -->
     </div>
