@@ -346,12 +346,13 @@ $(function(){
         let civ = $("#cedula").val();
         
         $.post("controllers/buscarFuncionario.php", { civ : civ }, function (res){
-console.log(res);
-            let datos = JSON.parse(res);
-            $("#nombres").val(datos.nombres);
-            $("#jquia").val(datos.cargo);
-            $("#estatus").val(datos.estatus);
-            $("#fIngreso").val(datos.fecha_ingreso);
+            
+            datos = jQuery.parseJSON(res);
+            $("#nombres").val(datos[2]);
+            $("#jquia").val(datos[1]);
+            $("#estatus").val(datos[3]);
+            $("#fIngreso").val(datos[4]);
+            
 
         });
 

@@ -10,7 +10,7 @@
 
     <div class="row">
 
-        <div class="col-4">
+        <div class="col-5">
 
             <form id="frmRegVac">
 
@@ -34,7 +34,7 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Jerarquía</label>
+                            <label>Jerarquía / Cargo</label>
                             <select class="custom-select" id="jquia" name="jquia">
                                 <?= $jerarquias; ?>
                             </select>
@@ -141,7 +141,7 @@
 
         </div>
 
-        <div class="col-8" id="historico">
+        <div class="col-7" id="historico">
 
             <h3>Historico de vacaciones</h3>
 

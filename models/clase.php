@@ -214,7 +214,7 @@
 
         $sql = "SELECT p.cedula, id_cargo, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, estatus, fecha_ingreso FROM personal p
         INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
-        WHERE p.cedula = $cedula AND estatus='A'";
+        WHERE p.cedula = $cedula AND id_trabajador = (SELECT max(id_trabajador) FROM trabajador WHERE cedula = $cedula)";
 
         $result = pg_query($conexion,$sql);
 
@@ -222,23 +222,12 @@
             die('Consulta fallida');
         }
 
-        $datos = array();
-
-        while($row = pg_fetch_array($result)){
-
-            $datos[] = array(
-                'nombres' => $row[2],
-                'cargo' => $row[1],
-                'estatus' => $row[3],
-                'fecha_ingreso' => $row[4]
-            );
-
-        }
+        $row = pg_fetch_array($result);
 
         pg_free_result($result);
         pg_close($conexion);
 
-        return json_encode($datos[0]);
+        return json_encode($row);
 
     }
 
