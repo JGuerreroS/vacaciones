@@ -227,10 +227,10 @@
         while($row = pg_fetch_array($result)){
 
             $datos[] = array(
-                'nombres' => $row['nombres'],
-                'cargo' => $row['id_cargo'],
-                'estatus' => $row['estatus'],
-                'fecha_ingreso' => $row['fecha_ingreso']
+                'nombres' => $row[2],
+                'cargo' => $row[1],
+                'estatus' => $row[3],
+                'fecha_ingreso' => $row[4]
             );
 
         }

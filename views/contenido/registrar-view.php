@@ -141,7 +141,7 @@
 
         </div>
 
-        <div class="col-8">
+        <div class="col-8" id="historico">
 
             <h3>Historico de vacaciones</h3>
 
@@ -155,6 +155,7 @@
                         <th class="text-center">Fecha hasta</th>
                         <th class="text-center">Días</th>
                         <th class="text-center">Estatus</th>
+                        <th class="text-center">Opciones</th>
                     </tr>
                 </thead>
 

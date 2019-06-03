@@ -44,6 +44,10 @@ $(function(){
 
     $('#regUser').attr("disabled", true);
 
+    // Ocultar tabla de historico de vacaciones en registrar
+    $("#historico").hide();
+    
+
     /*---------------------------------Usuarios-----------------------------*/
 
     // función para las mayusculas en editar usuarios
@@ -342,7 +346,7 @@ $(function(){
         let civ = $("#cedula").val();
         
         $.post("controllers/buscarFuncionario.php", { civ : civ }, function (res){
-
+console.log(res);
             let datos = JSON.parse(res);
             $("#nombres").val(datos.nombres);
             $("#jquia").val(datos.cargo);
@@ -350,6 +354,8 @@ $(function(){
             $("#fIngreso").val(datos.fecha_ingreso);
 
         });
+
+        $("#historico").show();
 
         $.ajax({
             url: "controllers/listarVacaciones.php",
@@ -367,6 +373,11 @@ $(function(){
                             <td class="text-center">${vac.hasta}</td>
                             <td class="text-center">${vac.dias}</td>
                             <td class="text-center">${vac.estatus}</td>
+                            <td class="text-center">
+                                <span class="btn btn-info btn-sm" title="Ver más">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+                            </td>
                         </tr>
                     `
                 });
