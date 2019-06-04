@@ -390,6 +390,38 @@ $(function(){
 
     });
 
+    // Select de coordinaciones, dependiente de dependencias
+    $("#sDependencia").change(function(){
+
+        $("#sCoordinacion").find('option').remove().end().append('<option value="">Corrdinación...</option>');
+
+		$("#sDependencia option:selected").each(function (){
+			id_dependencia = $(this).val();
+			$.get("controllers/selects2.php", { id_dependencia }, function(data){
+				$("#sCoordinacion").html(data);
+			});            
+        });
+        
+    });
+
+    // Registrar las vacaciones
+    $(document).on("click", "#btn-regVac", function(e){
+
+        datos = $("#frmRegVac").serialize();
+
+        $.ajax({
+            type: "post",
+            url: "controllers/registroVacaciones.php",
+            data: datos,
+            success: function (response) {
+                console.log(response);
+            }
+        });
+
+        e.preventDefault();
+
+    });
+
     /*---------------------------------Vacaciones-----------------------------*/
 
 }); //Fin de la function ready

@@ -19,7 +19,7 @@
                     <div class="col-sm-6 my-1">
                         <input type="text" class="form-control" name="cedula" id="cedula" placeholder="Cédula...">
                     </div>
-                    
+
                     <div class="col-auto my-1">
                         <button class="btn btn-info" id="buscarSigefirrhh">Buscar</button>
                     </div>
@@ -79,7 +79,7 @@
                 <div class="form-group">
                     <label>Dependencia</label>
                     <div class="form-group">
-                        <select class="custom-select" id="dependencia" name="dependencia">
+                        <select class="custom-select" id="sDependencia" name="sDependencia">
                             <?= $dependencias; ?>
                         </select>
                     </div>
@@ -87,7 +87,9 @@
 
                 <div class="form-group">
                     <label>Coordinación</label>
-                    <input type="text" name="" id="" class="form-control" placeholder="">
+                    <select class="custom-select" id="sCoordinacion" name="sCoordinacion">
+                        
+                    </select>
                 </div>
 
                 <div class="row">
@@ -95,14 +97,14 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Fecha de inicio</label>
-                            <input type="date" name="" id="" class="form-control">
+                            <input type="date" name="fStart" id="fStart" class="form-control">
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="form-group">
                             <label>Fecha de fin</label>
-                            <input type="date" name="" id="" class="form-control">
+                            <input type="date" name="fEnd" id="fEnd" class="form-control">
                         </div>
                     </div>
 
@@ -112,32 +114,28 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Periodo 1</label>
-                            <select class="custom-select" id="p1" name="p1">
-                                <option value="1">No</option>
+                            <label>Período</label>
+                            <select class="custom-select" id="periodo" name="periodo">
+                                <option value="">Período</option>
+                                <option value="1">2017-2018</option>
+                                <option value="2">2018-2019</option>
+                                <option value="3">2019-2020</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Periodo 2</label>
-                            <select class="custom-select" id="p2" name="p2">
-                                <option value="1">No</option>
-                            </select>
+                            <label>Cantidad de días</label>
+                            <input type="number" name="nDias" id="nDias" class="form-control" placeholder="">
                         </div>
                     </div>
 
                 </div>
 
-                <div class="form-group">
-                    <label>Cantidad de días</label>
-                    <input type="text" name="" id="" class="form-control" placeholder="">
-                </div>
-
             </form>
 
-            <button class="btn btn-success" id="btn-regVac">Registrar vacaciones</button>
+            <button type="submit" class="btn btn-success" id="btn-regVac">Registrar vacaciones</button>
 
         </div>
 

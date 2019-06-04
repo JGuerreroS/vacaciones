@@ -495,6 +495,30 @@
         
     }
 
+    // Selects dependencias
+    function coordinaciones($id_dependencia){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT id_coordinacion, coordinacion FROM coordinaciones WHERE id_dependencia = $id_dependencia ORDER BY coordinacion";
+
+        $result = pg_query($conn, $sql);
+
+        $html = "<option value=''>Coordinación...</option>";
+
+        while ($row = pg_fetch_array($result)){
+
+            $html.= "<option value='$row[0]'>".$row[1]."</option>";
+
+        }
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return $html;
+        
+    }
+
     // Mostrar vacaciones disfrutadas
     function vacacionesDisfrutadas($cedula){
 
