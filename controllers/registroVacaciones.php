@@ -43,6 +43,6 @@
         $datos = array('cedula' => $cedula, 'jquia' => $jquia, 'estatus' => $estatus, 'jefe' => $jefe, 'dependencia' => $dependencia, 'coordinacion' => $coordinacion, 'fechaInicio' => $fechaInicio, 'fechaFin' => $fechaFin, 'periodo' => $periodo, 'dias' => $dias);
 
         include '../models/clase.php';
-        
-        echo json_encode($datos);
+
+        echo registrarVacaciones($datos);
     }

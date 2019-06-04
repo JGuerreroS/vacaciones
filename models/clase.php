@@ -338,7 +338,7 @@
 
     }
 
-    // Vacaciones
+    // Registrar usuarios
     function registroUsuario($datos){
 
         session_start();
@@ -354,6 +354,35 @@
         if(!$result){
 
             die('Error al tratar de registrar');
+
+        }else{
+
+            pg_free_result($result);
+            pg_close($conn);
+
+            return 2;
+
+        }
+
+    }
+
+    // Registrar usuarios
+    function registrarVacaciones($datos){
+
+        session_start();
+        
+        include '../core/conexion.php';
+
+        $periodo = explode("-", $datos['periodo']);
+
+        $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, fecha_registro, usuario) VALUES ($datos[cedula], $datos[jquia], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$fecha', $_SESSION[usuario])";
+
+        $result = pg_query($conn, $sql);
+
+        if(!$result){
+
+            return $sql;
+            die('Error al registrar');
 
         }else{
 
