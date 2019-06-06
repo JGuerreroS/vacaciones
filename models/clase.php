@@ -445,7 +445,7 @@
 
         include '../core/conexion.php';
 
-        $sql = "SELECT id, cedula, periodo1, periodo2 FROM reg_vacaciones ORDER BY id DESC LIMIT 5";
+        $sql = "SELECT id_vacaciones, cedula, periodo1, periodo2 FROM reg_vacaciones ORDER BY id_vacaciones DESC LIMIT 5";
 
         $result = pg_query($conn, $sql);
 
@@ -461,7 +461,7 @@
             
             $datos[] = array(
                 'nro' => $nro,
-                'id_vacaciones' => $row['id'],
+                'id_vacaciones' => $row['id_vacaciones'],
                 'cedula' => $row['cedula'],
                 'periodo1' => $row['periodo1'],
                 'periodo2' => $row['periodo2']

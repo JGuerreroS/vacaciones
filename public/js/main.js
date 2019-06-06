@@ -39,7 +39,7 @@ $(function(){
     // cargar tabla de usuarios
     listaUsuarios();
     // cargar tabla de vacaciones
-    // listaVacaciones();
+    listaVacaciones();
 
 
     $('#regUser').attr("disabled", true);
