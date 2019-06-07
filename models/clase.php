@@ -445,7 +445,10 @@
 
         include '../core/conexion.php';
 
-        $sql = "SELECT id_vacaciones, cedula, periodo1, periodo2 FROM reg_vacaciones ORDER BY id_vacaciones DESC LIMIT 5";
+        $sql = "SELECT id_vacaciones, v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, periodo1, periodo2 FROM
+        reg_vacaciones v
+        INNER JOIN personal p ON (v.cedula = p.cedula)
+        ORDER BY id_vacaciones DESC LIMIT 5";
 
         $result = pg_query($conn, $sql);
 
@@ -463,6 +466,7 @@
                 'nro' => $nro,
                 'id_vacaciones' => $row['id_vacaciones'],
                 'cedula' => $row['cedula'],
+                'nombres' => $row['nombres'],
                 'periodo1' => $row['periodo1'],
                 'periodo2' => $row['periodo2']
             );

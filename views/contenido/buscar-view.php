@@ -16,10 +16,10 @@
                     Tipo de busqueda
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <a class="dropdown-item" href="#">Por funcionario</a>
-                    <a class="dropdown-item" href="#">Por fecha de registro</a>
-                    <a class="dropdown-item" href="#">Por fecha de inicio</a>
-                    <a class="dropdown-item" href="#">Por fecha final</a>
+                    <a class="dropdown-item" id="xFuncionario" href="#">Por funcionario</a>
+                    <a class="dropdown-item" id="xFechaReg" href="#">Por fecha de registro</a>
+                    <a class="dropdown-item" id="xFechaI" href="#">Por fecha de inicio</a>
+                    <a class="dropdown-item" id="xFechaF" href="#">Por fecha final</a>
                 </div>
             </div>
         </div>

@@ -41,7 +41,6 @@ $(function(){
     // cargar tabla de vacaciones
     listaVacaciones();
 
-
     $('#regUser').attr("disabled", true);
 
     // Ocultar tabla de historico de vacaciones en registrar
@@ -293,6 +292,7 @@ $(function(){
                         <tr idVac="${vac.id_vacaciones}">
                             <td class="text-center">${vac.nro}</td>
                             <td class="text-center">${vac.cedula}</td>
+                            <td>${vac.nombres}</td>
                             <td>${vac.periodo1}</td>
                             <td>${vac.periodo2}</td>
                             <td class="text-center">
@@ -423,5 +423,23 @@ $(function(){
     });
 
     /*---------------------------------Vacaciones-----------------------------*/
+
+    /*-----------------------------------Buscar------------------------------*/
+    $(document).on('click', '#xFuncionario', function(){
+        alert('Buscar por funcionario');
+    });
+
+    $(document).on('click', '#xFechaReg', function(){
+        alert('Buscar por fecha de registro');
+    });
+
+    $(document).on('click', '#xFechaI', function(){
+        alert('Buscar por fecha de ingreso');
+    });
+
+    $(document).on('click', '#xFechaF', function(){
+        alert('Buscar por fecha de fin');
+    });
+    /*-----------------------------------Buscar------------------------------*/
 
 }); //Fin de la function ready
