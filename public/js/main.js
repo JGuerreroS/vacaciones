@@ -38,8 +38,6 @@ $(function(){
 
     // cargar tabla de usuarios
     listaUsuarios();
-    // cargar tabla de vacaciones
-    listaVacaciones();
 
     $('#regUser').attr("disabled", true);
 
@@ -279,39 +277,39 @@ $(function(){
     /*---------------------------------Vacaciones-----------------------------*/
 
     // Mostrar lista de vacaciones
-    function listaVacaciones(){
+    // function listaVacaciones(){
         
-        $.ajax({
-            url: "controllers/listVacaciones.php",
-            type: "GET",
-            success: function (res){
-                let listVac = JSON.parse(res);
-                let template = '';
-                listVac.forEach(vac => {
-                    template += `
-                        <tr idVac="${vac.id_vacaciones}">
-                            <td class="text-center">${vac.nro}</td>
-                            <td class="text-center">${vac.cedula}</td>
-                            <td>${vac.nombres}</td>
-                            <td>${vac.periodo1}</td>
-                            <td>${vac.periodo2}</td>
-                            <td class="text-center">
-                                <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
-                                    <i class="icon-zoom-in"></i>
-                                </span>
+    //     $.ajax({
+    //         url: "controllers/listVacaciones.php",
+    //         type: "GET",
+    //         success: function (res){
+    //             let listVac = JSON.parse(res);
+    //             let template = '';
+    //             listVac.forEach(vac => {
+    //                 template += `
+    //                     <tr idVac="${vac.id_vacaciones}">
+    //                         <td class="text-center">${vac.nro}</td>
+    //                         <td class="text-center">${vac.cedula}</td>
+    //                         <td>${vac.nombres}</td>
+    //                         <td>${vac.periodo1}</td>
+    //                         <td>${vac.periodo2}</td>
+    //                         <td class="text-center">
+    //                             <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
+    //                                 <i class="icon-zoom-in"></i>
+    //                             </span>
 
-                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
-                                    <i class="icon-bin"></i>
-                                </span>
-                            </td>
-                        </tr>
-                    `
-                });
-                $("#listVacaciones").html(template);
-            }
-        });
+    //                             <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+    //                                 <i class="icon-bin"></i>
+    //                             </span>
+    //                         </td>
+    //                     </tr>
+    //                 `
+    //             });
+    //             $("#listVacaciones").html(template);
+    //         }
+    //     });
 
-    }
+    // }
 
     // Zoom Vacaciones
     $(document).on('click', '#zoomVacacion', function (){
@@ -330,11 +328,12 @@ $(function(){
             $("#vF-in").html('Fecha de ingreso: ' + vac.fecha_ingreso);
             $("#vF-i").html('Fecha inicio: ' + vac.fecha_desde);
             $("#vF-f").html('Fecha final: ' + vac.fecha_hasta);
-            $("#vPeriodo").html('Periodo: ' + vac.periodo1 + '-' + vac.periodo2);
+            $("#vPeriodo").html('Periodo: ' + vac.periodo);
             $("#vDias").html('Días: ' + vac.dias);
             $("#vDependencia").html('Dependencia: ' + vac.dependencia);
             $("#vCoordinacion").html('Coordinación: ' + vac.coordinacion);
             $("#vFR").html('Fecha de registro: ' + vac.fecha_registro);
+            $("#nroVacaciones").html('Vacaciones N°: ' + vac.id_vacaciones);
                 
         });
         
@@ -425,20 +424,56 @@ $(function(){
     /*---------------------------------Vacaciones-----------------------------*/
 
     /*-----------------------------------Buscar------------------------------*/
+    $("#bXcedula,#buscarXciv,#bXfechaR,#buscarXfReg,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
+
     $(document).on('click', '#xFuncionario', function(){
-        alert('Buscar por funcionario');
-    });
+        $("#bXcedula,#buscarXciv").show();
+        $("#bXfechaR,#buscarXfReg,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
+        // boton de buscar
+        $("#buscarXciv").click(function (){
+            civ = $("#bXcedula").val();
+            
+            $.ajax({
+                type: "post",
+                url: "controllers/listVacaciones.php",
+                data: {civ},
+                success: function (res){ console.log(res);
+                    let listVac = jQuery.parseJSON(res);
+                    let template = '';
+                    listVac.forEach(vac => {
+                        template += `
+                            <tr idVac="${vac.id_vacaciones}">
+                                <td class="text-center">${vac.nro}</td>
+                                <td class="text-center">${vac.cedula}</td>
+                                <td>${vac.nombres}</td>
+                                <td class="text-center">${vac.periodo}</td>
+                                <td>${vac.dependencia}</td>
+                                <td class="text-center">
+                                    <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
+                                        <i class="icon-zoom-in"></i>
+                                    </span>
 
+                                    <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+                                        <i class="icon-bin"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        `
+                    });
+                    $("#listVacaciones").html(template);
+                }
+            });
+        });
+    });
+    
     $(document).on('click', '#xFechaReg', function(){
-        alert('Buscar por fecha de registro');
+        $("#bXcedula,#buscarXciv,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
+        $("#bXfechaR,#buscarXfReg").show();
     });
 
-    $(document).on('click', '#xFechaI', function(){
-        alert('Buscar por fecha de ingreso');
-    });
-
-    $(document).on('click', '#xFechaF', function(){
-        alert('Buscar por fecha de fin');
+    $(document).on('click', '#xFechas', function(){
+        $("#bXfechaI,#bXfechaF,#buscarXfechas").show();
+        $("#bXcedula,#buscarXciv,#bXfechaR,#buscarXfReg").hide();
     });
     /*-----------------------------------Buscar------------------------------*/
 

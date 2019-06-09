@@ -128,12 +128,12 @@
 
         include '../core/conexion.php';
 
-        $sql = "SELECT v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido, fecha_ingreso, periodo1, periodo2, fecha_desde, fecha_hasta, dias, dependencia, coordinacion, fecha_registro FROM reg_vacaciones v
+        $sql = "SELECT v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, fecha_ingreso, periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, dependencia, coordinacion, fecha_registro, id_vacaciones FROM reg_vacaciones v
         INNER JOIN personal p ON (v.cedula = p.cedula)
         INNER JOIN trabajador t ON (v.cedula = t.cedula)
-        INNER JOIN dependencia d ON (v.id_dependencia = d.id_dependencia)
+        INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
         LEFT JOIN coordinaciones c ON (v.id_coordinacion = c.id_coordinacion)
-        WHERE id = $id_vacacion";
+        WHERE id_vacaciones = $id_vacacion";
 
         $result = pg_query($conn, $sql);
 
@@ -148,15 +148,15 @@
             $datos[] = array(
                 'cedula' => $row[0],
                 'nombres' => $row[1],
-                'fecha_ingreso' => $row[2],
-                'periodo1' => $row[3],
-                'periodo2' => $row[4],
-                'fecha_desde' => $row[5],
-                'fecha_hasta' => $row[6],
-                'dias' => $row[7],
-                'dependencia' => $row[8],
-                'coordinacion' => $row[9],
-                'fecha_registro' => $row[10]
+                'fecha_ingreso' => str_replace('-', '/', date('d-m-Y', strtotime($row[2]))),
+                'periodo' => $row[3],
+                'fecha_desde' => str_replace('-', '/', date('d-m-Y', strtotime($row[4]))),
+                'fecha_hasta' => str_replace('-', '/', date('d-m-Y', strtotime($row[5]))),
+                'dias' => $row[6],
+                'dependencia' => $row[7],
+                'coordinacion' => $row[8],
+                'fecha_registro' => str_replace('-', '/', date('d-m-Y', strtotime($row[9]))),
+                'id_vacaciones' => $row[10]
             );
 
         }
@@ -441,14 +441,15 @@
     }
 
     // mostrar lista de vacaciones
-    function verVacaciones(){
+    function verVacaciones($cedula){
 
         include '../core/conexion.php';
 
-        $sql = "SELECT id_vacaciones, v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, periodo1, periodo2 FROM
+        $sql = "SELECT id_vacaciones, v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, periodo1||'-'||periodo2 AS periodo, dependencia FROM
         reg_vacaciones v
         INNER JOIN personal p ON (v.cedula = p.cedula)
-        ORDER BY id_vacaciones DESC LIMIT 5";
+        INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
+        WHERE v.cedula = $cedula";
 
         $result = pg_query($conn, $sql);
 
@@ -467,8 +468,8 @@
                 'id_vacaciones' => $row['id_vacaciones'],
                 'cedula' => $row['cedula'],
                 'nombres' => $row['nombres'],
-                'periodo1' => $row['periodo1'],
-                'periodo2' => $row['periodo2']
+                'periodo' => $row['periodo'],
+                'dependencia' => $row['dependencia']
             );
 
         }

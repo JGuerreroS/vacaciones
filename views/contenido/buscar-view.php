@@ -18,23 +18,33 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <a class="dropdown-item" id="xFuncionario" href="#">Por funcionario</a>
                     <a class="dropdown-item" id="xFechaReg" href="#">Por fecha de registro</a>
-                    <a class="dropdown-item" id="xFechaI" href="#">Por fecha de inicio</a>
-                    <a class="dropdown-item" id="xFechaF" href="#">Por fecha final</a>
+                    <a class="dropdown-item" id="xFechas" href="#">Por fecha de inicio-fin</a>
                 </div>
             </div>
         </div>
 
+        <!-- Buscar por número de cédula -->
+        <input type="text" name="bXcedula" id="bXcedula" placeholder="N° de cédula">
+        <button class="btn btn-info" id="buscarXciv">Buscar</button>
+        <!-- Buscar por fecha de registro -->
+        <input type="date" name="bXfechaR" id="bXfechaR">
+        <button class="btn btn-info" id="buscarXfReg">Buscar</button>
+        <!-- Buscar entre fechas -->
+        <input type="date" name="bXfechaI" id="bXfechaI">
+        <input type="date" name="bXfechaF" id="bXfechaF">
+        <button class="btn btn-info" id="buscarXfechas">Buscar</button>
+
         <hr>
 
-        <table class="table table-striped table-bordered" id="myTabla">
+        <table class="table table-sm table-bordered">
 
             <thead>
                 <tr>
                     <th class="text-center">N°</th>
                     <th class="text-center">Cédula</th>
                     <th class="text-center">Nombres y Apellidos</th>
-                    <th class="text-center">Periodo1</th>
-                    <th class="text-center">Periodo2</th>
+                    <th class="text-center">Periodo</th>
+                    <th class="text-center">Dependencia</th>
                     <th class="text-center">Opciones</th>
                 </tr>
             </thead>
@@ -43,7 +53,7 @@
 
         </table>
 
-        <?php include 'extra/regUserModal.php'; //Cargar Modal ?>
+        <?php include 'extra/regVacModal.php'; //Cargar Modal ?>
 
         <!-- Hasta aqui el contenido -->
     </div>
