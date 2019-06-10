@@ -88,6 +88,32 @@
     
     }
 
+    // Borrar vacaciones
+    function borrarVacaciones($id_vacaciones){
+
+        include '../core/conexion.php';
+
+        $sql = "DELETE FROM reg_vacaciones WHERE id_vacaciones = $id_vacaciones";
+
+        $result = pg_query($conn, $sql);
+
+        if (!$result){
+
+            die ('Error en la consulta');
+
+            return 1;
+
+        } else {
+
+            pg_free_result($result);
+            pg_close($conn);
+
+            return 2;
+
+        }
+    
+    }
+
     // ver más del usuario
     function zoomUsuario($usuario){
 

@@ -3,27 +3,27 @@ $(function(){
     // DataTables
     $('#myTabla').DataTable({
         language: {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
             "sLoadingRecords": "Cargando...",
             "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
+            "sFirst":    "Primero",
+            "sLast":     "Último",
+            "sNext":     "Siguiente",
+            "sPrevious": "Anterior"
+                },
             "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
         }
     });
@@ -69,40 +69,6 @@ $(function(){
 
     });
 
-    // Mostrar lista de usuarios
-    function listaDependencias(){
-        
-        $.ajax({
-            url: "controllers/listDependencias.php",
-            type: "GET",
-            success: function (res) {
-                let listDepend = JSON.parse(res);
-                let template = '';
-                listDepend.forEach(dependencia => {
-                    template += `
-                        <tr idDep="${dependencia.id_dependencia}">
-                            <td class="text-center">${dependencia.nro}</td>
-                            <td>${dependencia.dependencia}</td>
-
-                            <td class="text-center">
-                                <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario">
-                                    <i class="icon-zoom-in"></i>
-                                </span>
-
-                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
-                                    <i class="icon-bin"></i>
-                                </span>
-                            </td>
-                        </tr>
-                    `
-                });
-
-                $("#listDependencias").html(template);
-
-            }
-        });
-
-    }
 
     // Mostrar lista de usuarios
     function listaUsuarios(){
@@ -313,6 +279,36 @@ $(function(){
 
     /*---------------------------------Vacaciones-----------------------------*/
 
+    // Borrar vacaciones
+    $(document).on('click', '#deleteVac', function (){
+
+        let elemet = $(this)[0].parentElement.parentElement;
+        let id = $(elemet).attr('idVac');
+        civ = $("#bXcedula").val();
+
+        
+
+        alertify.confirm('Eliminar registro', '¿Estas seguro de querer eliminar este registro?', function(){
+
+            $.post("controllers/deleteVacaciones.php", { id }, function (res){ alert(res);
+
+                if(res == 1){
+
+                    alertify.error('No se pudo eliminar el registro');
+
+                }else{
+
+                    alertify.success('Registro eliminado corectamente!');
+                    mostrarVacacionesBuscar(civ);
+
+                }
+
+            });
+
+        }, function() {});
+
+    });
+
     // Zoom Vacaciones
     $(document).on('click', '#zoomVacacion', function (){
 
@@ -436,44 +432,54 @@ $(function(){
     $("#bXcedula,#buscarXciv,#bXfechaR,#buscarXfReg,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
 
     $(document).on('click', '#xFuncionario', function(){
+
         $("#bXcedula,#buscarXciv").show();
         $("#bXfechaR,#buscarXfReg,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
+
         // boton de buscar
         $("#buscarXciv").click(function (){
-            civ = $("#bXcedula").val();
-            
-            $.ajax({
-                type: "post",
-                url: "controllers/listVacaciones.php",
-                data: {civ},
-                success: function (res){ console.log(res);
-                    let listVac = jQuery.parseJSON(res);
-                    let template = '';
-                    listVac.forEach(vac => {
-                        template += `
-                            <tr idVac="${vac.id_vacaciones}">
-                                <td class="text-center">${vac.nro}</td>
-                                <td class="text-center">${vac.cedula}</td>
-                                <td>${vac.nombres}</td>
-                                <td class="text-center">${vac.periodo}</td>
-                                <td>${vac.dependencia}</td>
-                                <td class="text-center">
-                                    <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
-                                        <i class="icon-zoom-in"></i>
-                                    </span>
 
-                                    <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
-                                        <i class="icon-bin"></i>
-                                    </span>
-                                </td>
-                            </tr>
-                        `
-                    });
-                    $("#listVacaciones").html(template);
-                }
-            });
+            civ = $("#bXcedula").val();
+
+            mostrarVacacionesBuscar(civ);
+            
         });
     });
+
+    function mostrarVacacionesBuscar(civ){
+
+        $.ajax({
+            type: "post",
+            url: "controllers/listVacaciones.php",
+            data: {civ},
+            success: function (res){ console.log(res);
+                let listVac = jQuery.parseJSON(res);
+                let template = '';
+                listVac.forEach(vac => {
+                    template += `
+                        <tr idVac="${vac.id_vacaciones}">
+                            <td class="text-center">${vac.nro}</td>
+                            <td class="text-center">${vac.cedula}</td>
+                            <td>${vac.nombres}</td>
+                            <td class="text-center">${vac.periodo}</td>
+                            <td>${vac.dependencia}</td>
+                            <td class="text-center">
+                                <span class="btn btn-warning btn-sm" id="zoomVacacion" title="Ver más" data-toggle="modal" data-target="#modalZoomVacacion">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+
+                                <span class="btn btn-danger btn-sm" id="deleteVac" title="Eliminar registro">
+                                    <i class="icon-bin"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    `
+                });
+                $("#listVacaciones").html(template);
+            }
+        });
+
+    }
     
     $(document).on('click', '#xFechaReg', function(){
         $("#bXcedula,#buscarXciv,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
@@ -485,5 +491,42 @@ $(function(){
         $("#bXcedula,#buscarXciv,#bXfechaR,#buscarXfReg").hide();
     });
     /*-----------------------------------Buscar------------------------------*/
+
+    /*-----------------------------------Dependencias------------------------------*/
+    // Mostrar lista de dependencias
+    function listaDependencias(){
+        
+        $.ajax({
+            url: "controllers/listDependencias.php",
+            type: "GET",
+            success: function (res) {
+                let listDepend = JSON.parse(res);
+                let template = '';
+                listDepend.forEach(dependencia => {
+                    template += `
+                        <tr idDep="${dependencia.id_dependencia}">
+                            <td class="text-center">${dependencia.nro}</td>
+                            <td>${dependencia.dependencia}</td>
+
+                            <td class="text-center">
+                                <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+
+                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+                                    <i class="icon-bin"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    `
+                });
+
+                $("#listDependencias").html(template);
+
+            }
+        });
+
+    }
+    /*-----------------------------------Dependencias------------------------------*/
 
 }); //Fin de la function ready

@@ -29,7 +29,7 @@
 
         </table>
 
-        <?php include 'extra/regUserModal.php'; //Cargar Modal ?>
+        <?php include 'extra/regDependenciaModal.php'; //Cargar Modal ?>
 
         <!-- Hasta aqui el contenido -->
     </div>
