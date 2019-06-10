@@ -1,32 +1,32 @@
 $(function(){
 
     // DataTables
-    $('#myTabla').DataTable({
-        language: {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-            "sFirst":    "Primero",
-            "sLast":     "Último",
-            "sNext":     "Siguiente",
-            "sPrevious": "Anterior"
-                },
-            "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        }
-    });
+    // $('#myTabla').DataTable({
+    //     language: {
+    //         "sProcessing":     "Procesando...",
+    //         "sLengthMenu":     "Mostrar _MENU_ registros",
+    //         "sZeroRecords":    "No se encontraron resultados",
+    //         "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    //         "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    //         "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    //         "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    //         "sInfoPostFix":    "",
+    //         "sSearch":         "Buscar:",
+    //         "sUrl":            "",
+    //         "sInfoThousands":  ",",
+    //         "sLoadingRecords": "Cargando...",
+    //         "oPaginate": {
+    //         "sFirst":    "Primero",
+    //         "sLast":     "Último",
+    //         "sNext":     "Siguiente",
+    //         "sPrevious": "Anterior"
+    //             },
+    //         "oAria": {
+    //         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+    //         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    //         }
+    //     }
+    // });
     
     // cargar grafica de experticias
     $("#graficaExperticias").load('views/contenido/extra/graficaExperticias.php');
@@ -45,7 +45,6 @@ $(function(){
 
     // Ocultar tabla de historico de vacaciones en registrar
     $("#historico").hide();
-    
 
     /*---------------------------------Usuarios-----------------------------*/
 
@@ -361,6 +360,7 @@ $(function(){
     });
 
     function mostrarVacacionesRegistro(civ){
+
         $.ajax({
             url: "controllers/listarVacaciones.php",
             type: "GET",
@@ -388,6 +388,7 @@ $(function(){
                 $("#vacacionesDisfrutadas").html(template);
             }
         });
+
     }
 
     // Select de coordinaciones, dependiente de dependencias
@@ -431,6 +432,7 @@ $(function(){
     /*-----------------------------------Buscar------------------------------*/
     $("#bXcedula,#buscarXciv,#bXfechaR,#buscarXfReg,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
 
+    // Buscar por funcionario
     $(document).on('click', '#xFuncionario', function(){
 
         $("#bXcedula,#buscarXciv").show();
@@ -481,9 +483,23 @@ $(function(){
 
     }
     
+    // Buscar por fecha de registro
     $(document).on('click', '#xFechaReg', function(){
+
         $("#bXcedula,#buscarXciv,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
         $("#bXfechaR,#buscarXfReg").show();
+
+        // boton de buscar
+        $("#buscarXfReg").click(function (){
+
+            fechaR = $("#bXfechaR").val();
+
+            alert(fechaR);
+
+            // mostrarVacacionesBuscar(fechaR);
+            
+        });
+
     });
 
     $(document).on('click', '#xFechas', function(){
