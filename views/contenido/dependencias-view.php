@@ -1,7 +1,7 @@
     <?php if($_SESSION['nivel'] == 1){ ?>
 
     <div class="card-header">
-        <b>Usuarios</b>
+        <b>Dependencias</b>
     </div>
 
     <div class="card-body">
@@ -10,7 +10,7 @@
 
         <!-- Button del modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRegUser">
-            <span class="icon-user-plus"></span> Registrar usuario
+            <span class="icon-flag"></span> Registrar dependencia
         </button>
 
         <hr>
@@ -20,15 +20,12 @@
             <thead>
                 <tr>
                     <th class="text-center">N°</th>
-                    <th class="text-center">Cédula</th>
-                    <th class="text-center">Nombres y Apellidos</th>
-                    <th class="text-center">Rol</th>
-                    <th class="text-center">Estatus</th>
+                    <th class="text-center">Dependencia</th>
                     <th class="text-center">Opciones</th>
                 </tr>
             </thead>
 
-            <tbody id="listUsers"></tbody>
+            <tbody id="listDependencias"></tbody>
 
         </table>
 

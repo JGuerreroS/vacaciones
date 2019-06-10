@@ -38,6 +38,8 @@ $(function(){
 
     // cargar tabla de usuarios
     listaUsuarios();
+    // cargar tabla de dependencias
+    listaDependencias();
 
     $('#regUser').attr("disabled", true);
 
@@ -66,6 +68,41 @@ $(function(){
         });
 
     });
+
+    // Mostrar lista de usuarios
+    function listaDependencias(){
+        
+        $.ajax({
+            url: "controllers/listDependencias.php",
+            type: "GET",
+            success: function (res) {
+                let listDepend = JSON.parse(res);
+                let template = '';
+                listDepend.forEach(dependencia => {
+                    template += `
+                        <tr idDep="${dependencia.id_dependencia}">
+                            <td class="text-center">${dependencia.nro}</td>
+                            <td>${dependencia.dependencia}</td>
+
+                            <td class="text-center">
+                                <span class="btn btn-warning btn-sm" id="zoomUsuario" title="Ver más" data-toggle="modal" data-target="#modalZoomUsuario">
+                                    <i class="icon-zoom-in"></i>
+                                </span>
+
+                                <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
+                                    <i class="icon-bin"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    `
+                });
+
+                $("#listDependencias").html(template);
+
+            }
+        });
+
+    }
 
     // Mostrar lista de usuarios
     function listaUsuarios(){
@@ -276,41 +313,6 @@ $(function(){
 
     /*---------------------------------Vacaciones-----------------------------*/
 
-    // Mostrar lista de vacaciones
-    // function listaVacaciones(){
-        
-    //     $.ajax({
-    //         url: "controllers/listVacaciones.php",
-    //         type: "GET",
-    //         success: function (res){
-    //             let listVac = JSON.parse(res);
-    //             let template = '';
-    //             listVac.forEach(vac => {
-    //                 template += `
-    //                     <tr idVac="${vac.id_vacaciones}">
-    //                         <td class="text-center">${vac.nro}</td>
-    //                         <td class="text-center">${vac.cedula}</td>
-    //                         <td>${vac.nombres}</td>
-    //                         <td>${vac.periodo1}</td>
-    //                         <td>${vac.periodo2}</td>
-    //                         <td class="text-center">
-    //                             <span class="btn btn-warning btn-sm" id="zoomVacacion" title="${vac.id_vacaciones}" data-toggle="modal" data-target="#modalZoomVacacion">
-    //                                 <i class="icon-zoom-in"></i>
-    //                             </span>
-
-    //                             <span class="btn btn-danger btn-sm" id="deleteUser" title="Eliminar usuario">
-    //                                 <i class="icon-bin"></i>
-    //                             </span>
-    //                         </td>
-    //                     </tr>
-    //                 `
-    //             });
-    //             $("#listVacaciones").html(template);
-    //         }
-    //     });
-
-    // }
-
     // Zoom Vacaciones
     $(document).on('click', '#zoomVacacion', function (){
 
@@ -351,12 +353,18 @@ $(function(){
             $("#jquia").val(datos[1]);
             $("#estatus").val(datos[3]);
             $("#fIngreso").val(datos[4]);
-            
 
         });
 
         $("#historico").show();
 
+        mostrarVacacionesRegistro(civ);
+
+        return false;
+
+    });
+
+    function mostrarVacacionesRegistro(civ){
         $.ajax({
             url: "controllers/listarVacaciones.php",
             type: "GET",
@@ -384,10 +392,7 @@ $(function(){
                 $("#vacacionesDisfrutadas").html(template);
             }
         });
-
-        return false;
-
-    });
+    }
 
     // Select de coordinaciones, dependiente de dependencias
     $("#sDependencia").change(function(){
@@ -408,12 +413,16 @@ $(function(){
 
         datos = $("#frmRegVac").serialize();
 
+        ced = $("#cedula").val();
+
         $.ajax({
             type: "post",
             url: "controllers/registroVacaciones.php",
             data: datos,
             success: function (response) {
-                console.log(response);
+                alertify.success("Registrada con éxito!");
+                $("#frmRegVac")[0].reset();
+                mostrarVacacionesRegistro(ced);
             }
         });
 

@@ -168,6 +168,40 @@
     
     }
 
+    // mostrar lista dependencias
+    function verDependencias(){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT id_dependencia, dependencia FROM dependencias ORDER BY dependencia";
+
+        $result = pg_query($conn, $sql);
+
+        if(!$result){
+            die('Fallo en la consulta');
+        }
+
+        $datos = array();
+
+        $nro = 0;
+
+        while ($row = pg_fetch_array($result)){ $nro++;
+            
+            $datos[] = array(
+                'nro' => $nro,
+                'id_dependencia' => $row['id_dependencia'],
+                'dependencia' => $row['dependencia']
+            );
+
+        }
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return json_encode($datos);
+
+    }
+
     // mostrar lista de usuarios
     function verUsuarios(){
 
@@ -401,7 +435,7 @@
         include '../core/conexion.php';
 
         $sql = "SELECT periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, dependencia, id_an_suspension FROM reg_vacaciones v
-        INNER JOIN dependencia d ON (v.id_dependencia = d.id_dependencia)
+        INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
         WHERE cedula = $cedula";
 
         $result = pg_query($conn, $sql);
@@ -425,8 +459,8 @@
             $datos[] = array(
                 'nro' => $nro,
                 'periodo' => $row[0],
-                'desde' => $row[1],
-                'hasta' => $row[2],
+                'desde' => str_replace('-', '/', date('d-m-Y', strtotime($row[1]))),
+                'hasta' => str_replace('-', '/', date('d-m-Y', strtotime($row[2]))),
                 'dias' => $row[3],
                 'estatus' => $estatus
             );
@@ -510,7 +544,7 @@
 
         include 'core/conexion.php';
 
-        $sql = "SELECT id_dependencia, dependencia FROM dependencia ORDER BY dependencia";
+        $sql = "SELECT id_dependencia, dependencia FROM dependencias ORDER BY dependencia";
 
         $result = pg_query($conn, $sql);
 

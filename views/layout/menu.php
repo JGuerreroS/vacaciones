@@ -50,6 +50,8 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                         <a class="dropdown-item" href="usuarios"> <span class="icon-contacts2"></span> Usuarios </a>
+
+                        <a class="dropdown-item" href="dependencias"> <span class="icon-flag"></span> Dependencias </a>
                        
                     </div>
 
