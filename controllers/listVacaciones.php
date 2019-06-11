@@ -1,7 +1,8 @@
 <?php
 
-    $cedula = $_POST['civ'];
+    $parametro = $_POST['parametro'];
+    $tipo = $_POST['tipo'];
 
     include '../models/clase.php';
 
-    echo verVacaciones($cedula);
+    echo verVacaciones($parametro,$tipo); 

@@ -289,7 +289,7 @@ $(function(){
 
         alertify.confirm('Eliminar registro', '¿Estas seguro de querer eliminar este registro?', function(){
 
-            $.post("controllers/deleteVacaciones.php", { id }, function (res){ alert(res);
+            $.post("controllers/deleteVacaciones.php", { id }, function (res){
 
                 if(res == 1){
 
@@ -297,8 +297,11 @@ $(function(){
 
                 }else{
 
+                    parametro = civ;
+                    tipo = 'cedula';
+
                     alertify.success('Registro eliminado corectamente!');
-                    mostrarVacacionesBuscar(civ);
+                    mostrarVacacionesBuscar(parametro,tipo);
 
                 }
 
@@ -441,20 +444,40 @@ $(function(){
         // boton de buscar
         $("#buscarXciv").click(function (){
 
-            civ = $("#bXcedula").val();
+            parametro = $("#bXcedula").val();
+            tipo = 'cedula';
 
-            mostrarVacacionesBuscar(civ);
+            mostrarVacacionesBuscar(parametro,tipo);
             
         });
     });
 
-    function mostrarVacacionesBuscar(civ){
+    // Buscar por fecha de registro
+    $(document).on('click', '#xFechaReg', function(){
+
+        $("#bXcedula,#buscarXciv,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
+        $("#bXfechaR,#buscarXfReg").show();
+
+        // boton de buscar
+        $("#buscarXfReg").click(function (){
+
+            parametro = $("#bXfechaR").val();
+            tipo = 'fecha_registro';
+
+            mostrarVacacionesBuscar(parametro,tipo);
+            
+        });
+
+    });
+
+    // Función que muestra en pantalla el listado de vacaciones de acuerdo a la cédula del funcionario o fecha de registro
+    function mostrarVacacionesBuscar(parametro,tipo){
 
         $.ajax({
             type: "post",
             url: "controllers/listVacaciones.php",
-            data: {civ},
-            success: function (res){ console.log(res);
+            data: { parametro, tipo },
+            success: function (res){
                 let listVac = jQuery.parseJSON(res);
                 let template = '';
                 listVac.forEach(vac => {
@@ -482,30 +505,6 @@ $(function(){
         });
 
     }
-    
-    // Buscar por fecha de registro
-    $(document).on('click', '#xFechaReg', function(){
-
-        $("#bXcedula,#buscarXciv,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
-        $("#bXfechaR,#buscarXfReg").show();
-
-        // boton de buscar
-        $("#buscarXfReg").click(function (){
-
-            fechaR = $("#bXfechaR").val();
-
-            alert(fechaR);
-
-            // mostrarVacacionesBuscar(fechaR);
-            
-        });
-
-    });
-
-    $(document).on('click', '#xFechas', function(){
-        $("#bXfechaI,#bXfechaF,#buscarXfechas").show();
-        $("#bXcedula,#buscarXciv,#bXfechaR,#buscarXfReg").hide();
-    });
     /*-----------------------------------Buscar------------------------------*/
 
     /*-----------------------------------Dependencias------------------------------*/

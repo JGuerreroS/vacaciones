@@ -455,7 +455,7 @@
 
     }
 
-    // mostrar lista de vacaciones
+    // mostrar lista de vacaciones en el módulo registro
     function mostrarVacaciones($cedula){
 
         include '../core/conexion.php';
@@ -500,44 +500,92 @@
 
     }
 
-    // mostrar lista de vacaciones
-    function verVacaciones($cedula){
+    // mostrar lista de vacaciones en el módulo buscar
+    function verVacaciones($parametro,$tipo){
 
-        include '../core/conexion.php';
+        switch ($tipo){
 
-        $sql = "SELECT id_vacaciones, v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, periodo1||'-'||periodo2 AS periodo, dependencia FROM
-        reg_vacaciones v
-        INNER JOIN personal p ON (v.cedula = p.cedula)
-        INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
-        WHERE v.cedula = $cedula";
+            case 'cedula':
 
-        $result = pg_query($conn, $sql);
+                include '../core/conexion.php';
 
-        if(!$result){
-            die('Fallo en la consulta');
-        }
+                $sql = "SELECT id_vacaciones, v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, periodo1||'-'||periodo2 AS periodo, dependencia FROM
+                reg_vacaciones v
+                INNER JOIN personal p ON (v.cedula = p.cedula)
+                INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
+                WHERE v.cedula = $parametro";
 
-        $datos = array();
+                $result = pg_query($conn, $sql);
 
-        $nro = 0;
+                if(!$result){
+                    die('Fallo en la consulta');
+                }
 
-        while ($row = pg_fetch_array($result)){ $nro++;
+                $datos = array();
+
+                $nro = 0;
+
+                while ($row = pg_fetch_array($result)){ $nro++;
+                    
+                    $datos[] = array(
+                        'nro' => $nro,
+                        'id_vacaciones' => $row['id_vacaciones'],
+                        'cedula' => $row['cedula'],
+                        'nombres' => $row['nombres'],
+                        'periodo' => $row['periodo'],
+                        'dependencia' => $row['dependencia']
+                    );
+
+                }
+
+                pg_free_result($result);
+                pg_close($conn);
+
+                return json_encode($datos);
+
+            break;
+
+            case 'fecha_registro':
+
+                include '../core/conexion.php';
+
+                $sql = "SELECT id_vacaciones, v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, periodo1||'-'||periodo2 AS periodo, dependencia FROM
+                reg_vacaciones v
+                INNER JOIN personal p ON (v.cedula = p.cedula)
+                INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
+                WHERE fecha_registro = '$parametro'";
+
+                $result = pg_query($conn, $sql);
+
+                if(!$result){
+                    die('Fallo en la consulta');
+                }
+
+                $datos = array();
+
+                $nro = 0;
+
+                while ($row = pg_fetch_array($result)){ $nro++;
+                    
+                    $datos[] = array(
+                        'nro' => $nro,
+                        'id_vacaciones' => $row['id_vacaciones'],
+                        'cedula' => $row['cedula'],
+                        'nombres' => $row['nombres'],
+                        'periodo' => $row['periodo'],
+                        'dependencia' => $row['dependencia']
+                    );
+
+                }
+
+                pg_free_result($result);
+                pg_close($conn);
+
+                return json_encode($datos);
+
+            break;
             
-            $datos[] = array(
-                'nro' => $nro,
-                'id_vacaciones' => $row['id_vacaciones'],
-                'cedula' => $row['cedula'],
-                'nombres' => $row['nombres'],
-                'periodo' => $row['periodo'],
-                'dependencia' => $row['dependencia']
-            );
-
         }
-
-        pg_free_result($result);
-        pg_close($conn);
-
-        return json_encode($datos);
 
     }
 

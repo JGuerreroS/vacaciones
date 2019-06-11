@@ -29,10 +29,6 @@
         <!-- Buscar por fecha de registro -->
         <input type="date" name="bXfechaR" id="bXfechaR">
         <button class="btn btn-info" id="buscarXfReg">Buscar</button>
-        <!-- Buscar entre fechas -->
-        <input type="date" name="bXfechaI" id="bXfechaI">
-        <input type="date" name="bXfechaF" id="bXfechaF">
-        <button class="btn btn-info" id="buscarXfechas">Buscar</button>
 
         <hr>
 
