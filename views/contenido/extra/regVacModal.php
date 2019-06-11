@@ -1,6 +1,5 @@
 <!-- Modal ver detalles de vacaciones -->
-<div class="modal fade" id="modalZoomVacacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalZoomVacacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,15 +21,15 @@
                 <p id="vJquia"></p>
 
                 <p id="vPeriodo"></p>
-                
+
                 <p id="vF-i"></p>
 
                 <p id="vF-f"></p>
-                
+
                 <p id="vDias"></p>
-                
+
                 <p id="vDependencia"></p>
-                
+
                 <p id="vCoordinacion"></p>
 
                 <p id="vObservacion"></p>
@@ -47,3 +46,4 @@
             </div>
         </div>
     </div>
+</div>

@@ -460,9 +460,7 @@
 
         include '../core/conexion.php';
 
-        $sql = "SELECT periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, dependencia, id_an_suspension FROM reg_vacaciones v
-        INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
-        WHERE cedula = $cedula";
+        $sql = "SELECT id_vacaciones, periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, id_an_suspension FROM reg_vacaciones WHERE cedula = $cedula";
 
         $result = pg_query($conn, $sql);
 
@@ -484,10 +482,11 @@
             
             $datos[] = array(
                 'nro' => $nro,
-                'periodo' => $row[0],
-                'desde' => str_replace('-', '/', date('d-m-Y', strtotime($row[1]))),
-                'hasta' => str_replace('-', '/', date('d-m-Y', strtotime($row[2]))),
-                'dias' => $row[3],
+                'id_vacaciones' => $row[0],
+                'periodo' => $row[1],
+                'desde' => str_replace('-', '/', date('d-m-Y', strtotime($row[2]))),
+                'hasta' => str_replace('-', '/', date('d-m-Y', strtotime($row[3]))),
+                'dias' => $row[4],
                 'estatus' => $estatus
             );
 

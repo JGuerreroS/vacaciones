@@ -373,7 +373,7 @@ $(function(){
                 let template = '';
                 listVac.forEach(vac => {
                     template += `
-                        <tr>
+                        <tr idVac="${vac.id_vacaciones}">
                             <td class="text-center">${vac.nro}</td>
                             <td class="text-center">${vac.periodo}</td>
                             <td class="text-center">${vac.desde}</td>
@@ -381,7 +381,7 @@ $(function(){
                             <td class="text-center">${vac.dias}</td>
                             <td class="text-center">${vac.estatus}</td>
                             <td class="text-center">
-                                <span class="btn btn-info btn-sm" title="Ver más">
+                                <span class="btn btn-info btn-sm" title="Ver más" id="zoomVacacion" data-toggle="modal" data-target="#modalZoomVacacion">
                                     <i class="icon-zoom-in"></i>
                                 </span>
                             </td>
