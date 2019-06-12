@@ -1,12 +1,13 @@
 <?php
 
+$datos = $_GET['datos'];
+
 require('public/lib/fpdf/fpdf.php');
 
 class PDF extends FPDF
 {
     // Cabecera de página
-    function Header()
-    {
+    function Header(){
         $this->Image('public/img/logomijp.png',15,8,33);
         $this->Image('public/img/logocpnb.png',170,8,18);
         // Arial bold 15
@@ -24,8 +25,7 @@ class PDF extends FPDF
     }
 
     // Pie de página
-    function Footer()
-    {
+    function Footer(){
         // Posición:a 1,5 cm del final
         $this->SetY(-20);
         // Arial italic 8
@@ -47,7 +47,7 @@ include 'models/clase.php';
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(32, 10, 'PARA:', 0, 0, 'L', 0);
 $pdf->SetFont('Arial', 'I', 11);
-$pdf->Cell(50,10,'Nombres',0,1,'L',0);
+$pdf->Cell(50,10,$datos[0],0,1,'L',0);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(32, 10, 'ADCRITO:', 0, 0, 'L', 0);
 $pdf->SetFont('Arial', 'I', 11);
@@ -104,7 +104,7 @@ $pdf->Cell(190, 5, '3. Veinticinco días hábiles a partir del décimo primer a�
 $pdf->Ln();
 
 $pdf->SetX(15);
-$pdf->MultiCell(180, 5, 'El disfrute efectivo de las vacaciones no será acumulable. Las mismas deberán ser disfrutadas dentro del lapso de seis meses siguientes contados a partir del momento de adquirir este derecho. Excepcionalmente, el Director o Directora del Cuerpo de Policía Nacional, Estadal o Municipal, según el caso, podrá postergarse, mediante acto motivado o fundado en razones de servicios, el disfrute efectivo de las vacaciones hasta por un lapso de un año contado a partir del momento en que se adquirió este derecho."', 0, 'J');
+$pdf->MultiCell(175, 5, 'El disfrute efectivo de las vacaciones no será acumulable. Las mismas  deberán ser disfrutadas dentro del lapso de seis meses siguientes contados a partir del momento de adquirir este derecho. Excepcionalmente, el Director o Directora del Cuerpo de Policía Nacional, Estadal o Municipal, según el caso, podrá postergarse, mediante acto motivado o fundado en razones de servicios, el disfrute efectivo de las vacaciones hasta por un lapso de un año contado a partir del momento en que se adquirió este derecho."', 0, 'J');
 
 $pdf->Ln();
 
@@ -124,7 +124,7 @@ $pdf->Cell(190, 5, 'DIRECTORA DE LA OFICINA DE GESTIÓN HUMANA (E)', 0, 1, 'C');
 $pdf->Ln();
 $pdf->Ln();
 
-$pdf->Cell(190, 5, 'Nombre y Apellido:__________________________________C.I.V:________________Fecha:______________', 0, 1, 'J');
+$pdf->Cell(190, 5, 'Nombre y Apellido:__________________________________C.I.V:________________Fecha:_____________', 0, 1, 'J');
 $pdf->Cell(190, 5, 'Usuario', 0, 1, 'J');
 
 $pdf->Output();

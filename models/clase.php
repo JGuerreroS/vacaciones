@@ -455,12 +455,12 @@
 
     }
 
-    // mostrar lista de vacaciones en el módulo registro
+    // Mostrar lista de vacaciones en el módulo registro
     function mostrarVacaciones($cedula){
 
         include '../core/conexion.php';
 
-        $sql = "SELECT id_vacaciones, periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, id_an_suspension FROM reg_vacaciones WHERE cedula = $cedula";
+        $sql = "SELECT id_vacaciones, periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, id_an_suspension, cedula FROM reg_vacaciones WHERE cedula = $cedula";
 
         $result = pg_query($conn, $sql);
 
@@ -487,7 +487,8 @@
                 'desde' => str_replace('-', '/', date('d-m-Y', strtotime($row[2]))),
                 'hasta' => str_replace('-', '/', date('d-m-Y', strtotime($row[3]))),
                 'dias' => $row[4],
-                'estatus' => $estatus
+                'estatus' => $estatus,
+                'cedula' => $row[6]
             );
 
         }
@@ -496,6 +497,30 @@
         pg_close($conn);
 
         return json_encode($datos);
+
+    }
+
+    // Mostrar datos en el oficio de notificación de aprobación de vacaciones
+    function oficioVacaciones($id_vac){
+
+        include '../core/conexion.php';
+
+        $sql = "SELECT cargo||' '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
+        periodo1||'-'||periodo2 AS periodo, dias
+        FROM reg_vacaciones r
+        INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
+        INNER JOIN personal p ON (r.cedula = p.cedula)
+        INNER JOIN dependencias d ON (r.id_dependencia = d.id_dependencia)
+        WHERE id_vacaciones = $id_vac";
+
+        $result = pg_query($conn,$sql);
+        
+        $row = pg_fetch_array($result);
+
+        pg_free_result($result);
+        pg_close($conn);
+
+        return $row;
 
     }
 

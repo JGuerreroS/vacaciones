@@ -384,6 +384,16 @@ $(function(){
                                 <span class="btn btn-info btn-sm" title="Ver más" id="zoomVacacion" data-toggle="modal" data-target="#modalZoomVacacion">
                                     <i class="icon-zoom-in"></i>
                                 </span>
+
+                                <form action="controllers/oficio.php" method="post" target="_blank">
+                                    <input type="hidden" name="id_vac" value="${vac.id_vacaciones}">
+
+                                    <button type="submit" class="btn btn-secondary btn-sm">
+                                        <i class="icon-print"></i>
+                                    </button>
+                                   
+                                </form>
+
                             </td>
                         </tr>
                     `
