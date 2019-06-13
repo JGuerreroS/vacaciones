@@ -503,10 +503,10 @@
     // Mostrar datos en el oficio de notificación de aprobación de vacaciones
     function oficioVacaciones($id_vac){
 
-        include '../core/conexion.php';
+        include 'core/conexion.php';
 
-        $sql = "SELECT cargo||' '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
-        periodo1||'-'||periodo2 AS periodo, dias
+        $sql = "SELECT c.cargo||' '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
+        periodo1||'-'||periodo2 AS periodo, dias, (SELECT nombres||' '||apellidos AS director FROM director_rrhh WHERE estatus = 'A'), (SELECT cargo FROM director_rrhh WHERE estatus = 'A')
         FROM reg_vacaciones r
         INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
         INNER JOIN personal p ON (r.cedula = p.cedula)

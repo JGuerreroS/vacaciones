@@ -1,6 +1,6 @@
 <?php
 
-$datos = $_GET['datos'];
+$id_vac = $_POST['id_vac'];
 
 require('public/lib/fpdf/fpdf.php');
 
@@ -37,12 +37,15 @@ class PDF extends FPDF
     }
 }
 
+$fecha = date("d-m-Y");
+
 // Creación del objeto de la clase heredada
 $pdf = new PDF(); //'L','mm','A4'
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
 include 'models/clase.php';
+$datos = oficioVacaciones($id_vac);
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(32, 10, 'PARA:', 0, 0, 'L', 0);
@@ -51,15 +54,15 @@ $pdf->Cell(50,10,$datos[0],0,1,'L',0);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(32, 10, 'ADCRITO:', 0, 0, 'L', 0);
 $pdf->SetFont('Arial', 'I', 11);
-$pdf->Cell(80,10,'Dependencia',0,1,'L',0);
+$pdf->Cell(80,10,$datos[1],0,1,'L',0);
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(32, 10, 'ASUNTO', 0, 0, 'L', 0);
+$pdf->Cell(32, 10, 'ASUNTO:', 0, 0, 'L', 0);
 $pdf->SetFont('Arial', 'I', 11);
 $pdf->Cell(80,10,'NOTIFICACIÓN DE VACACIONES',0,1,'L',0);
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(32, 10, 'FECHA:', 0, 0, 'L', 0);
+$pdf->Cell(32, 10,'FECHA:', 0, 0, 'L', 0);
 $pdf->SetFont('Arial', 'I', 11);
-$pdf->Cell(80,10,'Fecha',0,1,'L',0);
+$pdf->Cell(80,10,$fecha,0,1,'L',0);
 $pdf->SetFont('Arial', 'I', 11);
 
 $pdf->Ln();
@@ -118,8 +121,8 @@ $pdf->Ln();
 $pdf->Ln();
 $pdf->Ln();
 
-$pdf->Cell(190, 5, 'MARLYN GONZÁLEZ GONZÁLEZ', 0, 1, 'C');
-$pdf->Cell(190, 5, 'DIRECTORA DE LA OFICINA DE GESTIÓN HUMANA (E)', 0, 1, 'C');
+$pdf->Cell(190, 5,$datos[4], 0, 1, 'C');
+$pdf->Cell(190, 5,$datos[5], 0, 1, 'C');
 
 $pdf->Ln();
 $pdf->Ln();

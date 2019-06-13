@@ -385,7 +385,7 @@ $(function(){
                                     <i class="icon-zoom-in"></i>
                                 </span>
 
-                                <form action="controllers/oficio.php" method="post" target="_blank">
+                                <form action="reporte" method="post" target="_blank">
                                     <input type="hidden" name="id_vac" value="${vac.id_vacaciones}">
 
                                     <button type="submit" class="btn btn-secondary btn-sm">
