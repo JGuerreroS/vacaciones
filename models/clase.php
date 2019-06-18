@@ -314,11 +314,13 @@
     }
 
     // Vacaciones
-    function graficaSolicitudes(){
+    function graficaRegistros(){
 
         include '../../../core/conexion.php';
 
-        $sql = "SELECT fecha_solicitud, COUNT(id) FROM d_solicitud WHERE estatus = 1 GROUP BY fecha_solicitud ORDER BY fecha_solicitud";
+        $sql = "SELECT date_part('year',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
+        WHERE date_part('year',fecha_registro) > 2010
+        GROUP BY fecha ORDER BY fecha";
 
         $res = pg_query($conn,$sql);
 
@@ -338,46 +340,6 @@
 
         return array($datosX, $datosY);
 
-    }
-
-    // Vacaciones
-    function graficaExperticias(){
-
-        include '../../../core/conexion.php';
-
-        $sql = "SELECT fecha_revision, COUNT(id) FROM d_experticias GROUP BY fecha_revision ORDER BY fecha_revision";
-
-        $res = pg_query($conn,$sql);
-
-        $valX = array(); // Fecha
-        $valY = array(); // ID
-
-        while($row = pg_fetch_array($res)){
-            $valX[] = $row[0]; //Fecha
-            $valY[] = $row[1]; // Id
-        }
-
-        pg_free_result($res);
-        pg_close($conn);
-
-        $datosX = json_encode($valX);
-        $datosY = json_encode($valY);
-
-        return array($datosX, $datosY);
-
-    }
-
-    // Vacaciones
-    function contarExpertos(){
-        
-        include 'core/conexion.php';
-        $sql = "SELECT id_funcionario FROM c_revisores";
-        $result = pg_query($conn,$sql);
-        $nro= pg_num_rows($result);
-        pg_free_result($result);
-        pg_close($conn);
-        return $nro;
-        
     }
 
     // Verificar usuario

@@ -33,7 +33,7 @@ $(function(){
     // cargar grafica de solicitudes
     $("#graficaSolicitudes").load('views/contenido/extra/graficaSolicitudesPendientes.php');
     // cargar grafica del inicio
-    // $("#cargarGrafica").load('views/contenido/extra/grafica.php');
+    $("#cargarGrafica").load('views/contenido/extra/grafica.php');
 
 
     // cargar tabla de usuarios
@@ -314,8 +314,8 @@ $(function(){
     // Zoom Vacaciones
     $(document).on('click', '#zoomVacacion', function (){
 
-        let elemet = $(this)[0].parentElement.parentElement;
-        let id = $(elemet).attr('idVac');
+        elemet = $(this)[0].parentElement.parentElement.parentElement.parentElement;
+        id = $(elemet).attr('idVac');
 
         $.post("controllers/zoomVacacion.php", { id }, function (res){
 
@@ -381,20 +381,31 @@ $(function(){
                             <td class="text-center">${vac.dias}</td>
                             <td class="text-center">${vac.estatus}</td>
                             <td class="text-center">
-                                <span class="btn btn-info btn-sm" title="Ver más" id="zoomVacacion" data-toggle="modal" data-target="#modalZoomVacacion">
-                                    <i class="icon-zoom-in"></i>
-                                </span>
+                                <form action="reporte" method="post" target="_blank" class="form-inline">
 
-                                <form action="reporte" method="post" target="_blank">
-                                    <input type="hidden" name="id_vac" value="${vac.id_vacaciones}">
+                                    <div class="form-group mb-2">
 
-                                    <button type="submit" class="btn btn-secondary btn-sm">
-                                        <i class="icon-print"></i>
-                                    </button>
+                                        <input type="hidden" name="id_vac" value="${vac.id_vacaciones}">
+
+                                        <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion" data-toggle="modal" data-target="#modalZoomVacacion">
+                                            <i class="icon-zoom-in"></i>
+                                        </span>`
+                                        
+                                        if(vac.estatus == "Disfrutadas"){
+                                            
+                                            `<button type="submit" class="btn btn-secondary btn-sm">
+                                                <i class="icon-print"></i>
+                                            </button></div>
                                    
-                                </form>
+                                            </form>
+            
+                                        </td>`
+                                            
+                                        }
+                    
+                                        `
 
-                            </td>
+                                    
                         </tr>
                     `
                 });

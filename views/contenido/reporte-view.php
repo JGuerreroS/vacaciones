@@ -77,13 +77,13 @@ $pdf->Cell(40, 10, 'DÍAS A DISFRUTAR', 1, 1, 'C');
 
 $pdf->SetX(65);
 $pdf->SetFont('Arial', 'I', 11);
-$pdf->Cell(40, 10, '2018-2019', 1, 0, 'C');
-$pdf->Cell(40, 10, '30', 1, 1, 'C');
+$pdf->Cell(40, 10,$datos[2], 1, 0, 'C');
+$pdf->Cell(40, 10,$datos[3], 1, 1, 'C');
 
 $pdf->SetX(65);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(40, 10, 'TOTAL', 1, 0, 'C');
-$pdf->Cell(40, 10, '30', 1, 0, 'C');
+$pdf->Cell(40, 10,$datos[3], 1, 0, 'C');
 
 $pdf->Ln();
 $pdf->Ln();
@@ -127,7 +127,7 @@ $pdf->Cell(190, 5,$datos[5], 0, 1, 'C');
 $pdf->Ln();
 $pdf->Ln();
 
-$pdf->Cell(190, 5, 'Nombre y Apellido:__________________________________C.I.V:________________Fecha:_____________', 0, 1, 'J');
+$pdf->Cell(190, 5, 'Nombre y Apellido:__________________________________C.I.V:________________Fecha:___________', 0, 1, 'J');
 $pdf->Cell(190, 5, 'Usuario', 0, 1, 'J');
 
 $pdf->Output();

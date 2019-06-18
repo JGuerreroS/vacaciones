@@ -37,3 +37,11 @@
 .bg-info > i{
 	font-size: 30px;
 }
+
+/* Botón de zoom en registrar vacaciones */
+.btn-zoom-registrar{
+    color: #fff;
+    background-color: #117a8b;
+    border-color: #10707f;
+    margin-right: 10px;
+}

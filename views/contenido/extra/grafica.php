@@ -1,6 +1,6 @@
 <?php 
     include '../../../models/clase.php';
-    list($datosX, $datosY) = graficaSolicitudes();
+    list($datosX, $datosY) = graficaRegistros();
 ?>
 
 <div id="graficaLinea"></div>
@@ -28,7 +28,7 @@
   ];
 
   var layout = {
-  title:'Solicitudes de experticia',
+  title:'Vacaciones por año',
   height: 550,
   font: {
     family: 'Arial',
@@ -48,7 +48,7 @@
     rangemode: 'tozero'
   },
   yaxis: {
-    title: 'Total de solicitudes',
+    title: 'Total de vacaciones',
     titlefont: {
       color: 'black',
       size: 12
@@ -57,6 +57,6 @@
   }
 };
 
-  Plotly.newPlot('graficaLinea', data, layout);
+  Plotly.newPlot('graficaLinea', data);
 
 </script>
