@@ -1,5 +1,5 @@
 <!-- Jquery -->
-<script src="<?php echo SERVERURL; ?>public/lib/jquery.min.js"></script>
+<script src="<?php echo SERVERURL; ?>public/lib/jquery-3.4.1.min.js"></script>
 <!-- popper -->
 <script src="<?php echo SERVERURL; ?>public/lib/bootstrap4/popper.min.js"></script>
 <!-- popper -->
