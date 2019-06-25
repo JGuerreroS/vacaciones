@@ -50,8 +50,8 @@
                         <label>Privilegios de la cuenta</label>
                         <select class="select2 form-control custom-select" name="privilegio" id="privilegio" >
                             <option value="">Seleccione</option>
-                            <option value="1">ADMINISTRADOR NACIONAL</option>
-                            <option value="2">ADMINISTRADOR DE DEPENDENCIA</option>
+                            <option value="1">ADMINISTRADOR</option>
+                            <option value="2">ANALISTA</option>
                         </select>
                     </div>
 

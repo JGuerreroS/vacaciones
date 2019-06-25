@@ -4,4 +4,4 @@
 
 	include '../models/clase.php';
 	
-	echo buscarEnSigefirrhh($cedula);
+	echo buscarEnSigefirrhh($cedula); 

@@ -28,8 +28,8 @@
                                     <div class="col resumen">
                                         <div class="bg-info text-white text-center">
                                             <i class="icon-user"></i>
-                                            <h5 class="m-b-0 m-t-5"> <?php // echo contarUsuarios(); ?> </h5>
-                                            <small class="font-light">Usuarios</small>
+                                            <h5 class="m-b-0 m-t-5"> <?= contarAdmin(); ?> </h5>
+                                            <small class="font-light">Administradores</small>
                                         </div>
                                     </div>
                                 </div>
@@ -40,15 +40,15 @@
                                     <div class="col resumen">
                                         <div class="bg-info text-white text-center">
                                             <i class="icon-users"></i>
-                                            <h5 class="m-b-0 m-t-5"> <?php // echo contarExpertos(); ?> </h5>
-                                            <small class="font-light">Expertos</small>
+                                            <h5 class="m-b-0 m-t-5"> <?= contarAnalist(); ?> </h5>
+                                            <small class="font-light">Analistas</small>
                                         </div>
                                     </div>
                                 </div>
 
                                 <br>
 
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col resumen">
                                         <div class="bg-info text-white text-center">
                                             <i class="icon-flag"></i>
@@ -56,7 +56,7 @@
                                             <small class="font-light">Centros</small>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <br>
 

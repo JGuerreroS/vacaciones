@@ -351,6 +351,8 @@ $(function(){
             $("#jquia").val(datos[1]);
             $("#estatus").val(datos[3]);
             $("#fIngreso").val(datos[4]);
+            $("#tp").val(datos[5]);
+            $("#tpN").val(datos[6]);
 
         });
 
@@ -433,10 +435,21 @@ $(function(){
             type: "post",
             url: "controllers/registroVacaciones.php",
             data: datos,
-            success: function (response) {
-                alertify.success("Registrada con éxito!");
-                $("#frmRegVac")[0].reset();
-                mostrarVacacionesRegistro(ced);
+            success: function (r){ 
+                if(r == 1){
+                    alert(r);
+                }else if(r == 2){
+
+                    alertify.success("Registrada con éxito!");
+                    $("#frmRegVac")[0].reset();
+                    mostrarVacacionesRegistro(ced);
+
+                }else if(r == 3){
+
+                    alertify.warning("Formulario incompleto!");
+
+                }
+
             }
         });
 

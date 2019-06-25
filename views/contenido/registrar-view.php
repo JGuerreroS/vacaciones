@@ -50,6 +50,12 @@
 
                 </div>
 
+                <div class="form-group">
+                    <label>Nómina</label>
+                    <input type="text" name="tpN" id="tpN" class="form-control-plaintext" placeholder="Tipo de nómina">
+                    <input type="hidden" name="tp" id="tp">
+                </div>
+
                 <div class="row">
 
                     <div class="col-6">
@@ -88,7 +94,7 @@
                 <div class="form-group">
                     <label>Coordinación</label>
                     <select class="custom-select" id="sCoordinacion" name="sCoordinacion">
-                        
+
                     </select>
                 </div>
 
@@ -133,6 +139,11 @@
 
                 </div>
 
+                <div class="form-group">
+                    <label>Observacion</label>
+                    <textarea name="observacion" id="observacion" rows="3" class="form-control" placeholder="Observaciones..."></textarea>
+                </div>
+
             </form>
 
             <button type="submit" class="btn btn-success" id="btn-regVac">Registrar vacaciones</button>
@@ -165,7 +176,8 @@
 
     </div>
 
-    <?php include 'extra/regVacModal.php'; //Cargar Modal ?>
+    <?php include 'extra/regVacModal.php'; 
+    ?>
 
     <!-- Hasta aqui el contenido -->
 </div>

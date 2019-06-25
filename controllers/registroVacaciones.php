@@ -10,23 +10,12 @@
         empty($_POST['fStart']) ||
         empty($_POST['fEnd']) ||
         empty($_POST['periodo']) ||
+        empty($_POST['tp']) ||
+        empty($_POST['observacion']) ||
         empty($_POST['nDias'])
     ){
-        $cedula = $_POST['cedula'];
-        $jquia = $_POST['jquia'];
-        $estatus = $_POST['estatus'];
-        $jefe = $_POST['jefe'];
-        $dependencia = $_POST['sDependencia'];
-        $coordinacion = $_POST['sCoordinacion'];
-        $fechaInicio = $_POST['fStart'];
-        $fechaFin = $_POST['fEnd'];
-        $periodo = $_POST['periodo'];
-        $dias = $_POST['nDias'];
 
-        $datos = array('cedula' => $cedula, 'jquia' => $jquia, 'estatus' => $estatus, 'jefe' => $jefe, 'dependencia' => $dependencia, 'coordinacion' => $coordinacion, 'fechaInicio' => $fechaInicio, 'fechaFin' => $fechaFin, 'periodo' => $periodo, 'dias' => $dias);
-
-        echo "Incompleto";
-        echo json_encode($datos);
+        echo 3;
 
     }else {
         $cedula = $_POST['cedula'];
@@ -39,8 +28,10 @@
         $fechaFin = $_POST['fEnd'];
         $periodo = $_POST['periodo'];
         $dias = $_POST['nDias'];
+        $tipoPersonal = $_POST['tp'];
+        $observacion = $_POST['observacion'];
 
-        $datos = array('cedula' => $cedula, 'jquia' => $jquia, 'estatus' => $estatus, 'jefe' => $jefe, 'dependencia' => $dependencia, 'coordinacion' => $coordinacion, 'fechaInicio' => $fechaInicio, 'fechaFin' => $fechaFin, 'periodo' => $periodo, 'dias' => $dias);
+        $datos = array('cedula' => $cedula, 'jquia' => $jquia, 'estatus' => $estatus, 'jefe' => $jefe, 'dependencia' => $dependencia, 'coordinacion' => $coordinacion, 'fechaInicio' => $fechaInicio, 'fechaFin' => $fechaFin, 'periodo' => $periodo, 'dias' => $dias, 'tipopersonal' => $tipoPersonal, 'observacion' => $observacion);
 
         include '../models/clase.php';
 

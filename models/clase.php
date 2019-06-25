@@ -272,8 +272,9 @@
 
         include '../core/sigefirrhh.php';
 
-        $sql = "SELECT p.cedula, id_cargo, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, estatus, fecha_ingreso FROM personal p
+        $sql = "SELECT p.cedula, id_cargo, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, estatus, fecha_ingreso, tp.id_tipo_personal, nombre FROM personal p
         INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
+	    INNER JOIN tipopersonal tp ON (t.id_tipo_personal = tp.id_tipo_personal)
         WHERE p.cedula = $cedula AND id_trabajador = (SELECT max(id_trabajador) FROM trabajador WHERE cedula = $cedula)";
 
         $result = pg_query($conexion,$sql);
@@ -292,25 +293,25 @@
     }
 
     // Vacaciones
-    function contarUsuarios(){
+    function contarAdmin(){
         include 'core/conexion.php';
-        $sql = "SELECT id_usuario FROM e_usuarios";
+        $sql = "SELECT count(id_usuario) FROM users WHERE id_estatus = 1 AND id_rol = 1";
         $result = pg_query($conn,$sql);
-        $nro= pg_num_rows($result);
+        $total= pg_fetch_array($result);
         pg_free_result($result);
         pg_close($conn);
-        return $nro;
+        return $total[0];
     }
 
     // Vacaciones
-    function contarCentros(){
+    function contarAnalist(){
         include 'core/conexion.php';
-        $sql = "SELECT id_dependencia FROM a_dependencias";
+        $sql = "SELECT count(id_usuario) FROM users WHERE id_estatus = 1 AND id_rol = 2";
         $result = pg_query($conn,$sql);
-        $nro= pg_num_rows($result);
+        $total= pg_fetch_array($result);
         pg_free_result($result);
         pg_close($conn);
-        return $nro;
+        return $total[0];
     }
 
     // Vacaciones
@@ -397,7 +398,7 @@
 
         $periodo = explode("-", $datos['periodo']);
 
-        $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, fecha_registro, usuario) VALUES ($datos[cedula], $datos[jquia], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$fecha', $_SESSION[usuario])";
+        $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, id_tipo_personal, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, observacion, fecha_registro, usuario) VALUES ($datos[cedula], $datos[jquia], $datos[tipopersonal], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$datos[observacion]', '$fecha', $_SESSION[usuario])";
 
         $result = pg_query($conn, $sql);
 
