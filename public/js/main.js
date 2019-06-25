@@ -389,25 +389,18 @@ $(function(){
 
                                         <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion" data-toggle="modal" data-target="#modalZoomVacacion">
                                             <i class="icon-zoom-in"></i>
-                                        </span>`
+                                        </span>
                                         
-                                        if(vac.estatus == "Disfrutadas"){
-                                            
-                                            `<button type="submit" class="btn btn-secondary btn-sm">
+                                        <button type="submit" class="btn btn-secondary btn-sm">
                                                 <i class="icon-print"></i>
-                                            </button></div>
+                                        </button>
+                                    </div>
                                    
-                                            </form>
+                                </form>
             
-                                        </td>`
-                                            
-                                        }
-                    
-                                        `
-
-                                    
-                        </tr>
-                    `
+                            </td>
+                            
+                        </tr>`
                 });
                 $("#vacacionesDisfrutadas").html(template);
             }
