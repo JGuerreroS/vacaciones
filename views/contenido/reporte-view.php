@@ -45,7 +45,7 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 
 include 'models/clase.php';
-$datos = oficioVacaciones($id_vac);
+$datos = oficioVacaciones($id_vac); 
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(32, 10, 'PARA:', 0, 0, 'L', 0);

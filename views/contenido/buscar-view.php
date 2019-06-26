@@ -1,4 +1,4 @@
-    <?php if ($_SESSION['nivel'] == 1) { ?>
+    <?php if ($_SESSION['nivel'] == 1) {  include 'controllers/selects.php'; ?>
 
         <div class="card-header">
             <b>Busqueda</b>
@@ -55,10 +55,8 @@
                 <!-- Buscar por Dependencia y fecha de registro -->
                 <div class="col-5 parte3">
                     <div class="form-group">
-                        <select name="reportdependencia" id="reportdependencia" class="form-control">
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
+                        <select class="custom-select" id="reportdependencia" name="reportdependencia">
+                            <?= $dependencias; ?>
                         </select>
                     </div>
                 </div>
@@ -71,7 +69,7 @@
 
                 <div class="col-2 parte3">
                     <div class="form-group">
-                        <button class="btn btn-info" id="buscarXdep-fec">depe</button>
+                        <button class="btn btn-info" id="buscarXdep-fec">Buscar</button>
                     </div>
                 </div>
             </div>

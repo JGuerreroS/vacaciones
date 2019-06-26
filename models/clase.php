@@ -571,6 +571,47 @@
                 return json_encode($datos);
 
             break;
+
+            case 'dependencia_fecha':
+
+                include '../core/conexion.php';
+
+                $divide = explode('/', $parametro);
+
+                $sql = "SELECT id_vacaciones, v.cedula, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, periodo1||'-'||periodo2 AS periodo, dependencia FROM reg_vacaciones v
+                INNER JOIN personal p ON (v.cedula = p.cedula)
+                INNER JOIN dependencias d ON (v.id_dependencia = d.id_dependencia)
+                WHERE v.id_dependencia = $divide[0] AND fecha_registro = '$divide[1]'";
+
+                $result = pg_query($conn, $sql);
+
+                if(!$result){
+                    die('Fallo en la consulta');
+                }
+
+                $datos = array();
+
+                $nro = 0;
+
+                while ($row = pg_fetch_array($result)){ $nro++;
+                    
+                    $datos[] = array(
+                        'nro' => $nro,
+                        'id_vacaciones' => $row['id_vacaciones'],
+                        'cedula' => $row['cedula'],
+                        'nombres' => $row['nombres'],
+                        'periodo' => $row['periodo'],
+                        'dependencia' => $row['dependencia']
+                    );
+
+                }
+
+                pg_free_result($result);
+                pg_close($conn);
+
+                return json_encode($datos);
+
+            break;
             
         }
 

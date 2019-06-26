@@ -506,12 +506,11 @@ $(function(){
         // boton de buscar
         $("#buscarXdep-fec").click(function (){
 
-            alert(1);
+            // Para enviar en la variable parametro 2 valores (dependencia y fecha de registro), se convierte a un array y se envia a la función mostrarVacacionesBuscar
+            parametro = new Array ($("#reportdependencia").val(), $("#rbuscar").val());
+            tipo = 'dependencia_fecha';
 
-            // parametro = $("#bXfechaR").val();
-            // tipo = 'fecha_registro';
-
-            // mostrarVacacionesBuscar(parametro,tipo);
+            mostrarVacacionesBuscar(parametro,tipo);
             
         });
 
@@ -520,10 +519,22 @@ $(function(){
     // Función que muestra en pantalla el listado de vacaciones de acuerdo a la cédula del funcionario o fecha de registro
     function mostrarVacacionesBuscar(parametro,tipo){
 
+        // lo primero que se hace es detectar si parametro es una variable o un array
+        if(Array.isArray(parametro)){
+
+            // Si es un array se separa y se asigna a nuevas variables, para poder recibirlas en el controlador
+            datos = { dependencia : parametro[0], fecha : parametro[1], tipo : tipo }
+
+        }else{
+
+            datos = { parametro, tipo };
+
+        }
+
         $.ajax({
             type: "post",
             url: "controllers/listVacaciones.php",
-            data: { parametro, tipo },
+            data: datos, // Aqui pueden pasar 2 o 3 variables, dependiendo del if
             success: function (res){
                 let listVac = jQuery.parseJSON(res);
                 let template = '';
