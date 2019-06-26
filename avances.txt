@@ -1,7 +1,3 @@
-1- Se agrego un campo donde se ve el tipo de personal al buscar funcionario en registro de vacaciones, asi como tambien un campo para colocar las observaciones
+1- Se mejoro la estructura para seleccionar el tipo de busqueda en buscar
 
-2- registrar con los nuevos campos de tipo de personal y observaciones
-
-3- Se agrego conteo de administradores y analistas en la página de inicio
-
-4- Se corrigio el nombre de los roles en registro de usuarios
+2- Se quito del login el enlace de recuperar la contraseña

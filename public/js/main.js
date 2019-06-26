@@ -460,13 +460,13 @@ $(function(){
     /*---------------------------------Vacaciones-----------------------------*/
 
     /*-----------------------------------Buscar------------------------------*/
-    $("#bXcedula,#buscarXciv,#bXfechaR,#buscarXfReg,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
+    $(".parte1,.parte2,.parte3").hide();
 
     // Buscar por funcionario
     $(document).on('click', '#xFuncionario', function(){
 
-        $("#bXcedula,#buscarXciv").show();
-        $("#bXfechaR,#buscarXfReg,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
+        $(".parte1").show();
+        $(".parte2,.parte3").hide();
 
         // boton de buscar
         $("#buscarXciv").click(function (){
@@ -482,8 +482,8 @@ $(function(){
     // Buscar por fecha de registro
     $(document).on('click', '#xFechaReg', function(){
 
-        $("#bXcedula,#buscarXciv,#bXfechaI,#bXfechaF,#buscarXfechas").hide();
-        $("#bXfechaR,#buscarXfReg").show();
+        $(".parte1,.parte3").hide();
+        $(".parte2").show();
 
         // boton de buscar
         $("#buscarXfReg").click(function (){
@@ -492,6 +492,26 @@ $(function(){
             tipo = 'fecha_registro';
 
             mostrarVacacionesBuscar(parametro,tipo);
+            
+        });
+
+    });
+
+    // Buscar por dependencia y fecha de registro
+    $(document).on('click', '#xDep-Fec', function(){
+
+        $(".parte1,.parte2").hide();
+        $(".parte3").show();
+
+        // boton de buscar
+        $("#buscarXdep-fec").click(function (){
+
+            alert(1);
+
+            // parametro = $("#bXfechaR").val();
+            // tipo = 'fecha_registro';
+
+            // mostrarVacacionesBuscar(parametro,tipo);
             
         });
 

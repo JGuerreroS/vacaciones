@@ -67,7 +67,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center">
-                        <a href="#" class="olvidar">Olvidaste la contraseña?</a>
+                        <!-- <a href="#" class="olvidar">Olvidaste la contraseña?</a> -->
                     </div>
                 </div>
             </div>
