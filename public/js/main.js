@@ -312,11 +312,39 @@ $(function(){
     });
 
     // Zoom Vacaciones
-    $(document).on('click', '#zoomVacacion', function (){
+    $(document).on('click', '#zoomVacacion2', function (){
 
         elemet = $(this)[0].parentElement.parentElement.parentElement.parentElement;
         id = $(elemet).attr('idVac');
+        console.log(id);
+        $.post("controllers/zoomVacacion2.php", { id }, function (res){
 
+            console.log(res);
+
+            const vac = JSON.parse(res);
+
+            $("#vCiv").html('Cédula: ' + vac.cedula);
+            $("#vNames").html('Nombres: ' + vac.nombres);
+            $("#vF-in").html('Fecha de ingreso: ' + vac.fecha_ingreso);
+            $("#vF-i").html('Fecha inicio: ' + vac.fecha_desde);
+            $("#vF-f").html('Fecha final: ' + vac.fecha_hasta);
+            $("#vPeriodo").html('Periodo: ' + vac.periodo);
+            $("#vDias").html('Días: ' + vac.dias);
+            $("#vDependencia").html('Dependencia: ' + vac.dependencia);
+            $("#vCoordinacion").html('Coordinación: ' + vac.coordinacion);
+            $("#vFR").html('Fecha de registro: ' + vac.fecha_registro);
+            $("#nroVacaciones").html('Vacaciones N°: ' + vac.id_vacaciones);
+                
+        });
+        
+    });
+
+    // Zoom Vacaciones
+    $(document).on('click', '#zoomVacacion', function (){
+
+        elemet = $(this)[0].parentElement.parentElement;
+        id = $(elemet).attr('idVac');
+        console.log(elemet);
         $.post("controllers/zoomVacacion.php", { id }, function (res){
 
             console.log(res);
@@ -389,7 +417,7 @@ $(function(){
 
                                         <input type="hidden" name="id_vac" value="${vac.id_vacaciones}">
 
-                                        <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion" data-toggle="modal" data-target="#modalZoomVacacion">
+                                        <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion2" data-toggle="modal" data-target="#modalZoomVacacion">
                                             <i class="icon-zoom-in"></i>
                                         </span>
                                         
