@@ -1,3 +1,12 @@
-1- Se mejoro la estructura para seleccionar el tipo de busqueda en buscar
+1- Se agregaron más periodos
 
-2- Se quito del login el enlace de recuperar la contraseña
+pendientes
+1- Buscar solución al buscar el estatus de funcionarios que fueron coordinadores
+
+2- agregar suspender y eliminar vacaciones
+
+3- cuadro de conteo de registro de vacaciones por usuarios
+
+4- respaldo automatico de la base de datos
+
+5- migrar a PDO
