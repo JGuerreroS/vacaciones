@@ -507,11 +507,16 @@ $(function(){
         $("#buscarXdep-fec").click(function (){
 
             // Para enviar en la variable parametro 2 valores (dependencia y fecha de registro), se convierte a un array y se envia a la función mostrarVacacionesBuscar
-            parametro = new Array ($("#reportdependencia").val(), $("#rbuscar").val());
+            dependencia = $("#reportdependencia").val();
+            fecha = $("#rbuscar").val();
+            parametro = dependencia + '/' + fecha;
             tipo = 'dependencia_fecha';
 
             mostrarVacacionesBuscar(parametro,tipo);
-            
+
+            $("#reporteDependencia").val(dependencia);
+            $("#reporteFecha").val(fecha);
+
         });
 
     });

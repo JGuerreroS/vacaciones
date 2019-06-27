@@ -68,8 +68,16 @@
                 </div>
 
                 <div class="col-2 parte3">
-                    <div class="form-group">
+                    <div class="form-inline">
+
                         <button class="btn btn-info" id="buscarXdep-fec">Buscar</button>
+                        
+                        <form action="reportes" method="post" target="_blank">
+                            <input type="hidden" name="reporteDependencia" id="reporteDependencia">
+                            <input type="hidden" name="reporteFecha" id="reporteFecha">
+                            <button type="submit" class="btn btn-info" id="masivo" style="margin-left: 20px">PDF</button>
+                        </form>
+
                     </div>
                 </div>
             </div>

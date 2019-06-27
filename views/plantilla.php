@@ -6,7 +6,7 @@
 
     $vistasR = $vt->obtener_vistas_controlador();
 
-    if($vistasR == 'bienvenido' || $vistasR == 'login' || $vistasR == 'reporte' || $vistasR == '404'):
+    if($vistasR == 'bienvenido' || $vistasR == 'login' || $vistasR == 'reporte' || $vistasR == '404' || $vistasR == 'reportes'):
 
         if ($vistasR == 'bienvenido') {
 
@@ -20,8 +20,11 @@
             
             require_once './views/contenido/reporte-view.php';
             
-        }
-        else {
+        }elseif($vistasR == 'reportes') {
+            
+            require_once './views/contenido/reportes-view.php';
+            
+        }else {
 
             require_once './views/contenido/404-view.php';
 

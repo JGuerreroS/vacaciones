@@ -4,7 +4,7 @@
 
         protected function obtener_vistas_modelo($vistas){
 
-            $listaBlanca = ["inicio", "usuarios", "registrar", "reporte", "buscar", "dependencias"];
+            $listaBlanca = ["inicio", "usuarios", "registrar", "reporte", "reportes", "buscar", "dependencias"];
 
             if (in_array($vistas,$listaBlanca)) {
 
@@ -15,6 +15,10 @@
                     if($contenido == "./views/contenido/reporte-view.php"){
 
                         $contenido = 'reporte';
+
+                    }elseif ($contenido == "./views/contenido/reportes-view.php") {
+                        
+                        $contenido = 'reportes';
 
                     }
 
