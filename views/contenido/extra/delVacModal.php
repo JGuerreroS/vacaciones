@@ -17,9 +17,9 @@
                     <input type="hidden" name="valVac" id="valVac">
 
                     <select name="motivo" id="motivo" class="form-control">
-                          <option value="1">Error de transcipción</option>
-						  <option value="2">Duplicado en la relación</option>
-						  <option value="3">Servicio equivocado</option>
+                        <option value="1">Error de transcipción</option>
+                        <option value="2">Duplicado en la relación</option>
+                        <option value="3">Servicio equivocado</option>
                     </select>
 
                     <div class="modal-footer">

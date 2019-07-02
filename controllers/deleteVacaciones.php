@@ -7,6 +7,6 @@
 
         include '../models/clase.php';
 
-        echo borrarVacaciones($id_vacaciones,$id_motivo); 
+        echo borrarVacaciones($id_vacaciones,$id_motivo);
 
     }

@@ -298,8 +298,20 @@ $(function(){
             url: "controllers/deleteVacaciones.php",
             data: $("#frmDelVac").serialize(),
             success: function (r){
-                alertify.success('Registro eliminado con éxito!');
-                mostrarVacacionesRegistro(ced);
+                if(r == 1){
+
+                    alertify.error(r);
+
+                }else if(r == 2){
+
+                    alertify.success('Registro eliminado con éxito!');
+                    // mostrarVacacionesRegistro(ced);
+
+                }else if(r == 3){
+
+                    alertify.warning('No tienes privilegios suficientes para realizar esta operación');
+
+                }
             }
         });
 
@@ -334,7 +346,7 @@ $(function(){
                                         <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion2" data-toggle="modal" data-target="#modalZoomVacacion">
                                             <i class="icon-zoom-in"></i>
                                         </span>
-
+                                        
                                         <span class="btn btn-danger btn-sm delete-in-reg" title="Eliminar registro" id="btnDelete" data-toggle="modal" data-target="#delV">
                                             <i class="icon-bin"></i>
                                         </span>
@@ -581,10 +593,6 @@ $(function(){
                             <td class="text-center">
                                 <span class="btn btn-warning btn-sm" id="zoomVacacion" title="Ver más" data-toggle="modal" data-target="#modalZoomVacacion">
                                     <i class="icon-zoom-in"></i>
-                                </span>
-
-                                <span class="btn btn-danger btn-sm" id="deleteVac" title="Eliminar registro">
-                                    <i class="icon-bin"></i>
                                 </span>
                             </td>
                         </tr>
