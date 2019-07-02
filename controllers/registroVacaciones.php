@@ -6,7 +6,6 @@
         empty($_POST['estatus']) ||
         empty($_POST['jefe']) ||
         empty($_POST['sDependencia']) ||
-        empty($_POST['sCoordinacion']) ||
         empty($_POST['fStart']) ||
         empty($_POST['fEnd']) ||
         empty($_POST['periodo']) ||
@@ -24,6 +23,9 @@
         $jefe = $_POST['jefe'];
         $dependencia = $_POST['sDependencia'];
         $coordinacion = $_POST['sCoordinacion'];
+        if(empty($coordinacion)){
+            $coordinacion = 0;
+        }
         $fechaInicio = $_POST['fStart'];
         $fechaFin = $_POST['fEnd'];
         $periodo = $_POST['periodo'];

@@ -123,11 +123,11 @@
                             <label>Período</label>
                             <select class="custom-select" id="periodo" name="periodo">
                                 <option value="">Período</option>
-                                <option value="2017-2018">2009-2010</option>
-                                <option value="2017-2018">2010-2011</option>
-                                <option value="2017-2018">2012-2013</option>
-                                <option value="2017-2018">2014-2015</option>
-                                <option value="2017-2018">2016-2017</option>
+                                <option value="2009-2010">2009-2010</option>
+                                <option value="2010-2011">2010-2011</option>
+                                <option value="2012-2013">2012-2013</option>
+                                <option value="2014-2015">2014-2015</option>
+                                <option value="2016-2017">2016-2017</option>
                                 <option value="2017-2018">2017-2018</option>
                                 <option value="2018-2019">2018-2019</option>
                                 <option value="2019-2020">2019-2020</option>
@@ -181,7 +181,9 @@
 
     </div>
 
-    <?php include 'extra/regVacModal.php'; 
+    <?php
+        include 'extra/regVacModal.php';
+        include 'extra/delVacModal.php';
     ?>
 
     <!-- Hasta aqui el contenido -->

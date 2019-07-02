@@ -45,3 +45,9 @@
     border-color: #10707f;
     margin-right: 10px;
 }
+
+.delete-in-reg{
+    color: #fff;
+    background-color: red;
+    margin-right: 10px;
+}

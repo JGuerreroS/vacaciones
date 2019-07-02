@@ -89,23 +89,33 @@
     }
 
     // Borrar vacaciones
-    function borrarVacaciones($id_vacaciones){
+    function borrarVacaciones($id_vacaciones,$id_motivo){
 
         include '../core/conexion.php';
 
-        $sql = "DELETE FROM reg_vacaciones WHERE id_vacaciones = $id_vacaciones";
+        $sql1 = "DELETE FROM reg_vacaciones WHERE id_vacaciones = $id_vacaciones";
+        $sql2 = "UPDATE eliminadas SET motivo = $id_motivo, fecha_eliminado = '$fecha' WHERE motivo = 4";
 
-        $result = pg_query($conn, $sql);
+        $result1 = pg_query($conn, $sql1);
+        $result2 = pg_query($conn, $sql2);
 
-        if (!$result){
+        if (!$result1){
 
-            die ('Error en la consulta');
+            die ('No se pudo eliminar el registro');
 
             return 1;
 
+            if (!$result2){
+
+                die ('No se pudo actualizar el registro');
+    
+                return 1;
+            }
+
         } else {
 
-            pg_free_result($result);
+            pg_free_result($result1);
+            pg_free_result($result2);
             pg_close($conn);
 
             return 2;

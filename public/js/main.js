@@ -279,37 +279,82 @@ $(function(){
     /*---------------------------------Vacaciones-----------------------------*/
 
     // Borrar vacaciones
+    $(document).on('click', '#btnDelete', function (){
+
+        let elemet = $(this)[0].parentElement.parentElement.parentElement.parentElement;
+        let id = $(elemet).attr('idVac');
+
+        $("#valVac").val(id);
+            
+    });
+
+    // Borrar vacaciones
     $(document).on('click', '#deleteVac', function (){
 
-        let elemet = $(this)[0].parentElement.parentElement;
-        let id = $(elemet).attr('idVac');
-        civ = $("#bXcedula").val();
+        ced = $("#cedula").val();
 
-        
-
-        alertify.confirm('Eliminar registro', '¿Estas seguro de querer eliminar este registro?', function(){
-
-            $.post("controllers/deleteVacaciones.php", { id }, function (res){
-
-                if(res == 1){
-
-                    alertify.error('No se pudo eliminar el registro');
-
-                }else{
-
-                    parametro = civ;
-                    tipo = 'cedula';
-
-                    alertify.success('Registro eliminado corectamente!');
-                    mostrarVacacionesBuscar(parametro,tipo);
-
-                }
-
-            });
-
-        }, function() {});
+        $.ajax({
+            type: "post",
+            url: "controllers/deleteVacaciones.php",
+            data: $("#frmDelVac").serialize(),
+            success: function (r){
+                alertify.success('Registro eliminado con éxito!');
+                mostrarVacacionesRegistro(ced);
+            }
+        });
 
     });
+
+    // Mostrar tabla de las vacaciones en registro de vacaciones
+    function mostrarVacacionesRegistro(civ){
+
+        $.ajax({
+            url: "controllers/listarVacaciones.php",
+            type: "GET",
+            data: { civ },
+            success: function (res){
+                let listVac = JSON.parse(res);
+                let template = '';
+                listVac.forEach(vac => {
+                    template += `
+                        <tr idVac="${vac.id_vacaciones}">
+                            <td class="text-center">${vac.nro}</td>
+                            <td class="text-center">${vac.periodo}</td>
+                            <td class="text-center">${vac.desde}</td>
+                            <td class="text-center">${vac.hasta}</td>
+                            <td class="text-center">${vac.dias}</td>
+                            <td class="text-center">${vac.estatus}</td>
+                            <td class="text-center">
+                                <form action="reporte" method="post" target="_blank" class="form-inline">
+
+                                    <div class="form-group mb-2">
+
+                                        <input type="hidden" name="id_vac" value="${vac.id_vacaciones}">
+
+                                        <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion2" data-toggle="modal" data-target="#modalZoomVacacion">
+                                            <i class="icon-zoom-in"></i>
+                                        </span>
+
+                                        <span class="btn btn-danger btn-sm delete-in-reg" title="Eliminar registro" id="btnDelete" data-toggle="modal" data-target="#delV">
+                                            <i class="icon-bin"></i>
+                                        </span>
+                                        
+                                        <button type="submit" class="btn btn-secondary btn-sm">
+                                                <i class="icon-print"></i>
+                                        </button>
+                                    </div>
+                                   
+                                </form>
+            
+                            </td>
+                            
+                        </tr>`
+                });
+                $("#vacacionesDisfrutadas").html(template);
+            }
+        });
+
+    }
 
     // Zoom Vacaciones
     $(document).on('click', '#zoomVacacion2', function (){
@@ -392,52 +437,6 @@ $(function(){
 
     });
 
-    function mostrarVacacionesRegistro(civ){
-
-        $.ajax({
-            url: "controllers/listarVacaciones.php",
-            type: "GET",
-            data: { civ },
-            success: function (res){
-                let listVac = JSON.parse(res);
-                let template = '';
-                listVac.forEach(vac => {
-                    template += `
-                        <tr idVac="${vac.id_vacaciones}">
-                            <td class="text-center">${vac.nro}</td>
-                            <td class="text-center">${vac.periodo}</td>
-                            <td class="text-center">${vac.desde}</td>
-                            <td class="text-center">${vac.hasta}</td>
-                            <td class="text-center">${vac.dias}</td>
-                            <td class="text-center">${vac.estatus}</td>
-                            <td class="text-center">
-                                <form action="reporte" method="post" target="_blank" class="form-inline">
-
-                                    <div class="form-group mb-2">
-
-                                        <input type="hidden" name="id_vac" value="${vac.id_vacaciones}">
-
-                                        <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion2" data-toggle="modal" data-target="#modalZoomVacacion">
-                                            <i class="icon-zoom-in"></i>
-                                        </span>
-                                        
-                                        <button type="submit" class="btn btn-secondary btn-sm">
-                                                <i class="icon-print"></i>
-                                        </button>
-                                    </div>
-                                   
-                                </form>
-            
-                            </td>
-                            
-                        </tr>`
-                });
-                $("#vacacionesDisfrutadas").html(template);
-            }
-        });
-
-    }
-
     // Select de coordinaciones, dependiente de dependencias
     $("#sDependencia").change(function(){
 
@@ -463,7 +462,7 @@ $(function(){
             type: "post",
             url: "controllers/registroVacaciones.php",
             data: datos,
-            success: function (r){ 
+            success: function (r){
                 if(r == 1){
                     alert(r);
                 }else if(r == 2){
