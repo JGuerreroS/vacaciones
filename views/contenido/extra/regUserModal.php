@@ -24,27 +24,25 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Nombres y Apellidos</label>
-                        <input type="text" class="form-control" id="nameSige" name="nameSige" placeholder="Ingrese sus nombres y apellidos" >
+                    <div class="row">
+                        <div class="col-8">
+
+                            <div class="form-group">
+                                <label>Nombres y Apellidos</label>
+                                <input type="text" class="form-control" id="nameSige" name="nameSige" placeholder="Ingrese sus nombres y apellidos">
+                            </div>
+
+                        </div>
+
+                        <div class="col-4">
+
+                            <div class="form-group">
+                                <label>Iniciales</label>
+                                <input type="text" class="form-control" id="iniciales" name="iniciales" placeholder="Máximo 6 letras" title="Estas iniciales serán usadas para mostrar en el oficio de vacaciones" maxlength="6">
+                            </div>
+
+                        </div>
                     </div>
-
-                    <!-- <div class="form-group">
-                        <label>Jerarquía / Cargo</label>
-                        <select class="select2 form-control custom-select" id="jquia" name="jquia">
-                            <option value="">Seleccione</option>
-                            <?php 
-                                // include 'core/conexion.php';
-                                // $sql = "SELECT id_jquia, jquia FROM e_jerarquia";
-                                // $result = pg_query($conn,$sql);
-                                // while ($ver = pg_fetch_array($result)) { 
-                            ?>
-
-                            <option value="<?php //echo $ver[0]; ?>"> <?php //echo $ver[1]; ?> </option>
-
-                            <?php //} pg_free_result($result); pg_close($conn); ?>
-                        </select>
-                    </div> -->
 
                     <div class="form-group">
                         <label>Privilegios de la cuenta</label>
@@ -54,23 +52,6 @@
                             <option value="2">ANALISTA</option>
                         </select>
                     </div>
-
-                    <!-- <div class="form-group">
-                        <label>Dependencia</label>
-                        <select class="select2 form-control custom-select" id="dependencia" name="dependencia">
-                            <option value="">Seleccione</option>
-                            <?php 
-                                // include 'core/conexion.php';
-                                // $sql = "SELECT id_dependencia, dependencia FROM a_dependencias";
-                                // $result = pg_query($conn,$sql);
-                                // while ($ver = pg_fetch_array($result)) { 
-                            ?>
-
-                            <option value="<?php //echo $ver[0]; ?>"> <?php //echo $ver[1]; ?> </option>
-
-                            <?php //} pg_free_result($result); pg_close($conn); ?>
-                        </select>
-                    </div> -->
 
                     <div class="row">
                         <div class="col-6">

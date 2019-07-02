@@ -6,7 +6,7 @@ function login($user, $pass)
 
     include '../core/conexion.php';
 
-    $sql = "SELECT id_usuario, nombres, cedula, clave, id_rol FROM users WHERE cedula = '$user'";
+    $sql = "SELECT id_usuario, nombres, cedula, clave, id_rol, iniciales FROM users WHERE cedula = '$user'";
 
     $result = pg_query($conn, $sql);
 
@@ -21,6 +21,7 @@ function login($user, $pass)
         $_SESSION['name'] = $row['nombres'];
         $_SESSION['usuario'] = $row['id_usuario'];
         $_SESSION['nivel'] = $row['id_rol'];
+        $_SESSION['iniciales'] = $row['iniciales'];
 
         pg_free_result($result);
         pg_close($conn);
@@ -427,13 +428,14 @@ function registroUsuario($datos)
 
     $passHash = password_hash($datos['clave'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (id_rol, cedula, nombres, registrado_por, fecha, clave, id_estatus) VALUES ($datos[privilegio], '$datos[civ]', '$datos[nombres]', $_SESSION[usuario], '$fecha','$passHash', 1)";
+    $sql = "INSERT INTO users (id_rol, cedula, nombres, registrado_por, fecha, clave, id_estatus, iniciales) VALUES ($datos[privilegio], '$datos[civ]', '$datos[nombres]', $_SESSION[usuario], '$fecha','$passHash', 1, '$datos[iniciales]')";
 
     $result = pg_query($conn, $sql);
 
     if (!$result) {
 
         die('Error al tratar de registrar');
+        
     } else {
 
         pg_free_result($result);
@@ -522,12 +524,14 @@ function oficioVacaciones($id_vac)
     include 'core/conexion.php';
 
     $sql = "SELECT c.cargo||' '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
-        periodo1||'-'||periodo2 AS periodo, dias, (SELECT nombres||' '||apellidos AS director FROM director_rrhh WHERE estatus = 'A'), (SELECT cargo FROM director_rrhh WHERE estatus = 'A')
-        FROM reg_vacaciones r
-        INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
-        INNER JOIN personal p ON (r.cedula = p.cedula)
-        INNER JOIN dependencias d ON (r.id_dependencia = d.id_dependencia)
-        WHERE id_vacaciones = $id_vac";
+    periodo1||'-'||periodo2 AS periodo, dias, (SELECT nombres||' '||apellidos AS director FROM director_rrhh WHERE estatus = 'A'),
+    (SELECT cargo FROM director_rrhh WHERE estatus = 'A'), (SELECT iniciales FROM director_rrhh WHERE estatus = 'A') AS iniciales_rrhh,
+    (SELECT iniciales FROM director_cpnb WHERE estatus = 'A') AS iniciales_cpnb
+    FROM reg_vacaciones r
+    INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
+    INNER JOIN personal p ON (r.cedula = p.cedula)
+    INNER JOIN dependencias d ON (r.id_dependencia = d.id_dependencia)
+    WHERE id_vacaciones = $id_vac";
 
     $result = pg_query($conn, $sql);
 
@@ -545,11 +549,13 @@ function oficioVacaciones2($dependencia, $date)
     include 'core/conexion.php';
 
     $sql = "SELECT c.cargo||' '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
-        periodo1||'-'||periodo2 AS periodo, dias, (SELECT nombres||' '||apellidos AS director FROM director_rrhh WHERE estatus = 'A'), (SELECT cargo FROM director_rrhh WHERE estatus = 'A')
-        FROM reg_vacaciones r
-        INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
-        INNER JOIN personal p ON (r.cedula = p.cedula)
-        INNER JOIN dependencias d ON (r.id_dependencia = d.id_dependencia)
+    periodo1||'-'||periodo2 AS periodo, dias, (SELECT nombres||' '||apellidos AS director FROM director_rrhh WHERE estatus = 'A'),
+    (SELECT cargo FROM director_rrhh WHERE estatus = 'A'), (SELECT iniciales FROM director_rrhh WHERE estatus = 'A') AS iniciales_rrhh,
+    (SELECT iniciales FROM director_cpnb WHERE estatus = 'A') AS iniciales_cpnb
+    FROM reg_vacaciones r
+    INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
+    INNER JOIN personal p ON (r.cedula = p.cedula)
+    INNER JOIN dependencias d ON (r.id_dependencia = d.id_dependencia)
         WHERE r.id_dependencia = $dependencia AND fecha_registro = '$date'";
 
     $result = pg_query($conn, $sql);
@@ -559,12 +565,8 @@ function oficioVacaciones2($dependencia, $date)
         die('Consulta fallida');
     }
 
-    // $row = pg_fetch_array($result);
-
-    // pg_free_result($result);
-    // pg_close($conn);
-
     return $result;
+    
 }
 
 // mostrar lista de vacaciones en el módulo buscar

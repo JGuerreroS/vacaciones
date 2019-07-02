@@ -2,9 +2,8 @@
 
     $civ = trim($_POST['civ']);
     $nombres = trim($_POST['nameSige']);
-    // $jquia = $_POST['jquia'];
-    $privilegio = $_POST['privilegio'];
-    // $dependencia = $_POST['dependencia'];
+    $iniciales = trim($_POST['iniciales']);
+    $privilegio = trim(strtoupper($_POST['privilegio']));
     $pass1 = trim($_POST['pass1']);
     $pass2 = trim($_POST['pass2']);
 
@@ -22,6 +21,7 @@
         $datos = array(
             'civ' => $civ,
             'nombres' => $nombres,
+            'iniciales' => $iniciales,
             'privilegio' => $privilegio,
             'clave' => $pass1
         );

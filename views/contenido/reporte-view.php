@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $id_vac = $_POST['id_vac'];
 
 require('public/lib/fpdf/fpdf.php');
@@ -45,7 +47,7 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 
 include 'models/clase.php';
-$datos = oficioVacaciones($id_vac); 
+$datos = oficioVacaciones($id_vac);
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(32, 10, 'PARA:', 0, 0, 'L', 0);
@@ -128,6 +130,6 @@ $pdf->Ln();
 $pdf->Ln();
 
 $pdf->Cell(190, 5, 'Nombre y Apellido:__________________________________C.I.V:________________Fecha:___________', 0, 1, 'J');
-$pdf->Cell(190, 5, 'Usuario', 0, 1, 'J');
+$pdf->Cell(190, 5, $_SESSION['iniciales'].'/'.$datos[6].'/'.$datos[7], 0, 1, 'J');
 
 $pdf->Output();
