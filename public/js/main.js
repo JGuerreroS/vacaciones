@@ -427,11 +427,12 @@ $(function(){
     // Buscar datos del funcionario para registrar sus vacaciones
     $(document).on('click', '#buscarSigefirrhh', function (e){
 
-        let civ = $("#cedula").val();
+        civ = $("#cedula").val();
         
         $.post("controllers/buscarFuncionario.php", { civ : civ }, function (res){
             
             datos = jQuery.parseJSON(res);
+
             $("#nombres").val(datos[2]);
             $("#jquia").val(datos[1]);
             $("#estatus").val(datos[3]);
@@ -445,7 +446,7 @@ $(function(){
 
         mostrarVacacionesRegistro(civ);
 
-        return false;
+        e.preventDefault();
 
     });
 

@@ -10,3 +10,6 @@ pendientes
 4- respaldo automatico de la base de datos
 
 5- migrar a PDO
+
+errores:
+1- no sale los datos del sigefirrhh: 8104552
