@@ -530,10 +530,10 @@ function oficioVacaciones($id_vac)
 
     include 'core/conexion.php';
 
-    $sql = "SELECT c.cargo||' '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
+    $sql = "SELECT c.cargo||'. '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
     periodo1||'-'||periodo2 AS periodo, dias, (SELECT nombres||' '||apellidos AS director FROM director_rrhh WHERE estatus = 'A'),
     (SELECT cargo FROM director_rrhh WHERE estatus = 'A'), (SELECT iniciales FROM director_rrhh WHERE estatus = 'A') AS iniciales_rrhh,
-    (SELECT iniciales FROM director_cpnb WHERE estatus = 'A') AS iniciales_cpnb
+    (SELECT iniciales FROM director_cpnb WHERE estatus = 'A') AS iniciales_cpnb, fecha_desde, fecha_hasta
     FROM reg_vacaciones r
     INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
     INNER JOIN personal p ON (r.cedula = p.cedula)
@@ -555,10 +555,10 @@ function oficioVacaciones2($dependencia, $date)
 
     include 'core/conexion.php';
 
-    $sql = "SELECT c.cargo||' '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
+    $sql = "SELECT c.cargo||'. '||primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, dependencia,
     periodo1||'-'||periodo2 AS periodo, dias, (SELECT nombres||' '||apellidos AS director FROM director_rrhh WHERE estatus = 'A'),
     (SELECT cargo FROM director_rrhh WHERE estatus = 'A'), (SELECT iniciales FROM director_rrhh WHERE estatus = 'A') AS iniciales_rrhh,
-    (SELECT iniciales FROM director_cpnb WHERE estatus = 'A') AS iniciales_cpnb
+    (SELECT iniciales FROM director_cpnb WHERE estatus = 'A') AS iniciales_cpnb, fecha_desde, fecha_hasta
     FROM reg_vacaciones r
     INNER JOIN cargos c ON (r.id_cargo = c.id_cargo)
     INNER JOIN personal p ON (r.cedula = p.cedula)

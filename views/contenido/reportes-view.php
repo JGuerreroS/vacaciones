@@ -76,7 +76,8 @@ while ($datos = pg_fetch_array($result)){
 
     $pdf->Ln();
 
-    $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha ', 0, 'J');
+    $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).'.', 0, 'J');
+
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Ln();
 
