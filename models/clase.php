@@ -335,8 +335,14 @@ function buscarEnSigefirrhh($cedula)
 
     $result = pg_query($conexion, $sql);
 
+    $count = pg_num_rows($result);
+
     if (!$result) {
         die('Consulta fallida');
+    }
+
+    if($count == 0){
+        return json_encode(1);
     }
 
     $row = pg_fetch_array($result);

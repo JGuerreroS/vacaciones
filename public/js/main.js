@@ -433,6 +433,12 @@ $(function(){
             
             datos = jQuery.parseJSON(res);
 
+            if(datos == 1){
+
+                alertify.alert("Ocurrio un error", "El número de cédula no corresponde con ningún registro en el SIGEFIRRHH o se encuentra EGRESADO o SUSPENDIDO.");
+
+            }
+
             $("#nombres").val(datos[2]);
             $("#jquia").val(datos[1]);
             $("#estatus").val(datos[3]);
