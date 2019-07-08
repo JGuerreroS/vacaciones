@@ -12,5 +12,4 @@ pendientes
 5- migrar a PDO
 
 errores:
-1- no sale los datos del sigefirrhh: 8104552
-2- formulario incompleto, 11798034
+1- no sale los datos del sigefirrhh: 8104552, 25227314

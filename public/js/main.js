@@ -431,7 +431,10 @@ $(function(){
         
         $.post("controllers/buscarFuncionario.php", { civ : civ }, function (res){
             
+            console.log(res);
             datos = jQuery.parseJSON(res);
+            // console.log(datos);
+            // datos = JSON.parse(res);
 
             if(datos == 1){
 

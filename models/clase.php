@@ -328,7 +328,7 @@ function buscarEnSigefirrhh($cedula)
 
     include '../core/sigefirrhh.php';
 
-    $sql = "SELECT DISTINCT p.cedula, id_cargo, primer_nombre||' '||segundo_nombre||' '||primer_apellido||' '||segundo_apellido AS nombres, estatus, fecha_ingreso, tp.id_tipo_personal, nombre FROM personal p
+    $sql = "SELECT DISTINCT p.cedula, id_cargo, primer_nombre||' '||primer_apellido AS nombres, estatus, fecha_ingreso, tp.id_tipo_personal, nombre FROM personal p
     INNER JOIN trabajador t ON (p.id_personal = t.id_personal)
     INNER JOIN tipopersonal tp ON (t.id_tipo_personal = tp.id_tipo_personal)
     WHERE p.cedula = $cedula AND estatus = 'A'";
