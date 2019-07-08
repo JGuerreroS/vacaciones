@@ -10,7 +10,6 @@
         empty($_POST['fEnd']) ||
         empty($_POST['periodo']) ||
         empty($_POST['tp']) ||
-        empty($_POST['observacion']) ||
         empty($_POST['nDias'])
     ){
 
