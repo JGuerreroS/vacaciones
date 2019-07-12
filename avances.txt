@@ -1,4 +1,4 @@
-1- Se agregaron más periodos
+﻿1- Se agregaron más periodos
 
 pendientes
 1- Buscar solución al buscar el estatus de funcionarios que fueron coordinadores
@@ -12,4 +12,4 @@ pendientes
 5- migrar a PDO
 
 errores:
-1- no sale los datos del sigefirrhh: 8104552, 25227314
+1- no sale los datos del sigefirrhh: 8104552, 25227314, 24274916
