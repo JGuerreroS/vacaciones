@@ -12,4 +12,4 @@ pendientes
 5- migrar a PDO
 
 errores:
-1- no sale los datos del sigefirrhh: 8104552, 25227314, 24274916
+1- no sale los datos del sigefirrhh: 25227314, 24274916, 22016367, 26530883

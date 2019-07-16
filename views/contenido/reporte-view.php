@@ -131,6 +131,7 @@ $pdf->Ln();
 $pdf->Ln();
 
 $pdf->Cell(190, 5, 'Nombre y Apellido:__________________________________C.I.V:________________Fecha:___________', 0, 1, 'J');
-$pdf->Cell(190, 5, $_SESSION['iniciales'].'/'.$datos[6].'/'.$datos[7], 0, 1, 'J');
+$pdf->Cell(190, 5, $datos[7].'/'.$datos[6].'/LM/'.$_SESSION['iniciales'], 0, 1, 'J');
+// Iniciales de     dir_cpnb     dir_rrhh  coordinador  analista
 
 $pdf->Output();
