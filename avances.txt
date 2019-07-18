@@ -1,15 +1,10 @@
-﻿1- Se agregaron más periodos
+﻿pendientes
+1- reemplazar el select de las dependencia por un select2 (select e input al mismo tiempo)
 
-pendientes
-1- Buscar solución al buscar el estatus de funcionarios que fueron coordinadores
-
-2- agregar suspender y eliminar vacaciones
+2- agregar suspender vacaciones
 
 3- cuadro de conteo de registro de vacaciones por usuarios
 
 4- respaldo automatico de la base de datos
 
 5- migrar a PDO
-
-errores:
-1- no sale los datos del sigefirrhh: 25227314, 24274916, 22016367, 26530883
