@@ -1,32 +1,4 @@
 $(function(){
-
-    // DataTables
-    // $('#myTabla').DataTable({
-    //     language: {
-    //         "sProcessing":     "Procesando...",
-    //         "sLengthMenu":     "Mostrar _MENU_ registros",
-    //         "sZeroRecords":    "No se encontraron resultados",
-    //         "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    //         "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    //         "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    //         "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    //         "sInfoPostFix":    "",
-    //         "sSearch":         "Buscar:",
-    //         "sUrl":            "",
-    //         "sInfoThousands":  ",",
-    //         "sLoadingRecords": "Cargando...",
-    //         "oPaginate": {
-    //         "sFirst":    "Primero",
-    //         "sLast":     "Último",
-    //         "sNext":     "Siguiente",
-    //         "sPrevious": "Anterior"
-    //             },
-    //         "oAria": {
-    //         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-    //         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    //         }
-    //     }
-    // });
     
     // cargar grafica de experticias
     $("#graficaExperticias").load('views/contenido/extra/graficaExperticias.php');
@@ -346,12 +318,16 @@ $(function(){
                                         <span class="btn btn-info btn-sm btn-zoom-registrar" title="Ver más" id="zoomVacacion2" data-toggle="modal" data-target="#modalZoomVacacion">
                                             <i class="icon-zoom-in"></i>
                                         </span>
+
+                                        <span class="btn btn-warning btn-sm btn-suspender" title="Suspender vacaciones" id="suspender" data-toggle="modal" data-target="#susV">
+                                            <i class="icon-sync_problem"></i>
+                                        </span>
                                         
                                         <span class="btn btn-danger btn-sm delete-in-reg" title="Eliminar registro" id="btnDelete" data-toggle="modal" data-target="#delV">
                                             <i class="icon-bin"></i>
                                         </span>
                                         
-                                        <button type="submit" class="btn btn-secondary btn-sm">
+                                        <button type="submit" class="btn btn-secondary btn-sm" title="Imprimir">
                                                 <i class="icon-print"></i>
                                         </button>
                                     </div>
@@ -367,6 +343,41 @@ $(function(){
         });
 
     }
+
+    // Suspender Vacaciones
+    $(document).on('click', '#suspender', function (){
+
+        let elemet = $(this)[0].parentElement.parentElement.parentElement.parentElement;
+        let id = $(elemet).attr('idVac');
+
+        $("#id_Vac").val(id);
+        
+    });
+
+    // Suspender vacaciones
+    $(document).on('click', '#susVac', function (){
+
+        ced = $("#cedula").val();
+
+        $.ajax({
+            type: "post",
+            url: "controllers/suspenderVacaciones.php",
+            data: $("#frmSusVac").serialize(),
+            success: function (r){
+                if(r == 1){
+
+                    alertify.success('Vacaciones suspendidas!');
+
+                }else if(r == 2){
+
+                    alertify.warning('No tienes privilegios suficientes para realizar esta operación');
+
+                }
+
+            }
+        });
+
+    });
 
     // Zoom Vacaciones
     $(document).on('click', '#zoomVacacion2', function (){

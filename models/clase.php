@@ -205,9 +205,29 @@ function zoomVacacion($id_vacacion)
     return json_encode($datos[0]);
 }
 
+// Suspender vacaciones
 // ver detalles de las vacaciones en la vista de registrar
-function zoomVacacion2($id_vacacion)
-{
+function suspenderVac($id_vacacion,$motivo){
+
+    include '../core/conexion.php';
+
+    $sql = "UPDATE reg_vacaciones SET estatus = 'S', observacion = $motivo WHERE id_vacaciones = $id_vacacion";
+
+    $result = pg_query($conn, $sql);
+
+    if (!$result) {
+        die('Fallo en la consulta');
+    }
+
+    pg_free_result($result);
+    pg_close($conn);
+
+    return true;
+
+}
+
+// ver detalles de las vacaciones en la vista de registrar
+function zoomVacacion2($id_vacacion){
 
     include '../core/conexion.php';
 
@@ -480,12 +500,11 @@ function registrarVacaciones($datos)
 }
 
 // Mostrar lista de vacaciones en el módulo registro
-function mostrarVacaciones($cedula)
-{
+function mostrarVacaciones($cedula){
 
     include '../core/conexion.php';
 
-    $sql = "SELECT id_vacaciones, periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, id_an_suspension, cedula FROM reg_vacaciones WHERE cedula = $cedula";
+    $sql = "SELECT id_vacaciones, periodo1||'-'||periodo2 AS periodo, fecha_desde, fecha_hasta, dias, estatus, cedula FROM reg_vacaciones WHERE cedula = $cedula";
 
     $result = pg_query($conn, $sql);
 
@@ -500,7 +519,7 @@ function mostrarVacaciones($cedula)
     while ($row = pg_fetch_array($result)) {
         $nro++;
 
-        if ($row[5] == '') {
+        if ($row[5] == 'A') {
             $estatus = 'Disfrutadas';
         } else {
             $estatus = 'Suspendidas';
@@ -525,8 +544,7 @@ function mostrarVacaciones($cedula)
 }
 
 // Mostrar datos en el oficio de notificación de aprobación de vacaciones
-function oficioVacaciones($id_vac)
-{
+function oficioVacaciones($id_vac){
 
     include 'core/conexion.php';
 

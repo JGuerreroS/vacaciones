@@ -10,7 +10,7 @@
 
     <div class="row">
 
-        <div class="col-5">
+        <div class="col-4">
 
             <form id="frmRegVac">
 
@@ -158,7 +158,7 @@
 
         </div>
 
-        <div class="col-7" id="historico">
+        <div class="col-8" id="historico">
 
             <h3>Historico de vacaciones</h3>
 
@@ -187,6 +187,7 @@
     <?php
         include 'extra/regVacModal.php';
         include 'extra/delVacModal.php';
+        include 'extra/susVacModal.php';
     ?>
 
     <!-- Hasta aqui el contenido -->
