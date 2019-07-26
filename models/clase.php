@@ -1,8 +1,7 @@
 <?php
 
 // Inicio de sesión
-function login($user, $pass)
-{
+function login($user, $pass){
 
     include '../core/conexion.php';
 
@@ -37,8 +36,7 @@ function login($user, $pass)
 }
 
 // Editar usuario
-function editUser($datos)
-{
+function editUser($datos){
 
     include '../core/conexion.php';
 
@@ -60,8 +58,7 @@ function editUser($datos)
 }
 
 // Borrar usuario
-function borrarUsuario($id_usuario)
-{
+function borrarUsuario($id_usuario){
 
     include '../core/conexion.php';
 
@@ -128,8 +125,7 @@ function borrarVacaciones($id_vacaciones, $id_motivo){
 }
 
 // ver más del usuario
-function zoomUsuario($usuario)
-{
+function zoomUsuario($usuario){
 
     include '../core/conexion.php';
 
@@ -162,8 +158,7 @@ function zoomUsuario($usuario)
 }
 
 // ver detalles de las vacaciones en la vista de buscar
-function zoomVacacion($id_vacacion)
-{
+function zoomVacacion($id_vacacion){
 
     include '../core/conexion.php';
 
@@ -206,12 +201,11 @@ function zoomVacacion($id_vacacion)
 }
 
 // Suspender vacaciones
-// ver detalles de las vacaciones en la vista de registrar
 function suspenderVac($id_vacacion,$motivo){
 
     include '../core/conexion.php';
 
-    $sql = "UPDATE reg_vacaciones SET estatus = 'S', observacion = $motivo WHERE id_vacaciones = $id_vacacion";
+    $sql = "UPDATE reg_vacaciones SET estatus = 'S', observacion = '$motivo' WHERE id_vacaciones = $id_vacacion";
 
     $result = pg_query($conn, $sql);
 
@@ -270,8 +264,7 @@ function zoomVacacion2($id_vacacion){
 }
 
 // mostrar lista dependencias
-function verDependencias()
-{
+function verDependencias(){
 
     include '../core/conexion.php';
 
@@ -304,8 +297,7 @@ function verDependencias()
 }
 
 // mostrar lista de usuarios
-function verUsuarios()
-{
+function verUsuarios(){
 
     include '../core/conexion.php';
 
@@ -343,8 +335,7 @@ function verUsuarios()
 }
 
 // Buscar funcionario en el sigefirrhh
-function buscarEnSigefirrhh($cedula)
-{
+function buscarEnSigefirrhh($cedula){
 
     include '../core/sigefirrhh.php';
 

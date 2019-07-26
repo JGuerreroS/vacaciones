@@ -17,7 +17,7 @@
                     <input type="hidden" name="id_Vac" id="id_Vac">
 
                     <select name="motivo_sus" id="motivo_sus" class="form-control">
-                        <option value="1">Necesidad de servicio</option>
+                        <option value="Necesidad de servicio">Necesidad de servicio</option>
                     </select>
 
                     <div class="modal-footer">

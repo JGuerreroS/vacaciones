@@ -357,8 +357,6 @@ $(function(){
     // Suspender vacaciones
     $(document).on('click', '#susVac', function (){
 
-        ced = $("#cedula").val();
-
         $.ajax({
             type: "post",
             url: "controllers/suspenderVacaciones.php",
