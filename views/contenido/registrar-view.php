@@ -32,16 +32,17 @@
 
                 <div class="row">
 
-                    <div class="col-6">
+                    <div class="col-5">
                         <div class="form-group">
-                            <label>Jerarquía / Cargo</label>
-                            <select class="custom-select" id="jquia" name="jquia">
-                                <?= $jerarquias; ?>
+                            <label>¿Es jefe?</label>
+                            <select class="custom-select" id="jefe" name="jefe">
+                                <option value="1">No</option>
+                                <option value="2">Si</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-7">
                         <div class="form-group">
                             <label>Fecha ingreso</label>
                             <input type="date" name="fIngreso" id="fIngreso" class="form-control">
@@ -72,10 +73,9 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>¿Es jefe?</label>
-                            <select class="custom-select" id="jefe" name="jefe">
-                                <option value="1">No</option>
-                                <option value="2">Si</option>
+                            <label>Jerarquía / Cargo</label>
+                            <select class="custom-select" id="jquia" name="jquia">
+                                <?= $jerarquias; ?>
                             </select>
                         </div>
                     </div>
