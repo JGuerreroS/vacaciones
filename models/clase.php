@@ -427,31 +427,127 @@ function graficaRegistros(){
 
     include '../../../core/conexion.php';
 
-    $sql = "SELECT date_part('month',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
+    // Linea 1
+    $sql1 = "SELECT date_part('month',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
     WHERE date_part('year',fecha_registro) = 2019 GROUP BY fecha ORDER BY fecha";
 
-    $res = pg_query($conn, $sql);
+    $res1 = pg_query($conn, $sql1);
 
-    $valX = array(); // Fecha
-    $valY = array(); // ID
+    $valX1 = array(); // Fecha
+    $valY1 = array(); // ID
 
-    while ($row = pg_fetch_array($res)) {
-        $valX[] = $row[0]; //Fecha
-        $valY[] = $row[1]; // Id
+    while ($row = pg_fetch_array($res1)){
+        switch ($row[0]) {
+            case '1':
+                $mes = "Enero";
+                break;
+            case '2':
+                $mes = "Febrero";
+                break;
+            case '3':
+                $mes = "Marzo";
+                break;
+            case '4':
+                $mes = "Abril";
+                break;
+            case '5':
+                $mes = "Mayo";
+                break;
+            case '6':
+                $mes = "Junio";
+                break;
+            case '7':
+                $mes = "Julio";
+                break;
+            case '8':
+                $mes = "Agosto";
+                break;
+            case '9':
+                $mes = "Septiembre";
+                break;
+            case '10':
+                $mes = "Octubre";
+                break;
+            case '11':
+                $mes = "Noviembre";
+                break;
+            case '12':
+                $mes = "Diciembre";
+                break;
+            
+        }
+        $valX1[] = $mes; //Fecha
+        $valY1[] = $row[1]; // Total
     }
 
-    pg_free_result($res);
+    $datosX1 = json_encode($valX1);
+    $datosY1 = json_encode($valY1);
+
+    // Linea 2
+    $sql2 = "SELECT date_part('month',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
+    WHERE date_part('year',fecha_registro) = 2019 AND estatus = 'S' GROUP BY fecha ORDER BY fecha";
+
+    $res2 = pg_query($conn, $sql2);
+
+    $valX2 = array(); // Fecha
+    $valY2 = array(); // ID
+
+    while ($row = pg_fetch_array($res2)){
+        switch ($row[0]) {
+            case '1':
+                $mes = "Enero";
+                break;
+            case '2':
+                $mes = "Febrero";
+                break;
+            case '3':
+                $mes = "Marzo";
+                break;
+            case '4':
+                $mes = "Abril";
+                break;
+            case '5':
+                $mes = "Mayo";
+                break;
+            case '6':
+                $mes = "Junio";
+                break;
+            case '7':
+                $mes = "Julio";
+                break;
+            case '8':
+                $mes = "Agosto";
+                break;
+            case '9':
+                $mes = "Septiembre";
+                break;
+            case '10':
+                $mes = "Octubre";
+                break;
+            case '11':
+                $mes = "Noviembre";
+                break;
+            case '12':
+                $mes = "Diciembre";
+                break;
+        }
+        $valX2[] = $mes; //Fecha
+        $valY2[] = $row[1]; // Total
+    }
+
+    $datosX2 = json_encode($valX2);
+    $datosY2 = json_encode($valY2);
+
+    pg_free_result($res1);
+    pg_free_result($res2);
     pg_close($conn);
 
-    $datosX = json_encode($valX);
-    $datosY = json_encode($valY);
+    return array($datosX1, $datosY1, $datosX2, $datosY2);
 
-    return array($datosX, $datosY);
 }
 
 // Verificar usuario
-function checkUser($civ)
-{
+function checkUser($civ){
 
     include '../core/conexion.php';
 
@@ -468,8 +564,7 @@ function checkUser($civ)
 }
 
 // Registrar usuarios
-function registroUsuario($datos)
-{
+function registroUsuario($datos){
 
     session_start();
 
@@ -495,8 +590,7 @@ function registroUsuario($datos)
 }
 
 // Registrar usuarios
-function registrarVacaciones($datos)
-{
+function registrarVacaciones($datos){
 
     session_start();
 
