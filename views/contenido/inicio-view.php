@@ -11,11 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-md-flex align-items-center">
-                            <div>
-                                <h4 class="card-title">Resumen estadístico</h4>
-                            </div>
-                        </div>
+                        
 
                         <div class="row">
                             <!-- column -->

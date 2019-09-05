@@ -11,7 +11,7 @@ $(function(){
     // cargar tabla de usuarios
     listaUsuarios();
     // cargar tabla de dependencias
-    listaDependencias();
+    listaDependencias(); estatisticasUsuarios();
 
     $('#regUser').attr("disabled", true);
 
@@ -71,6 +71,30 @@ $(function(){
                     `
                 });
                 $("#listUsers").html(template);
+            }
+        });
+
+    }
+
+    // Mostrar lista de usuarios
+    function estatisticasUsuarios(){
+        
+        $.ajax({
+            url: "controllers/estadisticasUsers.php",
+            type: "GET",
+            success: function (res) {
+                let listUsers = JSON.parse(res);
+                let template = '';
+                listUsers.forEach(usuarios => {
+                    template += `
+                        <tr idUser="${usuarios.id_usuario}">
+                            <td class="text-center">${usuarios.nro}</td>
+                            <td>${usuarios.nombres}</td>
+                            <td class="text-center">${usuarios.estatus}</td>
+                        </tr>
+                    `
+                });
+                $("#stad_users").html(template);
             }
         });
 

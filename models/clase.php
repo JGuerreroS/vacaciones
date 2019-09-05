@@ -334,6 +334,41 @@ function verUsuarios(){
     return json_encode($datos);
 }
 
+// mostrar lista de usuarios
+function estisticasUsuarios(){
+
+    include '../core/conexion.php';
+
+    $sql = "SELECT nombres, COUNT(usuario) FROM reg_vacaciones v
+    INNER JOIN users u ON (v.usuario = u.id_usuario)
+    WHERE usuario > 40 GROUP BY nombres ORDER BY count DESC;";
+
+    $result = pg_query($conn, $sql);
+
+    if (!$result) {
+        die('Fallo en la consulta');
+    }
+
+    $datos = array();
+
+    $nro = 0;
+
+    while ($row = pg_fetch_array($result)) {
+        $nro++;
+
+        $datos[] = array(
+            'nro' => $nro,
+            'nombres' => $row['nombres'],
+            'estatus' => $row['count']
+        );
+    }
+
+    pg_free_result($result);
+    pg_close($conn);
+
+    return json_encode($datos);
+}
+
 // Buscar funcionario en el sigefirrhh
 function buscarEnSigefirrhh($cedula){
 
@@ -366,8 +401,7 @@ function buscarEnSigefirrhh($cedula){
 }
 
 // Vacaciones
-function contarAdmin()
-{
+function contarAdmin(){
     include 'core/conexion.php';
     $sql = "SELECT count(id_usuario) FROM users WHERE id_estatus = 1 AND id_rol = 1";
     $result = pg_query($conn, $sql);
@@ -378,8 +412,7 @@ function contarAdmin()
 }
 
 // Vacaciones
-function contarAnalist()
-{
+function contarAnalist(){
     include 'core/conexion.php';
     $sql = "SELECT count(id_usuario) FROM users WHERE id_estatus = 1 AND id_rol = 2";
     $result = pg_query($conn, $sql);
@@ -390,14 +423,12 @@ function contarAnalist()
 }
 
 // Vacaciones
-function graficaRegistros()
-{
+function graficaRegistros(){
 
     include '../../../core/conexion.php';
 
-    $sql = "SELECT date_part('year',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
-        WHERE date_part('year',fecha_registro) > 2010
-        GROUP BY fecha ORDER BY fecha";
+    $sql = "SELECT date_part('month',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
+    WHERE date_part('year',fecha_registro) = 2019 GROUP BY fecha ORDER BY fecha";
 
     $res = pg_query($conn, $sql);
 

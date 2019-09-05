@@ -17,7 +17,10 @@
                     <input type="hidden" name="id_Vac" id="id_Vac">
 
                     <select name="motivo_sus" id="motivo_sus" class="form-control">
+                        <option value="Abandono de cargo">Abandono de cargo</option>
+                        <option value="Faltando al servicio">Faltando al servicio</option>
                         <option value="Necesidad de servicio">Necesidad de servicio</option>
+                        <option value="Proceso de transferencia">Proceso de transferencia</option>
                     </select>
 
                     <div class="modal-footer">

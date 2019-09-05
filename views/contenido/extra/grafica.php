@@ -28,7 +28,7 @@
   ];
 
   var layout = {
-  title:'Vacaciones por año',
+  title:'Vacaciones 2019',
   height: 550,
   font: {
     family: 'Arial',
@@ -57,6 +57,6 @@
   }
 };
 
-  Plotly.newPlot('graficaLinea', data);
+  Plotly.newPlot('graficaLinea', data, layout);
 
 </script>

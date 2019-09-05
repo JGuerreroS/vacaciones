@@ -28,7 +28,7 @@
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                    <a class="dropdown-item" href="#"> <span class="icon-chart3"></span> Estadísticas 1 </a>
+                    <a class="dropdown-item" href="userstadisticas"> <span class="icon-chart3"></span> Registros por usuarios </a>
 
                     <div class="dropdown-divider"></div>
 
