@@ -30,9 +30,7 @@
 
                     <a class="dropdown-item" href="userstadisticas"> <span class="icon-chart3"></span> Registros por usuarios </a>
 
-                    <div class="dropdown-divider"></div>
-
-                    <a class="dropdown-item" href="#"> <span class="icon-stats-bars"></span> Estadísticas 2 </a>
+                    <!-- <div class="dropdown-divider"></div> -->
 
                 </div>
 

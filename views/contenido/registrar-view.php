@@ -98,22 +98,14 @@
                     </select>
                 </div>
 
-                <div class="row">
+                <div class="form-group">
+                    <label>Fecha de inicio</label>
+                    <input type="date" name="fStart" id="fStart" class="form-control">
+                </div>
 
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label>Fecha de inicio</label>
-                            <input type="date" name="fStart" id="fStart" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label>Fecha de fin</label>
-                            <input type="date" name="fEnd" id="fEnd" class="form-control">
-                        </div>
-                    </div>
-
+                <div class="form-group">
+                    <label>Fecha de fin</label>
+                    <input type="date" name="fEnd" id="fEnd" class="form-control">
                 </div>
 
                 <div class="row">

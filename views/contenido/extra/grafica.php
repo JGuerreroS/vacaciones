@@ -1,13 +1,13 @@
 <?php 
     include '../../../models/clase.php';
-    list($datosX, $datosY) = graficaRegistros();
+    list($datosX1, $datosY1, $datosX2, $datosY2) = graficaRegistros();
 ?>
 
 <div id="graficaLinea"></div>
 
 <script>
 
-  function crearCadenaLineal(json){
+  function crearCadenaLineal1(json){
     var parsed = JSON.parse(json);
     var arr = [];
     for(var x in parsed){
@@ -16,47 +16,50 @@
     return arr;
   }
 
-  datosX = crearCadenaLineal('<?php echo $datosX; ?>');
-  datosY = crearCadenaLineal('<?php echo $datosY; ?>');
+  datosX1 = crearCadenaLineal1('<?php echo $datosX1; ?>');
+  datosY1 = crearCadenaLineal1('<?php echo $datosY1; ?>');
 
-  var data = [
-    {
-      x: datosX,
-      y: datosY,
-      type: 'scatter'
+  function crearCadenaLineal2(json){
+    var parsed = JSON.parse(json);
+    var arr = [];
+    for(var x in parsed){
+      arr.push(parsed[x]);
     }
-  ];
+    return arr;
+  }
 
-  var layout = {
-  title:'Vacaciones 2019',
-  height: 550,
-  font: {
-    family: 'Arial',
-    size: 16,
-    color: 'black' //color de titulo central, y las fechas y cantidades en los ejes X Y
-  },
-  plot_bgcolor: '',
-  margin: {
-    pad: 10
-  },
+  datosX2 = crearCadenaLineal2('<?php echo $datosX2; ?>');
+  datosY2 = crearCadenaLineal2('<?php echo $datosY2; ?>');
+  
+  var trace1 = {
+  x: datosX1,
+  y: datosY1,
+  type: 'scatter',
+  name: 'Disfrutadas'
+};
+
+var trace2 = {
+  x: datosX2,
+  y: datosY2,
+  type: 'scatter',
+  name: 'Suspendidas'
+};
+
+var layout = {
+  title: 'Vacaciones 2019',
   xaxis: {
-    title: 'Fecha',
-    titlefont: {
-      color: 'black',
-      size: 12
-    },
-    rangemode: 'tozero'
+    title: 'Meses',
+    showgrid: false,
+    zeroline: false
   },
   yaxis: {
-    title: 'Total de vacaciones',
-    titlefont: {
-      color: 'black',
-      size: 12
-    },
-    rangemode: 'tozero'
+    title: 'Total',
+    showline: false
   }
 };
 
-  Plotly.newPlot('graficaLinea', data, layout);
+var data = [trace1, trace2];
+
+Plotly.newPlot('graficaLinea', data, layout,{}, {showSendToCloud: true});
 
 </script>
