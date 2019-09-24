@@ -1,4 +1,4 @@
-<?php include 'controllers/selects.php'; ?>
+<?php if ($_SESSION['nivel'] == 1 || $_SESSION['nivel'] == 2) { include 'controllers/selects.php'; ?>
 
 <div class="card-header">
     <b>Registrar vacaciones</b>
@@ -176,11 +176,20 @@
 
     </div>
 
-    <?php
-        include 'extra/regVacModal.php';
-        include 'extra/delVacModal.php';
-        include 'extra/susVacModal.php';
-    ?>
-
     <!-- Hasta aqui el contenido -->
 </div>
+
+<?php
+    include 'extra/regVacModal.php';
+    include 'extra/delVacModal.php';
+    include 'extra/susVacModal.php';
+
+    }else{ ?>
+
+    <div class="card-body">
+
+    <p class="text-warning">No tienes privilegios suficientes para acceder a esta sección</p>
+
+    </div>
+
+<?php } ?>

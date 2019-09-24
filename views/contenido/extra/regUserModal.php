@@ -50,6 +50,7 @@
                             <option value="">Seleccione</option>
                             <option value="1">ADMINISTRADOR</option>
                             <option value="2">ANALISTA</option>
+                            <option value="3">CONSULTA</option>
                         </select>
                     </div>
 

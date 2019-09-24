@@ -11,6 +11,8 @@
 
         <ul class="navbar-nav mr-auto">
 
+        <?php if($_SESSION['nivel'] == 1){ ?>
+
             <li class="nav-item">
                 <a class="nav-link" href="registrar"> <i class="icon-pencil"></i> Registrar</a>
             </li>
@@ -36,36 +38,68 @@
 
             </li>
 
-            <?php if($_SESSION['nivel'] == 1){ ?>
 
-                <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="icon-cogs"></i> Administración
-                    </a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-cogs"></i> Administración
+                </a>
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                        <a class="dropdown-item" href="usuarios"> <span class="icon-contacts2"></span> Usuarios </a>
+                    <a class="dropdown-item" href="usuarios"> <span class="icon-contacts2"></span> Usuarios </a>
 
-                        <a class="dropdown-item" href="dependencias"> <span class="icon-flag"></span> Dependencias </a>
-                       
-                    </div>
+                    <a class="dropdown-item" href="dependencias"> <span class="icon-flag"></span> Dependencias </a>
+                    
+                </div>
 
-                </li>
+            </li>
 
-            <?php } ?>
+        <?php }elseif ($_SESSION['nivel'] == 2) { ?>
+
+            <li class="nav-item">
+                <a class="nav-link" href="registrar"> <i class="icon-pencil"></i> Registrar</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="buscar"> <i class="icon-magnifier"></i> Buscar</a>
+            </li>
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-stats-dots"></i> Estadísticas
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <a class="dropdown-item" href="userstadisticas"> <span class="icon-chart3"></span> Registros por usuarios </a>
+
+                    <!-- <div class="dropdown-divider"></div> -->
+
+                </div>
+
+            </li>
+            
+        <?php }elseif ($_SESSION['nivel'] == 3) { ?>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="buscar"> <i class="icon-magnifier"></i> Buscar</a>
+            </li>
+
+        <?php } ?>
 
             <li class="nav-item">
                 <a class="nav-link text-info" href="#"> <i class="icon-assignment_ind"></i>
                     <?php
-                    if($_SESSION['name'] == ''){
-                        header('Location: ./controllers/cerrarSesion.php');
-                    }else{
-                        echo $_SESSION['name'];
-                    }
-                ?>
+                        if($_SESSION['name'] == ''){
+                            header('Location: ./controllers/cerrarSesion.php');
+                        }else{
+                            echo $_SESSION['name'];
+                        }
+                    ?>
                 </a>
             </li>
 

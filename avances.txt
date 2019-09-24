@@ -8,3 +8,11 @@
 4- respaldo automatico de la base de datos
 
 5- migrar a PDO
+
+6- modificar fecha de las vacaciones
+
+7- estatus de si firmaron o no las vacaciones
+
+8- confirmar si se entregaron o no las vacaciones
+
+9- confirmar recibido de las vacaciones firmada por el beneficiario
