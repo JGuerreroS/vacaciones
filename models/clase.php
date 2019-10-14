@@ -5,7 +5,7 @@ function login($user, $pass){
 
     include '../core/conexion.php';
 
-    $sql = "SELECT id_usuario, nombres, cedula, clave, id_rol, iniciales FROM users WHERE cedula = '$user'";
+    $sql = "SELECT id_usuario, nombres, cedula, clave, id_rol, iniciales FROM users WHERE cedula = '$user' AND id_estatus=1";
 
     $result = pg_query($conn, $sql);
 
