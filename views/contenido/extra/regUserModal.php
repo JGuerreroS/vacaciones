@@ -126,8 +126,9 @@
                             <div class="form-group">
                                 <label>Nivel de usuario:</label>
                                 <select class="select2 form-control custom-select" id="vNivel" name="vNivel">
-                                    <option value="1"> Usuario administrador </option>
-                                    <option value="2"> Usuario común </option>
+                                    <option value="1"> Administrador </option>
+                                    <option value="2"> Analista </option>
+                                    <option value="3"> Consulta </option>
                                 </select>
                             </div>
                         </div>
