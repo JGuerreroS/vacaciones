@@ -1,0 +1,57 @@
+.jumbotron{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* background-image: url('../img/3.jpeg'); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    padding: 4%;
+    width: 100%;
+    height: 150px;
+}
+
+.container-header{
+    margin-bottom: -10px;
+}
+
+.botones_tabla{
+    text-align: center;
+}
+
+/* enlaces del menu */
+.navbar-dark .navbar-nav .nav-link {
+    color: mintcream;
+}
+
+/* Iconos de vista inicio */
+.resumen {
+    padding: 4px;
+    width: 10px;
+    height: 100px;
+}
+
+.bg-info {
+    padding: 10px;
+    border: 1px solid rgb(0, 2, 10);
+}
+
+.bg-info > i{
+	font-size: 30px;
+}
+
+/* Botón de zoom en registrar vacaciones */
+.btn-zoom-registrar{
+    color: #fff;
+    background-color: #117a8b;
+    border-color: #10707f;
+    margin-right: 10px;
+}
+
+.delete-in-reg{
+    color: #fff;
+    background-color: red;
+    margin-right: 10px;
+}
+
+.btn-suspender{
+    margin-right: 10px;
+}
