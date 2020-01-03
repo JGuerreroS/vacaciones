@@ -598,7 +598,9 @@ function registrarVacaciones($datos){
 
     $periodo = explode("-", $datos['periodo']);
 
-    $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, id_tipo_personal, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, observacion, fecha_registro, usuario) VALUES ($datos[cedula], $datos[jquia], $datos[tipopersonal], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$datos[observacion]', '$fecha', $_SESSION[usuario])";
+    $codigo = codigo(10);
+
+    $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, id_tipo_personal, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, observacion, fecha_registro, usuario, codigo) VALUES ($datos[cedula], $datos[jquia], $datos[tipopersonal], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$datos[observacion]', '$fecha', $_SESSION[usuario], $codigo)";
 
     $result = pg_query($conn, $sql);
 
@@ -612,6 +614,17 @@ function registrarVacaciones($datos){
         pg_close($conn);
 
         return 2;
+    }
+
+}
+
+function codigo($length){
+    $key = "";
+    $pattern = "1234567890ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    $max = strlen($pattern)-1;
+    for ($i=0; $i < $length; $i++){ 
+        $key .= $pattern{mt_rand(0,$max)};
+        return $key;
     }
 }
 

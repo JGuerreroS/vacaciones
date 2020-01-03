@@ -103,9 +103,9 @@ $pdf->MultiCell(190, 5, '"Articulo 51: Los funcionarios y funcionarias tendrán 
 $pdf->SetX(15);
 $pdf->Cell(190, 5, '1. Veinte días hábiles durante el primer quinquenio de servicios.', 0, 1, 'J');
 $pdf->SetX(15);
-$pdf->Cell(190, 5, '2. Veintitrés días hábiles durante el segundo quinquenio.', 0, 1, 'J');
+$pdf->Cell(190, 5, '2. Veintitrés días habiles durante el segundo quinquenio.', 0, 1, 'J');
 $pdf->SetX(15);
-$pdf->Cell(190, 5, '3. Veinticinco días hábiles a partir del décimo primer año de servicio.', 0, 1, 'J');
+$pdf->Cell(190, 5, '3. Veinticinco dias hábiles a partir del décimo primer año de servicio.', 0, 1, 'J');
 
 $pdf->Ln();
 
