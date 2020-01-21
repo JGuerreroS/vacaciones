@@ -464,10 +464,7 @@ $(function(){
         
         $.post("controllers/buscarFuncionario.php", { civ : civ }, function (res){
             
-            console.log(res);
             datos = JSON.parse(res);
-            // console.log(datos);
-            // datos = JSON.parse(res);
 
             if(datos == 1){
 
@@ -529,6 +526,10 @@ $(function(){
                 }else if(r == 3){
 
                     alertify.warning("Formulario incompleto!");
+
+                }else if(r == 4){
+
+                    alertify.alert("No se puede registrar","El periodo indicado ya se encuentra registrado!");
 
                 }
 

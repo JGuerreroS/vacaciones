@@ -69,15 +69,15 @@ $pdf->SetFont('Arial', 'I', 11);
 
 $pdf->Ln();
 
-function saber_dia($nombredia){
+function saber_dia($fecha){
 
     $dias = array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
-    $fecha = $dias[date('N', strtotime($nombredia))];
-    return $fecha;
+    $nameDay = $dias[date('N', strtotime($fecha))];
+    return $nameDay;
 
 }
 
-$fechaprueba = str_replace('-', '/', date('d-m-Y', strtotime($datos[9])));
+$reintegrarse = $datos[9];
 
 $dia = saber_dia($datos[9]);
 
@@ -85,16 +85,16 @@ ini_set('date.timezone', 'America/Caracas');
 
 switch($dia){
     case 'Viernes':
-        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($fechaprueba."+ 3 days")).'.', 0, 'J');
+        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 3 days")).'.', 0, 'J');
         break;
     case 'Sabado':
-        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($fechaprueba."+ 2 days")).'.', 0, 'J');
+        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 2 days")).'.', 0, 'J');
         break;
     case 'Domingo':
-        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($fechaprueba."+ 1 days")).'.', 0, 'J');
+        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 1 days")).'.', 0, 'J');
         break;
     default:
-        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($fechaprueba."+ 1 days")).'.', 0, 'J');
+        $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 1 days")).'.', 0, 'J');
         break;
 }
 

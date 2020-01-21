@@ -36,5 +36,6 @@
 
         include '../models/clase.php';
 
-        echo registrarVacaciones($datos);
+        print_r(registrarVacaciones($datos));
+
     }

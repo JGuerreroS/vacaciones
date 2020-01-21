@@ -46,7 +46,7 @@ var trace2 = {
 };
 
 var layout = {
-  title: 'Vacaciones 2019',
+  title: 'Vacaciones 2020',
   xaxis: {
     title: 'Meses',
     showgrid: false,

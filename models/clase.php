@@ -429,7 +429,7 @@ function graficaRegistros(){
 
     // Linea 1
     $sql1 = "SELECT date_part('month',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
-    WHERE date_part('year',fecha_registro) = 2019 GROUP BY fecha ORDER BY fecha";
+    WHERE date_part('year',fecha_registro) = 2020 GROUP BY fecha ORDER BY fecha";
 
     $res1 = pg_query($conn, $sql1);
 
@@ -485,7 +485,7 @@ function graficaRegistros(){
 
     // Linea 2
     $sql2 = "SELECT date_part('month',fecha_registro) AS fecha, COUNT(fecha_registro) FROM reg_vacaciones
-    WHERE date_part('year',fecha_registro) = 2019 AND estatus = 'S' GROUP BY fecha ORDER BY fecha";
+    WHERE date_part('year',fecha_registro) = 2020 AND estatus = 'S' GROUP BY fecha ORDER BY fecha";
 
     $res2 = pg_query($conn, $sql2);
 
@@ -589,7 +589,7 @@ function registroUsuario($datos){
     }
 }
 
-// Registrar usuarios
+// Registrar vacaciones
 function registrarVacaciones($datos){
 
     session_start();
@@ -600,22 +600,39 @@ function registrarVacaciones($datos){
 
     $codigo = codigo(10);
 
-    $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, id_tipo_personal, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, observacion, fecha_registro, usuario, codigo) VALUES ($datos[cedula], $datos[jquia], $datos[tipopersonal], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$datos[observacion]', '$fecha', $_SESSION[usuario], $codigo)";
+    $periodoRepetido = periodoRepetido(array($periodo[0],$periodo[1]),$datos['cedula']);
 
-    $result = pg_query($conn, $sql);
+    if ($periodoRepetido>0){
 
-    if (!$result) {
+        return 4;
 
-        return $sql;
-        die('Error al registrar');
-    } else {
+    }else{
 
-        pg_free_result($result);
-        pg_close($conn);
+        $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, id_tipo_personal, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, observacion, fecha_registro, usuario, codigo) VALUES ($datos[cedula], $datos[jquia], $datos[tipopersonal], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$datos[observacion]', '$fecha', $_SESSION[usuario], $codigo)";
 
-        return 2;
+        $result = pg_query($conn, $sql);
+
+        if (!$result) {
+
+            return $sql;
+            die('Error al registrar');
+        } else {
+
+            pg_free_result($result);
+            pg_close($conn);
+
+            return 2;
+        }
+
     }
 
+}
+
+// detectar periodo de vacaciones repetido
+function periodoRepetido($periodo,$cedula){
+    include '../core/conexion.php';
+    $sql = "SELECT cedula FROM reg_vacaciones WHERE cedula = $cedula AND periodo1 = $periodo[0] AND periodo2 = $periodo[1]";
+    return pg_num_rows(pg_query($conn,$sql));
 }
 
 function codigo($length){
