@@ -13,7 +13,7 @@ function login($user, $pass){
 
     $hash = $row['clave'];
 
-    if (password_verify($pass, $hash)) {
+    if (password_verify($pass, $hash)){
 
         session_start();
 
@@ -616,12 +616,14 @@ function registrarVacaciones($datos){
 
             return $sql;
             die('Error al registrar');
+
         } else {
 
             pg_free_result($result);
             pg_close($conn);
 
             return 2;
+            
         }
 
     }
@@ -637,7 +639,7 @@ function periodoRepetido($periodo,$cedula){
 
 function codigo($length){
     $key = "";
-    $pattern = "1234567890ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    $pattern = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $max = strlen($pattern)-1;
     for ($i=0; $i < $length; $i++){ 
         $key .= $pattern{mt_rand(0,$max)};
