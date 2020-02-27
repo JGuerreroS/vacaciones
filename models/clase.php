@@ -633,7 +633,7 @@ function registrarVacaciones($datos){
 // detectar periodo de vacaciones repetido
 function periodoRepetido($periodo,$cedula){
     include '../core/conexion.php';
-    $sql = "SELECT cedula FROM reg_vacaciones WHERE cedula = $cedula AND periodo1 = $periodo[0] AND periodo2 = $periodo[1]";
+    $sql = "SELECT cedula FROM reg_vacaciones WHERE cedula = $cedula AND periodo1 = $periodo[0] AND periodo2 = $periodo[1] AND estatus != 'S'";
     return pg_num_rows(pg_query($conn,$sql));
 }
 

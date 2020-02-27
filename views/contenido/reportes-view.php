@@ -52,6 +52,14 @@ $fechaOficio = date("d-m-Y");
 
 $result = oficioVacaciones2($dependencia, $date);
 
+function saber_dia($fecha){
+
+    $dias = array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+    $nameDay = $dias[date('N', strtotime($fecha))];
+    return $nameDay;
+
+}
+
 while ($datos = pg_fetch_array($result)){
 
     $pdf->AddPage();
@@ -61,7 +69,7 @@ while ($datos = pg_fetch_array($result)){
     $pdf->SetFont('Arial', 'I', 11);
     $pdf->Cell(50,10,$datos[0],0,1,'L',0);
     $pdf->SetFont('Arial', 'B', 11);
-    $pdf->Cell(32, 10, 'ADCRITO:', 0, 0, 'L', 0);
+    $pdf->Cell(32, 10, 'ADSCRITO:', 0, 0, 'L', 0);
     $pdf->SetFont('Arial', 'I', 11);
     $pdf->Cell(80,10,$datos[1],0,1,'L',0);
     $pdf->SetFont('Arial', 'B', 11);
@@ -76,7 +84,26 @@ while ($datos = pg_fetch_array($result)){
 
     $pdf->Ln();
 
-    $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).'.', 0, 'J');
+    $reintegrarse = $datos[9];
+    
+    $dia = saber_dia($datos[9]);
+    
+    ini_set('date.timezone', 'America/Caracas');
+    
+    switch($dia){
+        case 'Viernes':
+            $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 3 days")).'.', 0, 'J');
+            break;
+        case 'Sabado':
+            $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 2 days")).'.', 0, 'J');
+            break;
+        case 'Domingo':
+            $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 1 days")).'.', 0, 'J');
+            break;
+        default:
+            $pdf->MultiCell(190, 5, 'Me dirijo a usted, en la oportunidad de notificarle que apartir del día '.str_replace('-', '/', date('d-m-Y', strtotime($datos[8]))).' y hasta el '.str_replace('-', '/', date('d-m-Y', strtotime($datos[9]))).', le ha sido concebido su periodo vacacional (descrito en el cuadro siguiente), debiendo reincorporarse a sus labores habituales en fecha '.date("d-m-Y",strtotime($reintegrarse."+ 1 days")).'.', 0, 'J');
+            break;
+    }
 
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Ln();
@@ -138,7 +165,7 @@ while ($datos = pg_fetch_array($result)){
     $pdf->Ln();
 
     $pdf->Cell(190, 5, 'Nombre y Apellido:__________________________________C.I.V:________________Fecha:___________', 0, 1, 'J');
-    $pdf->Cell(190, 5, $datos[7].'/'.$datos[6].'/LM/'.$_SESSION['iniciales'], 0, 1, 'J');
+    $pdf->Cell(190, 5, $datos[7].'/'.$datos[6].'/NMVP/'.$_SESSION['iniciales'], 0, 1, 'J');
     // Iniciales de     dir_cpnb     dir_rrhh  coordinador  analista
 
 }
