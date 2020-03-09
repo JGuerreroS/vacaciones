@@ -531,6 +531,10 @@ $(function(){
 
                     alertify.alert("No se puede registrar","El periodo indicado ya se encuentra registrado!");
 
+                }else if(r == 5){
+
+                    alertify.alert("No se puede registrar","El periodo indicado, no corresponde con la fecha de ingreso del trabajador!");
+
                 }
 
             }

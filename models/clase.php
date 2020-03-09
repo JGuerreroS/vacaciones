@@ -600,6 +600,12 @@ function registrarVacaciones($datos){
 
     $codigo = codigo(10);
 
+    $periodoMinimo = periodoIncorrecto($periodo[0],$datos['cedula']);
+
+    if($periodoMinimo == 5){
+        return 5;
+    }
+
     $periodoRepetido = periodoRepetido(array($periodo[0],$periodo[1]),$datos['cedula']);
 
     if ($periodoRepetido>0){
@@ -635,6 +641,16 @@ function periodoRepetido($periodo,$cedula){
     include '../core/conexion.php';
     $sql = "SELECT cedula FROM reg_vacaciones WHERE cedula = $cedula AND periodo1 = $periodo[0] AND periodo2 = $periodo[1] AND estatus != 'S'";
     return pg_num_rows(pg_query($conn,$sql));
+}
+
+// Detectar periodo incorrecto
+function periodoIncorrecto($periodo,$cedula){
+    include '../core/conexion.php';
+    $sql = "SELECT date_part('year',fecha_ingreso) FROM trabajador WHERE cedula = $cedula";
+    $anio = pg_query($conn,$sql);
+    if( $periodo[0] < $anio ){
+        return 5;
+    }
 }
 
 function codigo($length){
