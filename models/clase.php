@@ -601,9 +601,8 @@ function registrarVacaciones($datos){
     $codigo = codigo(10);
 
     $periodoMinimo = periodoIncorrecto($periodo[0],$datos['cedula']);
-
     if($periodoMinimo == 5){
-        return 5;
+        return 5; die();
     }
 
     $periodoRepetido = periodoRepetido(array($periodo[0],$periodo[1]),$datos['cedula']);
@@ -614,7 +613,7 @@ function registrarVacaciones($datos){
 
     }else{
 
-        $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, id_tipo_personal, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, observacion, fecha_registro, usuario, codigo) VALUES ($datos[cedula], $datos[jquia], $datos[tipopersonal], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$datos[observacion]', '$fecha', $_SESSION[usuario], $codigo)";
+        $sql = "INSERT INTO reg_vacaciones (cedula, id_cargo, id_tipo_personal, estatus, jefe, id_dependencia, id_coordinacion, fecha_desde, fecha_hasta, periodo1, periodo2, dias, observacion, fecha_registro, usuario, codigo) VALUES ($datos[cedula], $datos[jquia], $datos[tipopersonal], '$datos[estatus]', $datos[jefe], $datos[dependencia], $datos[coordinacion], '$datos[fechaInicio]', '$datos[fechaFin]', $periodo[0], $periodo[1], $datos[dias], '$datos[observacion]', '$fecha', $_SESSION[usuario], '$codigo')";
 
         $result = pg_query($conn, $sql);
 
@@ -646,9 +645,10 @@ function periodoRepetido($periodo,$cedula){
 // Detectar periodo incorrecto
 function periodoIncorrecto($periodo,$cedula){
     include '../core/conexion.php';
-    $sql = "SELECT date_part('year',fecha_ingreso) FROM trabajador WHERE cedula = $cedula";
-    $anio = pg_query($conn,$sql);
-    if( $periodo[0] < $anio ){
+    $sql = "SELECT date_part('year',fecha_ingreso) FROM trabajador WHERE cedula = $cedula AND estatus = 'A' ORDER BY fecha_ingreso ASC LIMIT 1";
+    $ingreso = pg_query($conn,$sql);
+    $ingreso = pg_fetch_row($ingreso);
+    if( $periodo < $ingreso[0] ){
         return 5;
     }
 }
