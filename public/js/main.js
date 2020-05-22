@@ -628,25 +628,40 @@ $(function(){
             url: "controllers/listVacaciones.php",
             data: datos, // Aqui pueden pasar 2 o 3 variables, dependiendo del if
             success: function (res){
-                let listVac = jQuery.parseJSON(res);
+
+                console.log(res);
                 let template = '';
-                listVac.forEach(vac => {
+
+                if (res == '[]') {
                     template += `
-                        <tr idVac="${vac.id_vacaciones}">
-                            <td class="text-center">${vac.nro}</td>
-                            <td class="text-center">${vac.cedula}</td>
-                            <td>${vac.nombres}</td>
-                            <td class="text-center">${vac.periodo}</td>
-                            <td>${vac.dependencia}</td>
-                            <td class="text-center">
-                                <span class="btn btn-warning btn-sm" id="zoomVacacion" title="Ver más" data-toggle="modal" data-target="#modalZoomVacacion">
-                                    <i class="icon-zoom-in"></i>
-                                </span>
-                            </td>
-                        </tr>
-                    `
-                });
+                        <tr>
+                            <td class="text-center" colspan="6"> No hay coincidencias </td>
+                        <tr>`;
+                } else {
+                    
+                    let listVac = jQuery.parseJSON(res);
+                    
+                    listVac.forEach(vac => {
+                        template += `
+                            <tr idVac="${vac.id_vacaciones}">
+                                <td class="text-center">${vac.nro}</td>
+                                <td class="text-center">${vac.cedula}</td>
+                                <td>${vac.nombres}</td>
+                                <td class="text-center">${vac.periodo}</td>
+                                <td>${vac.dependencia}</td>
+                                <td class="text-center">
+                                    <span class="btn btn-warning btn-sm" id="zoomVacacion" title="Ver más" data-toggle="modal" data-target="#modalZoomVacacion">
+                                        <i class="icon-zoom-in"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        `
+                    });
+
+                }
+
                 $("#listVacaciones").html(template);
+
             }
         });
 
